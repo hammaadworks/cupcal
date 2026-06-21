@@ -1,0 +1,88 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Which 2026 Host City Should You Base Your Trip Around?",
+  "author": {
+    "@type": "Person",
+    "name": "hammaadworks"
+  },
+  "datePublished": "2026-06-08",
+  "publisher": {
+    "@type": "Organization",
+    "name": "cupcal"
+  }
+};
+---
+
+<BaseLayout title="Best Host Cities for the 2026 Tournament" description="Comparing Dallas, New York, Miami, and Mexico City. Pick the best basecamp for your global tournament trip.">
+  <main class="cyber-grid min-h-screen py-20 px-4">
+    <div class="container mx-auto max-w-3xl relative z-20">
+      <a href="/blog" class="text-indigo-400 hover:text-indigo-300 mb-8 inline-block font-bold tracking-widest uppercase text-sm border border-indigo-500/30 px-4 py-2 rounded-full backdrop-blur-sm">← All Guides</a>
+      
+      <article class="prose prose-invert prose-lg lg:prose-xl max-w-none prose-headings:font-black prose-headings:tracking-tight prose-a:text-indigo-400">
+        <h1 class="text-4xl md:text-5xl font-black text-white mb-6 leading-tight drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]" style="font-family: 'Anton', sans-serif; letter-spacing: 0.02em;">
+          Which 2026 Host City Should You Base Your Trip Around?
+        </h1>
+        
+        <div class="flex items-center gap-4 text-slate-400 mb-12 font-medium border-b border-white/10 pb-6">
+          <span>By hammaadworks</span>
+          <span>•</span>
+          <span>June 8, 2026</span>
+        </div>
+
+        <p class="lead text-2xl text-slate-300 font-medium">
+          16 cities across three countries. You can't see them all. Unless you have unlimited funds, you need to pick a basecamp. Here is how to choose the right one.
+        </p>
+
+        <p class="text-slate-300">
+          The geography of the 2026 global tournament is unprecedented. Traveling between Vancouver, Mexico City, and Miami during the event is not just expensive—it's exhausting. The smartest move for fans is to pick one regional cluster and stay put.
+        </p>
+
+        <h2 class="text-3xl text-white mt-12 mb-6">1. The High-Density Play: Dallas (AT&T Stadium)</h2>
+        <p class="text-slate-300">
+          If your goal is to see as much live football as physically possible, Dallas is your winner. AT&T Stadium is hosting <strong>9 matches</strong>—the most of any city in the tournament. 
+        </p>
+        <ul class="text-slate-300 space-y-2 marker:text-indigo-500">
+          <li><strong>Pros:</strong> Unmatched volume of games. Massive stadium capacity means slightly better ticket odds.</li>
+          <li><strong>Cons:</strong> Public transit to the stadium in Arlington is notoriously difficult. You will likely need to rent a car or rely heavily on rideshares.</li>
+        </ul>
+
+        <h2 class="text-3xl text-white mt-12 mb-6">2. The Historic Experience: Mexico City (Estadio Azteca)</h2>
+        <p class="text-slate-300">
+          For football purists, there is only one choice. Estadio Azteca is hosting the opening match and will become the first stadium in history to host matches in three different global tournaments.
+        </p>
+        <ul class="text-slate-300 space-y-2 marker:text-indigo-500">
+          <li><strong>Pros:</strong> Electric atmosphere, historic significance, and incredible local food culture. Hotels and food are generally more affordable than US/Canadian counterparts.</li>
+          <li><strong>Cons:</strong> Only hosting 5 matches. The altitude (7,350 feet) can be tough for some travelers to adjust to quickly.</li>
+        </ul>
+
+        <h2 class="text-3xl text-white mt-12 mb-6">3. The East Coast Cluster: New York / Philadelphia / Boston</h2>
+        <p class="text-slate-300">
+          If you want to use the Amtrak train system to travel between host cities effortlessly, the Northeast corridor is your best bet. You can base yourself in Philadelphia or New Jersey and take short train rides to catch matches at MetLife Stadium (hosting the Final), Lincoln Financial Field, and Gillette Stadium.
+        </p>
+        <ul class="text-slate-300 space-y-2 marker:text-indigo-500">
+          <li><strong>Pros:</strong> Excellent rail connectivity. High density of tourist attractions between match days.</li>
+          <li><strong>Cons:</strong> Extremely expensive hotels. You are competing with standard summer tourist traffic in New York City.</li>
+        </ul>
+
+        <h2 class="text-3xl text-white mt-12 mb-6">4. The Scenic Route: Vancouver & Seattle</h2>
+        <p class="text-slate-300">
+          The Pacific Northwest offers a completely different vibe. BC Place in Vancouver and Lumen Field in Seattle are just a short train or bus ride apart, allowing you to easily hop the US/Canada border and experience two distinct host nations.
+        </p>
+        <ul class="text-slate-300 space-y-2 marker:text-indigo-500">
+          <li><strong>Pros:</strong> Beautiful summer weather, walkable cities, and great downtown stadiums.</li>
+          <li><strong>Cons:</strong> Fewer knockout stage matches compared to the East Coast or Dallas.</li>
+        </ul>
+
+        <h2 class="text-3xl text-white mt-12 mb-6">The Verdict</h2>
+        <p class="text-slate-300">
+          Don't try to fly cross-country every three days. Pick a basecamp based on your budget for hotels and transit. If you want pure volume, go to Dallas. If you want history, head to Mexico City.
+        </p>
+      </article>
+    </div>
+  </main>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+</BaseLayout>

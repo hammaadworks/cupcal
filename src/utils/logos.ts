@@ -1,0 +1,40 @@
+export function getTeamPrefix(teamName: string): string {
+  if (!teamName || teamName === 'TBD' || /[0-9]/.test(teamName)) return '';
+  const normalize = (name: string) => name.toLowerCase().replace(/[^a-z]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
+  const normalizedName = normalize(teamName);
+  
+  const map: Record<string, string> = {
+    'netherlands': 'dutch',
+    'portugal': 'portuguese',
+    'congo-dr': 'congo-dr',
+    'dr-congo': 'congo-dr',
+    'democratic-republic-of-the-congo': 'congo-dr',
+    'cote-d-ivoire': 'ivory-coast',
+    'ivory-coast': 'ivory-coast',
+    'south-korea': 'south-korea',
+    'usa': 'usa',
+    'united-states': 'usa',
+    'cabo-verde': 'cabo-verde',
+    'cape-verde': 'cabo-verde',
+    'curacao': 'curacao',
+    'cura-ao': 'curacao',
+    'czechia': 'czech-republic',
+    'ir-iran': 'iran',
+    't-rkiye': 'turkey',
+    'turkiye': 'turkey',
+    'bosnia-and-herzegovina': 'bosnia-and-herzegovina'
+  };
+
+  return map[normalizedName] || normalizedName;
+}
+
+export function getTeamLogo(teamName: string): string {
+  if (teamName === 'TBD' || !teamName) return '';
+  const filePrefix = getTeamPrefix(teamName);
+  if (!filePrefix) return '';
+
+  // Most use `-national-team`, portugal uses `-football-federation`
+  const suffix = filePrefix === 'portuguese' ? '-football-federation.football-logos.cc.png' : '-national-team.football-logos.cc.png';
+  
+  return `/team_logos.cc/512x512/${filePrefix}${suffix}`;
+}

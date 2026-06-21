@@ -1,0 +1,24 @@
+@theme {
+  --color-brand-primary: #ffd6e0;
+  --color-brand-secondary: #000000;
+  
+  --color-card-top-1: #fbcfe8;
+  --color-card-bottom-1: #bfdbfe;
+  
+  --color-card-top-2: #bbf7d0;
+  --color-card-bottom-2: #fef08a;
+  
+  --color-card-top-3: #e9d5ff;
+  --color-card-bottom-3: #fed7aa;
+
+  --color-border: #000000;
+  --color-shadow: #000000;
+  --color-text: #000000;
+  --color-text-inverse: #ffffff;
+  
+  --border-width-brutalist: 3px;
+  --border-width-thick: 4px;
+
+  --font-family-display: 'Anton', sans-serif;
+  --font-family-body: 'Inter', sans-serif;
+}

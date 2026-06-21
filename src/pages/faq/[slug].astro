@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import faqData from '../../data/seo/faq.json';
+
+const { slug } = Astro.params;
+
+// Find item in local JSON
+const item = faqData.find((f: any) => f.slug === slug);
+
+if (!item) {
+  return Astro.redirect('/404');
+}
+
+const allFaqs = faqData;
+---
+
+<BaseLayout title={item.question} description={item.answer.slice(0, 155) + "..."}>
+  <main class="py-20 container px-4 mx-auto max-w-4xl">
+    <a href="/" class="text-indigo-600 hover:text-indigo-800 mb-8 inline-block font-medium">← Back to Schedule</a>
+    
+    <article class="prose prose-slate prose-lg lg:prose-xl max-w-none">
+      <h1 class="text-4xl md:text-5xl font-black text-slate-900 mb-8 leading-tight">
+        {item.question}
+      </h1>
+      
+      <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm mb-12">
+        <p class="text-slate-700 leading-relaxed text-xl mb-0">
+          {item.answer}
+        </p>
+      </div>
+
+      <section class="mt-16 pt-16 border-t border-slate-100">
+        <h2 class="text-2xl font-bold mb-6">More The Organizers 2026 FAQs</h2>
+        <div class="grid gap-4">
+          {allFaqs.filter(f => f.slug !== item.slug).slice(0, 5).map(f => (
+            <a href={`/faq/${f.slug}`} class="p-4 bg-slate-50 hover:bg-slate-100 rounded-xl transition-colors text-slate-700 font-medium">
+              {f.question}
+            </a>
+          ))}
+        </div>
+      </section>
+    </article>
+  </main>
+
+  {/* Structured Data for AEO Compliance */}
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [{
+      "@type": "Question",
+      "name": item.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": item.answer
+      }
+    }]
+  })} />
+</BaseLayout>

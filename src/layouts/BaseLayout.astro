@@ -1,0 +1,46 @@
+---
+import '../styles/global.css';
+import SponsorBanner from '../components/SponsorBanner.astro';
+
+interface Props {
+	title: string;
+	description?: string;
+}
+
+const { title, description = "The clean, betting-free Global schedule for the 2026 Global Football Tournament." } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+		<title>{title} | cupcal</title>
+		<meta name="description" content={description} />
+		<!-- Umami Analytics Script - Replace data-website-id with your actual ID once deployed -->
+		<script defer src="http://localhost:3000/script.js" data-website-id="YOUR-WEBSITE-ID-HERE"></script>
+	</head>
+	<body class="bg-brand-primary text-text font-body selection:bg-pink-300 selection:text-black overflow-x-hidden w-full relative">
+		<nav class="bg-white border-b-[4px] border-black sticky top-0 z-50 shadow-[0_4px_0px_#000]">
+			<div class="container mx-auto px-4 h-16 flex items-center justify-between">
+				<a href="/" class="text-3xl font-anton text-black tracking-widest uppercase">
+					pitch<span class="text-pink-500">26</span>
+				</a>
+				<div class="flex items-center gap-6">
+					<div class="hidden md:flex items-center gap-6 mr-4">
+						<a href="/blog" class="text-lg font-anton text-black hover:text-pink-500 transition-colors uppercase tracking-widest border-[2px] border-transparent hover:border-black px-3 py-1 rounded-full hover:shadow-[2px_2px_0px_#000] hover:-translate-y-1 hover:-translate-x-1">Guides</a>
+						<a href="/watch-party" class="text-lg font-anton text-black hover:text-pink-500 transition-colors uppercase tracking-widest border-[2px] border-transparent hover:border-black px-3 py-1 rounded-full hover:shadow-[2px_2px_0px_#000] hover:-translate-y-1 hover:-translate-x-1">Watch Parties</a>
+						<a href="/stats" class="text-lg font-anton text-black hover:text-pink-500 transition-colors uppercase tracking-widest border-[2px] border-transparent hover:border-black px-3 py-1 rounded-full hover:shadow-[2px_2px_0px_#000] hover:-translate-y-1 hover:-translate-x-1">Open Stats</a>
+					</div>
+				</div>
+			</div>
+		</nav>
+		<SponsorBanner />
+		<slot />
+	</body>
+</html>

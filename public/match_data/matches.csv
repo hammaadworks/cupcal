@@ -1,0 +1,105 @@
+id,match_number,home_team_id,away_team_id,home_team_placeholder,away_team_placeholder,city_id,stadium_name,city_name,region,stage_id,kickoff_at
+1,1,1,2,,,15,Estadio Azteca,Mexico City,Central,1,2026-06-11T21:00:00Z
+2,2,3,4,,,14,Estadio Akron,Guadalajara,Central,1,2026-06-12T04:00:00Z
+3,3,5,6,,,12,BMO Field,Toronto,East,1,2026-06-12T19:00:00Z
+4,4,13,14,,,6,SoFi Stadium,Los Angeles,West,1,2026-06-13T04:00:00Z
+5,5,7,8,,,10,Levi's Stadium,San Francisco Bay Area,West,1,2026-06-13T22:00:00Z
+6,6,9,10,,,8,MetLife Stadium,New York/New Jersey,East,1,2026-06-13T22:00:00Z
+7,7,11,12,,,2,Gillette Stadium,Boston,East,1,2026-06-14T01:00:00Z
+8,8,15,16,,,13,BC Place,Vancouver,West,1,2026-06-14T07:00:00Z
+9,9,17,18,,,4,NRG Stadium,Houston,Central,1,2026-06-14T18:00:00Z
+10,10,21,22,,,3,AT&T Stadium,Dallas,Central,1,2026-06-14T21:00:00Z
+11,11,19,20,,,9,Lincoln Financial Field,Philadelphia,East,1,2026-06-14T23:00:00Z
+12,12,23,24,,,16,Estadio BBVA,Monterrey,Central,1,2026-06-15T04:00:00Z
+13,13,29,30,,,1,Mercedes-Benz Stadium,Atlanta,East,1,2026-06-15T16:00:00Z
+14,14,25,26,,,11,Lumen Field,Seattle,West,1,2026-06-15T22:00:00Z
+15,15,31,32,,,7,Hard Rock Stadium,Miami,East,1,2026-06-15T22:00:00Z
+16,16,27,28,,,6,SoFi Stadium,Los Angeles,West,1,2026-06-16T04:00:00Z
+17,17,33,34,,,8,MetLife Stadium,New York/New Jersey,East,1,2026-06-16T19:00:00Z
+18,18,35,36,,,2,Gillette Stadium,Boston,East,1,2026-06-16T22:00:00Z
+19,19,37,38,,,5,Arrowhead Stadium,Kansas City,Central,1,2026-06-17T02:00:00Z
+20,20,39,40,,,10,Levi's Stadium,San Francisco Bay Area,West,1,2026-06-17T07:00:00Z
+21,21,41,42,,,4,NRG Stadium,Houston,Central,1,2026-06-17T18:00:00Z
+22,22,45,46,,,3,AT&T Stadium,Dallas,Central,1,2026-06-17T21:00:00Z
+23,23,47,48,,,12,BMO Field,Toronto,East,1,2026-06-17T23:00:00Z
+24,24,43,44,,,15,Estadio Azteca,Mexico City,Central,1,2026-06-18T04:00:00Z
+25,25,4,2,,,1,Mercedes-Benz Stadium,Atlanta,East,1,2026-06-18T16:00:00Z
+26,26,8,6,,,6,SoFi Stadium,Los Angeles,West,1,2026-06-18T22:00:00Z
+27,27,5,7,,,13,BC Place,Vancouver,West,1,2026-06-19T01:00:00Z
+28,28,1,3,,,14,Estadio Akron,Guadalajara,Central,1,2026-06-19T03:00:00Z
+29,29,13,15,,,11,Lumen Field,Seattle,West,1,2026-06-19T22:00:00Z
+30,30,12,10,,,2,Gillette Stadium,Boston,East,1,2026-06-19T22:00:00Z
+31,31,9,11,,,9,Lincoln Financial Field,Philadelphia,East,1,2026-06-20T01:00:00Z
+32,32,16,14,,,10,Levi's Stadium,San Francisco Bay Area,West,1,2026-06-20T07:00:00Z
+33,33,21,23,,,4,NRG Stadium,Houston,Central,1,2026-06-20T18:00:00Z
+34,34,17,19,,,12,BMO Field,Toronto,East,1,2026-06-20T20:00:00Z
+35,35,20,18,,,5,Arrowhead Stadium,Kansas City,Central,1,2026-06-21T01:00:00Z
+36,36,24,22,,,16,Estadio BBVA,Monterrey,Central,1,2026-06-21T06:00:00Z
+37,37,29,31,,,1,Mercedes-Benz Stadium,Atlanta,East,1,2026-06-21T16:00:00Z
+38,38,25,27,,,6,SoFi Stadium,Los Angeles,West,1,2026-06-21T22:00:00Z
+39,39,32,30,,,7,Hard Rock Stadium,Miami,East,1,2026-06-21T22:00:00Z
+40,40,28,26,,,13,BC Place,Vancouver,West,1,2026-06-22T04:00:00Z
+41,41,37,39,,,3,AT&T Stadium,Dallas,Central,1,2026-06-22T18:00:00Z
+42,42,33,35,,,9,Lincoln Financial Field,Philadelphia,East,1,2026-06-22T21:00:00Z
+43,43,36,34,,,8,MetLife Stadium,New York/New Jersey,East,1,2026-06-23T00:00:00Z
+44,44,40,38,,,10,Levi's Stadium,San Francisco Bay Area,West,1,2026-06-23T06:00:00Z
+45,45,41,43,,,4,NRG Stadium,Houston,Central,1,2026-06-23T18:00:00Z
+46,46,45,47,,,2,Gillette Stadium,Boston,East,1,2026-06-23T20:00:00Z
+47,47,48,46,,,12,BMO Field,Toronto,East,1,2026-06-23T23:00:00Z
+48,48,44,42,,,14,Estadio Akron,Guadalajara,Central,1,2026-06-24T04:00:00Z
+49,49,8,5,,,13,BC Place,Vancouver,West,1,2026-06-24T22:00:00Z
+50,50,6,7,,,11,Lumen Field,Seattle,West,1,2026-06-24T22:00:00Z
+51,51,12,9,,,7,Hard Rock Stadium,Miami,East,1,2026-06-24T22:00:00Z
+52,52,10,11,,,1,Mercedes-Benz Stadium,Atlanta,East,1,2026-06-24T22:00:00Z
+53,53,4,1,,,15,Estadio Azteca,Mexico City,Central,1,2026-06-25T03:00:00Z
+54,54,2,3,,,16,Estadio BBVA,Monterrey,Central,1,2026-06-25T03:00:00Z
+55,55,18,19,,,9,Lincoln Financial Field,Philadelphia,East,1,2026-06-25T20:00:00Z
+56,56,20,17,,,8,MetLife Stadium,New York/New Jersey,East,1,2026-06-25T20:00:00Z
+57,57,22,23,,,3,AT&T Stadium,Dallas,Central,1,2026-06-26T00:00:00Z
+58,58,24,21,,,5,Arrowhead Stadium,Kansas City,Central,1,2026-06-26T00:00:00Z
+59,59,16,13,,,6,SoFi Stadium,Los Angeles,West,1,2026-06-26T05:00:00Z
+60,60,14,15,,,10,Levi's Stadium,San Francisco Bay Area,West,1,2026-06-26T05:00:00Z
+61,61,36,33,,,2,Gillette Stadium,Boston,East,1,2026-06-26T19:00:00Z
+62,62,34,35,,,12,BMO Field,Toronto,East,1,2026-06-26T19:00:00Z
+63,63,30,31,,,4,NRG Stadium,Houston,Central,1,2026-06-27T01:00:00Z
+64,64,32,29,,,14,Estadio Akron,Guadalajara,Central,1,2026-06-27T02:00:00Z
+65,65,26,27,,,11,Lumen Field,Seattle,West,1,2026-06-27T06:00:00Z
+66,66,28,25,,,13,BC Place,Vancouver,West,1,2026-06-27T06:00:00Z
+67,67,48,45,,,8,MetLife Stadium,New York/New Jersey,East,1,2026-06-27T21:00:00Z
+68,68,46,47,,,9,Lincoln Financial Field,Philadelphia,East,1,2026-06-27T21:00:00Z
+69,69,44,41,,,7,Hard Rock Stadium,Miami,East,1,2026-06-27T23:30:00Z
+70,70,42,43,,,1,Mercedes-Benz Stadium,Atlanta,East,1,2026-06-27T23:30:00Z
+71,71,38,39,,,5,Arrowhead Stadium,Kansas City,Central,1,2026-06-28T03:00:00Z
+72,72,40,37,,,3,AT&T Stadium,Dallas,Central,1,2026-06-28T03:00:00Z
+73,73,,,2A,2B,6,SoFi Stadium,Los Angeles,West,2,2026-06-28T22:00:00Z
+74,74,,,1C,2F,4,NRG Stadium,Houston,Central,2,2026-06-29T18:00:00Z
+75,75,,,1E,3ABCDF,2,Gillette Stadium,Boston,East,2,2026-06-29T20:30:00Z
+76,76,,,1F,2C,16,Estadio BBVA,Monterrey,Central,2,2026-06-30T03:00:00Z
+77,77,,,2E,2I,3,AT&T Stadium,Dallas,Central,2,2026-06-30T18:00:00Z
+78,78,,,1I,3CDFGH,8,MetLife Stadium,New York/New Jersey,East,2,2026-06-30T21:00:00Z
+79,79,,,1A,3CEFHI,15,Estadio Azteca,Mexico City,Central,2,2026-07-01T03:00:00Z
+80,80,,,1L,3EHIJK,1,Mercedes-Benz Stadium,Atlanta,East,2,2026-07-01T16:00:00Z
+81,81,,,1G,3AEHIJ,11,Lumen Field,Seattle,West,2,2026-07-01T23:00:00Z
+82,82,,,1D,3BEFIJ,10,Levi's Stadium,San Francisco Bay Area,West,2,2026-07-02T03:00:00Z
+83,83,,,1H,2J,6,SoFi Stadium,Los Angeles,West,2,2026-07-02T22:00:00Z
+84,84,,,2K,2L,12,BMO Field,Toronto,East,2,2026-07-02T23:00:00Z
+85,85,,,1B,3EFGIJ,13,BC Place,Vancouver,West,2,2026-07-03T06:00:00Z
+86,86,,,2D,2G,3,AT&T Stadium,Dallas,Central,2,2026-07-03T19:00:00Z
+87,87,,,1J,2H,7,Hard Rock Stadium,Miami,East,2,2026-07-03T22:00:00Z
+88,88,,,1K,3DEIJL,5,Arrowhead Stadium,Kansas City,Central,2,2026-07-04T02:30:00Z
+89,89,,,W73,W75,4,NRG Stadium,Houston,Central,3,2026-07-04T18:00:00Z
+90,90,,,W74,W77,9,Lincoln Financial Field,Philadelphia,East,3,2026-07-04T21:00:00Z
+91,91,,,W76,W78,8,MetLife Stadium,New York/New Jersey,East,3,2026-07-05T20:00:00Z
+92,92,,,W79,W80,15,Estadio Azteca,Mexico City,Central,3,2026-07-06T02:00:00Z
+93,93,,,W83,W84,3,AT&T Stadium,Dallas,Central,3,2026-07-06T20:00:00Z
+94,94,,,W81,W82,11,Lumen Field,Seattle,West,3,2026-07-07T03:00:00Z
+95,95,,,W86,W88,1,Mercedes-Benz Stadium,Atlanta,East,3,2026-07-07T16:00:00Z
+96,96,,,W85,W87,13,BC Place,Vancouver,West,3,2026-07-07T23:00:00Z
+97,97,,,W89,W90,2,Gillette Stadium,Boston,East,4,2026-07-09T20:00:00Z
+98,98,,,W93,W94,6,SoFi Stadium,Los Angeles,West,4,2026-07-10T22:00:00Z
+99,99,,,W91,W92,7,Hard Rock Stadium,Miami,East,4,2026-07-11T21:00:00Z
+100,100,,,W95,W100,5,Arrowhead Stadium,Kansas City,Central,4,2026-07-12T02:00:00Z
+101,101,,,W97,W98,3,AT&T Stadium,Dallas,Central,5,2026-07-14T20:00:00Z
+102,102,,,W99,W100,1,Mercedes-Benz Stadium,Atlanta,East,5,2026-07-15T19:00:00Z
+103,103,,,RU101,RU102,7,Hard Rock Stadium,Miami,East,6,2026-07-18T21:00:00Z
+104,104,,,W101,W102,8,MetLife Stadium,New York/New Jersey,East,7,2026-07-19T19:00:00Z

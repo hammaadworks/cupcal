@@ -1,0 +1,7 @@
+.astro
+.env
+.env*
+wiki
+content
+dist
+assets

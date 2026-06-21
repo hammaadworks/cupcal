@@ -1,0 +1,193 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths({ paginate }) {
+  const posts = [
+    {
+      slug: 'why-48-team-format-is-a-w',
+      title: 'Why the 48-Team Format is Actually a Massive W',
+      description: 'Forget the boomers crying about tradition. More teams means more chaotic underdog energy and crazy upset potential. Here is why the new format passes the vibe check.',
+      date: 'June 18, 2026',
+      readTime: '3 min read',
+      source: 'native'
+    },
+    {
+      slug: 'stadiums-that-pass-the-vibe-check',
+      title: 'Ranking the 2026 Stadiums: Which Ones Actually Pass the Vibe Check?',
+      description: 'From Azteca’s historic high-altitude death trap to SoFi’s bougie infinity screen. We rank the 16 host stadiums based on pure unadulterated vibes.',
+      date: 'June 17, 2026',
+      readTime: '6 min read',
+      source: 'native'
+    },
+    {
+      slug: 'how-to-finesse-cheap-flights',
+      title: 'How to Finesse Cheap Flights Across the USA, CAN & MEX',
+      description: 'Host cities are spread out af. Here is the ultimate hack sheet for skiplagging, border hopping with Volaris, and using Amtrak so you do not go broke.',
+      date: 'June 16, 2026',
+      readTime: '5 min read',
+      source: 'native'
+    },
+    {
+      slug: 'craziest-group-stage-upsets-possible',
+      title: 'The Craziest Upsets We Could See in the Group Stage',
+      description: 'With Africa getting 9 slots and Asia getting 8, the global south is coming to crash the party. Who is most likely to pull off a Morocco 2022 run?',
+      date: 'June 15, 2026',
+      readTime: '4 min read',
+      source: 'native'
+    },
+    {
+      slug: '2026-tournament-format-explained',
+      title: 'What is the New 2026 Tournament Format? (48 Teams Explained)',
+      description: 'A complete breakdown of the new 48-team, 104-match format, the 12 groups, and the introduction of the Round of 32.',
+      date: 'June 5, 2026',
+      readTime: '5 min read',
+      source: 'native'
+    },
+    {
+      slug: 'how-to-buy-world-cup-2026-tickets',
+      title: 'How to Actually Get Global Tournament Tickets (Without Getting Scammed)',
+      description: 'A no-nonsense guide to the official ticket rollout, pricing tiers, and avoiding secondary market traps for the USA, Canada, and Mexico matches.',
+      date: 'June 10, 2026',
+      readTime: '4 min read',
+      source: 'native'
+    },
+    {
+      slug: 'best-host-cities-to-base-your-trip',
+      title: 'Which 2026 Host City Should You Base Your Trip Around?',
+      description: 'Comparing Dallas, New York, Miami, and Mexico City. We look at transit, match density, and hotel costs to help you pick your basecamp.',
+      date: 'June 8, 2026',
+      readTime: '6 min read',
+      source: 'native'
+    },
+    {
+      slug: 'workplace-survival-guide-39-day-tournament',
+      title: 'The 39-Day Distraction: How Workplaces Are Handling The Tournament',
+      description: 'With games airing during working hours across multiple time zones, here is how top companies are navigating flexible hours and massive drop-offs in productivity.',
+      date: 'June 12, 2026',
+      readTime: '6 min read',
+      source: 'native'
+    },
+    {
+      slug: 'visa-immigration-hurdles-fans-referees',
+      title: 'Travel Nightmares: Visa Policies Impacting Fans and Referees',
+      description: 'A deep dive into the cross-border logistical challenges of the 2026 tournament, and how immigration hurdles are becoming the biggest off-pitch story.',
+      date: 'June 11, 2026',
+      readTime: '7 min read',
+      source: 'native'
+    },
+    {
+      slug: 'free-streaming-tubi-fox-telemundo-guide',
+      title: 'Where to Stream the 2026 Global Tournament (Including Free Options)',
+      description: 'Navigating the broadcast maze: How to watch every single one of the 104 matches, from FOX and Telemundo to free streaming options on Tubi.',
+      date: 'June 12, 2026',
+      readTime: '4 min read',
+      source: 'native'
+    },
+    {
+      slug: 'summer-heat-hydration-breaks-tactics',
+      title: 'Hydration Breaks and Heat Waves: The Hidden Tactical Variable',
+      description: 'With extreme summer temperatures in host cities like Dallas and Monterrey, we analyze how mandatory hydration breaks are changing managerial tactics.',
+      date: 'June 13, 2026',
+      readTime: '5 min read',
+      source: 'native'
+    },
+    {
+      slug: 'https://medium.com/@tactics_guru/the-tactical-evolution-of-the-4-3-3-in-2026',
+      title: 'Medium: The Tactical Evolution of the 4-3-3 in International Play',
+      description: 'An external deep dive into how teams are adapting their formations to survive the gruelling 104-match format.',
+      date: 'June 19, 2026',
+      readTime: '8 min read',
+      source: 'medium'
+    },
+    {
+      slug: 'https://youtube.com/watch?v=dQw4w9WgXcQ',
+      title: 'YouTube: Top 10 Wonderkids to Watch at WC26',
+      description: 'A highly curated scouting report on the U-21 players who are about to absolutely explode onto the global scene.',
+      date: 'June 20, 2026',
+      readTime: '12 min watch',
+      source: 'youtube'
+    }
+  ];
+  return paginate(posts, { pageSize: 6 });
+}
+
+const { page } = Astro.props;
+---
+
+<BaseLayout title="2026 Tournament Guides & News" description="Human-written guides, ticket strategies, and travel tips for the 2026 Global Football Tournament.">
+  <main class="min-h-screen py-20 px-4 bg-yellow-300">
+    <div class="container mx-auto max-w-4xl relative z-20">
+      
+      {/* Notice Section */}
+      <div class="mb-12 bg-white border-[4px] border-black p-6 shadow-[8px_8px_0px_#f472b6] transform -rotate-1 hover:rotate-0 transition-transform">
+        <h2 class="text-2xl font-black uppercase tracking-tighter text-black mb-2 flex items-center gap-2" style="font-family: 'Anton', sans-serif;">
+          <span class="text-red-500 animate-pulse">🔴</span> APP FOCUS NOTICE
+        </h2>
+        <p class="text-black font-bold uppercase tracking-wide">
+          Our main updates and live tracking will heavily focus on the tournament starting from <span class="bg-black text-white px-2 py-1">Matchround 3</span> (the final, most crucial group stage matches). Get ready for massive traffic spikes and exclusive tools dropping right before the knockouts!
+        </p>
+      </div>
+
+      <div class="mb-16 text-center">
+        <div class="inline-block bg-white text-black border-[3px] border-black font-black px-8 py-2 uppercase tracking-[0.3em] shadow-[4px_4px_0px_#000] mb-8">
+          INTEL & GUIDES
+        </div>
+        <h1 class="text-5xl md:text-8xl font-black text-black mb-6 uppercase tracking-tighter drop-shadow-[4px_4px_0px_#f9a8d4]" style="font-family: 'Anton', sans-serif;">
+          SURVIVAL GUIDES
+        </h1>
+        <p class="text-xl text-black font-bold max-w-2xl mx-auto border-[3px] border-black bg-white p-4 shadow-[4px_4px_0px_#000]">
+          No fluff. No generic summaries. No AI slop. Just practical advice on getting tickets, planning your travel, and surviving the chaos of a 48-team tournament. <span class="bg-black text-white px-2 mt-2 inline-block">Free Palestine 🇵🇸</span>
+        </p>
+      </div>
+
+      <div class="grid gap-8 mb-12">
+        {page.data.map(post => {
+          const isExternal = post.source !== 'native';
+          const href = isExternal ? post.slug : `/blog/${post.slug}`;
+          return (
+            <a href={href} target={isExternal ? "_blank" : "_self"} rel={isExternal ? "noopener noreferrer" : ""} class="group flex flex-col md:flex-row gap-6 bg-white border-[4px] border-black p-6 md:p-8 hover:bg-yellow-50 transition-all shadow-[8px_8px_0px_#000] hover:translate-x-1 hover:translate-y-1 hover:shadow-[4px_4px_0px_#000]">
+              <div class="flex-1">
+                <div class="flex items-center gap-3 text-xs font-black text-black uppercase tracking-widest mb-3 bg-pink-200 inline-block px-3 py-1 border-[2px] border-black">
+                  <span>{post.date}</span>
+                  <span class="text-black/50">•</span>
+                  <span>{post.readTime}</span>
+                  {post.source === 'youtube' && <span class="bg-red-600 text-white px-2 py-0.5 ml-2 rounded flex items-center gap-1">▶️ YOUTUBE</span>}
+                  {post.source === 'medium' && <span class="bg-black text-white px-2 py-0.5 ml-2 rounded flex items-center gap-1">Ⓜ️ MEDIUM</span>}
+                </div>
+                <h2 class="text-3xl font-black text-black group-hover:text-pink-600 transition-colors mb-4 uppercase tracking-tighter" style="font-family: 'Anton', sans-serif;">
+                  {post.title}
+                </h2>
+                <p class="text-black font-bold uppercase tracking-wide leading-relaxed">
+                  {post.description}
+                </p>
+              </div>
+              <div class="hidden md:flex items-center justify-center">
+                <span class="text-4xl group-hover:translate-x-2 transition-transform">{isExternal ? '↗' : '→'}</span>
+              </div>
+            </a>
+          );
+        })}
+      </div>
+
+      {/* Pagination Controls */}
+      <div class="flex justify-between items-center bg-white border-[4px] border-black p-4 shadow-[4px_4px_0px_#000]">
+        {page.url.prev ? (
+          <a href={page.url.prev} class="font-anton text-xl uppercase tracking-widest text-black hover:text-pink-600 transition-colors">
+            ← BACK IT UP
+          </a>
+        ) : (
+          <span class="font-anton text-xl uppercase tracking-widest text-gray-300">← BACK IT UP</span>
+        )}
+        <span class="font-black text-black">PAGE {page.currentPage} OF {page.lastPage}</span>
+        {page.url.next ? (
+          <a href={page.url.next} class="font-anton text-xl uppercase tracking-widest text-black hover:text-pink-600 transition-colors">
+            GIMME MORE →
+          </a>
+        ) : (
+          <span class="font-anton text-xl uppercase tracking-widest text-gray-300">GIMME MORE →</span>
+        )}
+      </div>
+
+    </div>
+  </main>
+</BaseLayout>
