@@ -1,6 +1,6 @@
 .astro
 .env
-.env*
+.env.local
 wiki
 content
 dist

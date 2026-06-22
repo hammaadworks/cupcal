@@ -67,12 +67,13 @@ A community-driven directory of ethical and family-friendly screening locations.
     - `max_tickets`: The base capacity (e.g., 200).
     - `max_tickets_buffer`: The hidden buffer to account for cancellations (e.g., 50).
 - **Checkout Logic:** 
-    - The frontend progress bar visually represents `tickets_sold` out of `(max_tickets + max_tickets_buffer)`. This ensures people feel there is room and encourages booking.
-    - Real ticket sales continue until `tickets_sold >= (max_tickets + max_tickets_buffer)`. 
+    - **Phase 1 (Normal):** When `tickets_sold < max_tickets`, the progress bar visually fills up. Text shows "X tickets left" (where X = `max_tickets - tickets_sold`).
+    - **Phase 2 (Buffer Urgency):** When `tickets_sold >= max_tickets` and `tickets_sold < (max_tickets + max_tickets_buffer)`. The visual progress bar remains capped at 100% full. The text switches to: "Y buffer tickets left. Though the capacity is full, we are accepting a few more because we don't want you to miss out!" (where Y = `(max_tickets + max_tickets_buffer) - tickets_sold`). This creates immense urgency.
+    - **Phase 3 (Sold Out):** When `tickets_sold >= (max_tickets + max_tickets_buffer)`, the "Buy Tickets" button is locked.
 
 ### 5. Watch Party Operations (Internal)
-- **Sponsor Management:** Public lead capture form for inquiries. Offline negotiation. Admin dashboard tracks Sponsor Promises (e.g., 'Logo on Website', 'Mention during Half-Time').
-- **Digital Experience (Live Dashboard):** A custom `/live` web app for attendees to use during pre-game and half-time. Features include:
+- **Sponsor Management:** Public lead capture form for inquiries. Offline negotiation and manual promise tracking by admin.
+- **Digital Experience (Live Dashboard):** A custom `/final` web app for attendees to use during pre-game and half-time. Features include:
     - Guess the Score / Live Trivia
     - Digital rewards (e.g., Jersey winner announcement)
 - **Post-Event Feedback:** Simple feedback form on the website.

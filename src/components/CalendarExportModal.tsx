@@ -173,8 +173,10 @@ export default function CalendarExportModal({ matches, onClose }: Props) {
         <div className="bg-white border-t-[4px] border-black p-4 shrink-0">
           <button 
             onClick={handleDownload}
-            data-umami-event="calendar_sync"
-            data-umami-event-matches={matches.length}
+            data-umami-event={matches.length === 1 ? "calendar_export_single" : "calendar_export_bulk"}
+            data-umami-event-match={matches.length === 1 ? `${matches[0].homeTeam} vs ${matches[0].awayTeam}` : undefined}
+            data-umami-event-stage={matches.length === 1 ? matches[0].stage : undefined}
+            data-umami-event-count={matches.length > 1 ? matches.length : undefined}
             className="w-full bg-black text-white font-black text-xl uppercase tracking-widest py-4 border-[3px] border-black shadow-[4px_4px_0px_#f472b6] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[6px_6px_0px_#f472b6] transition-all"
             style={{ fontFamily: 'Anton' }}
           >
