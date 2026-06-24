@@ -2,6 +2,12 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import faqData from '../../data/seo/faq.json';
 
+export function getStaticPaths() {
+  return faqData.map((f: any) => ({
+    params: { slug: f.slug },
+  }));
+}
+
 const { slug } = Astro.params;
 
 // Find item in local JSON
