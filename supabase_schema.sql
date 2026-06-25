@@ -63,3 +63,47 @@ USING (true);
 -- Insert the initial 2026 Finals Event
 INSERT INTO public.finals_events (name, description, max_tickets, max_tickets_buffer, price_in_cents)
 VALUES ('FIFA World Cup 2026 Finals Watch Party', 'Family-friendly, No-Alcohol Local Turf Screening in Bangalore.', 200, 50, 49900);
+
+-- Create Match Results Table (holds scores for both group stage and knockout matches)
+CREATE TABLE public.match_results (
+    match_id TEXT PRIMARY KEY, -- Refers to the static match ID (1-72) or knockout_fixtures ID
+    home_score INTEGER NOT NULL DEFAULT 0,
+    away_score INTEGER NOT NULL DEFAULT 0,
+    home_penalty_score INTEGER,
+    away_penalty_score INTEGER,
+    key_moments JSONB DEFAULT '[]'::jsonb,
+    highlights_link TEXT,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
+);
+
+-- Trigger to update updated_at on match_results table
+CREATE TRIGGER update_match_results_modtime
+BEFORE UPDATE ON public.match_results
+FOR EACH ROW
+EXECUTE FUNCTION update_modified_column();
+
+-- Create Knockout Fixtures Table
+CREATE TABLE public.knockout_fixtures (
+    id TEXT PRIMARY KEY, -- e.g., '73' to '104'
+    match_number TEXT,
+    date TIMESTAMP WITH TIME ZONE NOT NULL,
+    home_team TEXT NOT NULL,
+    away_team TEXT NOT NULL,
+    venue TEXT NOT NULL,
+    stage TEXT NOT NULL,
+    match_label TEXT,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
+);
+
+-- Enable RLS
+ALTER TABLE public.match_results ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.knockout_fixtures ENABLE ROW LEVEL SECURITY;
+
+-- Policies for Match Data (Publicly readable)
+CREATE POLICY "Match results are viewable by everyone."
+ON public.match_results FOR SELECT
+USING (true);
+
+CREATE POLICY "Knockout fixtures are viewable by everyone."
+ON public.knockout_fixtures FOR SELECT
+USING (true);

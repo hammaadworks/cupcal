@@ -30,6 +30,16 @@ export default function TournamentTree({ matches }: TreeProps) {
   const sf = getStageMatches('Semifinals');
   const final = getStageMatches('Final');
 
+  const splitMatches = (matches: Match[]) => {
+    const half = Math.ceil(matches.length / 2);
+    return [matches.slice(0, half), matches.slice(half)];
+  };
+
+  const [r32Left, r32Right] = splitMatches(r32);
+  const [r16Left, r16Right] = splitMatches(r16);
+  const [qfLeft, qfRight] = splitMatches(qf);
+  const [sfLeft, sfRight] = splitMatches(sf);
+
   const MatchBox = ({ match }: { match: Match }) => {
     const isMatched = !filterTeam || 
       match.homeTeam.toLowerCase().includes(filterTeam.toLowerCase()) || 
@@ -54,9 +64,9 @@ export default function TournamentTree({ matches }: TreeProps) {
   };
 
   const Column = ({ title, matches, bgColor }: { title: string, matches: Match[], bgColor: string }) => (
-    <div className="flex flex-col flex-shrink-0 mx-2 md:mx-4 items-center">
+    <div className="flex flex-col flex-shrink-0 mx-2 md:mx-4 justify-around py-4 items-center">
       <h3 className={`text-xl font-anton text-black text-center mb-6 uppercase tracking-widest ${bgColor} px-4 py-2 border-[3px] border-black shadow-[4px_4px_0px_#000] rounded-xl w-full`}>{title}</h3>
-      <div className="flex flex-col justify-around h-full w-full gap-2">
+      <div className="flex flex-col justify-around h-full w-full gap-4 items-center">
         {matches.map(m => <MatchBox key={m.id} match={m} />)}
       </div>
     </div>
@@ -83,17 +93,25 @@ export default function TournamentTree({ matches }: TreeProps) {
       </div>
 
       <div className="w-full overflow-x-auto no-scrollbar pb-8 cursor-grab active:cursor-grabbing">
-        <div className="flex flex-nowrap min-w-max justify-start items-stretch bg-[#ffd6e0] p-4 md:p-8 border-y-[4px] md:border-[4px] md:rounded-[2rem] border-black shadow-[8px_8px_0px_#000]">
+        <div className="flex flex-nowrap min-w-max justify-center items-stretch bg-[#ffd6e0] p-4 md:p-8 border-y-[4px] md:border-[4px] md:rounded-[2rem] border-black shadow-[8px_8px_0px_#000]">
           
-          <Column title="R32" matches={r32} bgColor="bg-white" />
-          <Column title="R16" matches={r16} bgColor="bg-[#bfdbfe]" />
-          <Column title="QF" matches={qf} bgColor="bg-[#bbf7d0]" />
-          <Column title="SF" matches={sf} bgColor="bg-[#e9d5ff]" />
+          {/* Left Side */}
+          <Column title="R32" matches={r32Left} bgColor="bg-white" />
+          <Column title="R16" matches={r16Left} bgColor="bg-[#bfdbfe]" />
+          <Column title="QF" matches={qfLeft} bgColor="bg-[#bbf7d0]" />
+          <Column title="SF" matches={sfLeft} bgColor="bg-[#e9d5ff]" />
           
-          <div className="flex flex-col justify-center mx-4 md:mx-8 items-center flex-shrink-0">
+          {/* Center / Final */}
+          <div className="flex flex-col justify-center mx-4 md:mx-8 items-center flex-shrink-0 pb-12">
               <h3 className="text-3xl font-anton text-black mb-8 uppercase tracking-widest bg-yellow-300 px-6 py-4 border-[4px] border-black shadow-[6px_6px_0px_#000] rounded-2xl rotate-2">FINAL</h3>
               {final.map(m => <MatchBox key={m.id} match={m} />)}
           </div>
+
+          {/* Right Side */}
+          <Column title="SF" matches={sfRight} bgColor="bg-[#e9d5ff]" />
+          <Column title="QF" matches={qfRight} bgColor="bg-[#bbf7d0]" />
+          <Column title="R16" matches={r16Right} bgColor="bg-[#bfdbfe]" />
+          <Column title="R32" matches={r32Right} bgColor="bg-white" />
 
         </div>
       </div>

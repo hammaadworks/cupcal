@@ -4,9 +4,10 @@ export interface Match {
   homeTeam: string;
   awayTeam: string;
   venue: string;
-  group: string;
+  group?: string;
   stage: string;
   matchNumber?: string;
+  matchLabel?: string;
   result?: {
     homeScore: number;
     awayScore: number;
