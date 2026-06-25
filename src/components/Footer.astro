@@ -1,0 +1,51 @@
+---
+import faqData from '../data/seo/faq.json';
+import MorphingLogo from './MorphingLogo';
+---
+<footer class="py-16 border-t-[4px] border-black relative z-20 bg-yellow-300">
+    <div class="container px-4 mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+            <div>
+                <div class="flex items-center gap-3 mb-4">
+                    <MorphingLogo client:load className="w-12 h-12" />
+                    <h3 class="text-3xl font-anton uppercase tracking-widest text-black">CUPCAL</h3>
+                </div>
+                <p class="text-black font-bold mb-4">The ultimate, vibe-heavy schedule for the 2026 Global Football Tournament.</p>
+                <div class="flex gap-4">
+                    <a href="https://x.com/hammaadworks" class="text-black font-anton uppercase tracking-widest hover:text-pink-600 transition-colors">X (Twitter)</a>
+                    <a href="https://github.com/hammaadworks" class="text-black font-anton uppercase tracking-widest hover:text-pink-600 transition-colors">GitHub</a>
+                </div>
+            </div>
+            
+            <div>
+                <h3 class="text-xl font-anton uppercase tracking-widest text-black mb-4">Explore</h3>
+                <ul class="space-y-2 font-bold text-black">
+                    <li><a href="/" class="hover:text-pink-600 transition-colors">Schedule & Matches</a></li>
+                    <li><a href="/tree" class="hover:text-pink-600 transition-colors">Tournament Bracket (Finals)</a></li>
+                    <li><a href="/watch-party" class="hover:text-pink-600 transition-colors">Watch Parties</a></li>
+                    <li><a href="/stats" class="hover:text-pink-600 transition-colors">Open Stats</a></li>
+                    <li><a href="/blog" class="hover:text-pink-600 transition-colors">Guides & Lore</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-xl font-anton uppercase tracking-widest text-black mb-4">Sponsors</h3>
+                <p class="text-black font-bold mb-2">Want to reach millions of football fans?</p>
+                <a href="mailto:sponsor@cupcal.com" class="inline-block bg-black text-white px-4 py-2 rounded font-anton uppercase tracking-widest hover:bg-pink-600 hover:-translate-y-1 hover:shadow-[4px_4px_0px_#000] transition-all">Become a Sponsor</a>
+            </div>
+
+            <div>
+                <h3 class="text-xl font-anton uppercase tracking-widest text-black mb-4">Top FAQs</h3>
+                <ul class="space-y-2 font-bold text-black text-sm">
+                    {faqData.slice(0, 4).map(faq => (
+                        <li><a href={`/faq/${faq.slug}`} class="hover:text-pink-600 transition-colors line-clamp-1">{faq.question}</a></li>
+                    ))}
+                </ul>
+            </div>
+        </div>
+
+        <div class="text-center pt-8 border-t-[3px] border-black text-black font-anton uppercase tracking-widest">
+            <p>Cooked up with Alhamdulillah by <a href="https://hammaadworks.com" class="text-pink-600 hover:text-black border-b-[2px] border-pink-600 hover:border-black transition-colors">hammaadworks</a></p>
+        </div>
+    </div>
+</footer>

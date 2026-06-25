@@ -1,6 +1,8 @@
 ---
 import '../styles/global.css';
 import SponsorBanner from '../components/SponsorBanner.astro';
+import Footer from '../components/Footer.astro';
+import MorphingLogo from '../components/MorphingLogo';
 
 interface Props {
 	title: string;
@@ -15,7 +17,7 @@ const { title, description = "The clean, betting-free Global schedule for the 20
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/jpeg" href="/favicon.jpg" />
 		<meta name="generator" content={Astro.generator} />
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -24,16 +26,29 @@ const { title, description = "The clean, betting-free Global schedule for the 20
 		<meta name="description" content={description} />
 		<!-- Umami Analytics Script -->
 		<script defer src="https://umami-cc.vercel.app/script.js" data-website-id="ec0060bb-9aef-41d4-af2b-954c6184a2e1"></script>
+		<script>
+			// Rotate favicon between host countries
+			const favicons = ['/fifa_logo/canada.png', '/fifa_logo/usa.png', '/fifa_logo/mexico.png'];
+			let faviconIndex = 0;
+			setInterval(() => {
+				faviconIndex = (faviconIndex + 1) % favicons.length;
+				const link = document.querySelector("link[rel~='icon']");
+				if (link) {
+					link.href = favicons[faviconIndex];
+				}
+			}, 3000);
+		</script>
 	</head>
 	<body class="bg-brand-primary text-text font-body selection:bg-pink-300 selection:text-black overflow-x-hidden w-full relative">
 		<nav class="bg-white border-b-[4px] border-black sticky top-0 z-50 shadow-[0_4px_0px_#000]">
 			<div class="container mx-auto px-4 h-16 flex items-center justify-between">
-				<a href="/" class="text-3xl font-anton text-black tracking-widest uppercase">
-					cup<span class="text-pink-500">cal</span>
+				<a href="/" class="flex items-center gap-2 text-3xl font-anton text-black tracking-widest uppercase">
+					<MorphingLogo client:load className="w-10 h-10" />
+					<span>cup<span class="text-pink-500">cal</span></span>
 				</a>
 				<div class="flex items-center gap-6">
 					<div class="hidden md:flex items-center gap-6 mr-4">
-						<a href="/finals" class="text-lg font-anton text-white bg-pink-500 hover:bg-pink-600 transition-colors uppercase tracking-widest border-[2px] border-black px-4 py-1 shadow-[2px_2px_0px_#000] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[4px_4px_0px_#000]">THE FINAL</a>
+						<a href="/tree" class="text-lg font-anton text-white bg-pink-500 hover:bg-pink-600 transition-colors uppercase tracking-widest border-[2px] border-black px-4 py-1 shadow-[2px_2px_0px_#000] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[4px_4px_0px_#000]">THE BRACKET</a>
 						<a href="/blog" class="text-lg font-anton text-black hover:text-pink-500 transition-colors uppercase tracking-widest border-[2px] border-transparent hover:border-black px-3 py-1 rounded-full hover:shadow-[2px_2px_0px_#000] hover:-translate-y-1 hover:-translate-x-1">Guides</a>
 						<a href="/watch-party" class="text-lg font-anton text-black hover:text-pink-500 transition-colors uppercase tracking-widest border-[2px] border-transparent hover:border-black px-3 py-1 rounded-full hover:shadow-[2px_2px_0px_#000] hover:-translate-y-1 hover:-translate-x-1">Watch Parties</a>
 						<a href="/stats" class="text-lg font-anton text-black hover:text-pink-500 transition-colors uppercase tracking-widest border-[2px] border-transparent hover:border-black px-3 py-1 rounded-full hover:shadow-[2px_2px_0px_#000] hover:-translate-y-1 hover:-translate-x-1">Open Stats</a>
@@ -43,5 +58,6 @@ const { title, description = "The clean, betting-free Global schedule for the 20
 		</nav>
 		<SponsorBanner />
 		<slot />
+		<Footer />
 	</body>
 </html>

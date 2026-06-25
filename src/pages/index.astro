@@ -3,20 +3,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import ScheduleFilter from '../components/ScheduleFilter';
 import TournamentTree from '../components/TournamentTree';
 import faqData from '../data/seo/faq.json';
-import { supabase } from '../utils/supabase';
+import { getMatches } from '../utils/matches';
 
-// Fetch matches from Supabase
-const { data: matchesData } = await supabase.from('matches').select('*');
-let matches = matchesData || [];
-
-// Fallback to local data if Supabase is empty or fails
-if (matches.length === 0) {
-  const localMatches = await import('../data/matches.json');
-  matches = localMatches.default;
-}
-
-// Ensure matches are sorted by matchNumber
-matches.sort((a, b) => parseInt(a.matchNumber) - parseInt(b.matchNumber));
+// Fetch matches
+const matches = await getMatches();
 ---
 
 <BaseLayout title="Official Schedule 2026">
@@ -34,14 +24,18 @@ matches.sort((a, b) => parseInt(a.matchNumber) - parseInt(b.matchNumber));
                 <h1 class="text-6xl md:text-8xl font-anton text-center mb-12 tracking-tighter leading-none">
                     THE ULTIMATE<br/>FOOTBALL<br/>VIBES
                 </h1>
+
 				<ScheduleFilter client:load matches={matches} />
 			</div>
 		</section>
 
-		<section id="bracket" class="py-10 border-y-[3px] border-black relative z-20 bg-white">
-			<div class="container px-4 mx-auto">
-				<h2 class="text-4xl md:text-5xl font-anton text-center mb-4 text-black uppercase tracking-tight">Knockout SZN</h2>
-				<TournamentTree client:load matches={matches} />
+		<section id="bracket-link" class="py-20 border-y-[3px] border-black relative z-20 bg-[#ffd6e0]">
+			<div class="container px-4 mx-auto text-center">
+				<h2 class="text-4xl md:text-6xl font-anton mb-6 text-black uppercase tracking-tight">Knockout SZN</h2>
+				<p class="text-xl font-bold mb-8 uppercase tracking-widest text-black">See the full path to glory in the interactive bracket.</p>
+				<a href="/tree" class="inline-block bg-black text-white font-anton text-2xl uppercase tracking-widest px-8 py-4 rounded-xl border-[4px] border-black shadow-[6px_6px_0px_#fbcfe8] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[8px_8px_0px_#fbcfe8] transition-all">
+					View Tournament Tree →
+				</a>
 			</div>
 		</section>
 
@@ -66,16 +60,4 @@ matches.sort((a, b) => parseInt(a.matchNumber) - parseInt(b.matchNumber));
 			</div>
 		</section>
 	</main>
-	
-	<footer class="py-12 border-t-[4px] border-black relative z-20 bg-yellow-300">
-		<div class="container px-4 mx-auto text-center">
-			<p class="text-black text-xl font-anton uppercase tracking-widest mb-6">
-				Cooked up with Alhamdulillah by <a href="https://hammaadworks.com" class="text-pink-600 hover:text-black border-b-[3px] border-pink-600 hover:border-black transition-colors">hammaadworks</a>
-			</p>
-			<div class="flex justify-center gap-6">
-				<a href="https://x.com/hammaadworks" class="text-black font-anton uppercase tracking-widest text-xl hover:text-pink-600 transition-colors">X</a>
-				<a href="https://github.com/hammaadworks" class="text-black font-anton uppercase tracking-widest text-xl hover:text-pink-600 transition-colors">GitHub</a>
-			</div>
-		</div>
-	</footer>
 </BaseLayout>

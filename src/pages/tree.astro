@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TournamentTree from '../components/TournamentTree';
+import { getMatches } from '../utils/matches';
+
+const matches = await getMatches();
+---
+
+<BaseLayout title="Tournament Bracket - Knockout Stage">
+	<main class="min-h-screen relative z-10 w-full pt-12 pb-24 bg-white">
+        <div class="container px-4 mx-auto text-center mb-8">
+            <a href="/" class="inline-block text-xl font-anton uppercase tracking-widest text-black hover:text-pink-600 transition-colors mb-8">
+                ← Back to Schedule
+            </a>
+            <h1 class="text-6xl md:text-8xl font-anton text-center tracking-tighter leading-none mb-4 uppercase">
+                THE FINAL BOSS STAGE
+            </h1>
+            <p class="text-xl font-bold uppercase tracking-widest text-gray-500 max-w-2xl mx-auto">
+                Filter by your favorite squad to see their path to glory.
+            </p>
+        </div>
+        
+		<section id="bracket" class="relative z-20">
+			<div class="container px-4 mx-auto">
+				<TournamentTree client:load matches={matches} />
+			</div>
+		</section>
+	</main>
+</BaseLayout>
