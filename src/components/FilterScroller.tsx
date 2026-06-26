@@ -14,7 +14,7 @@ export const FilterScroller = ({ title, items, selectedItems, toggleSelection, s
       <div className="flex justify-between items-center px-2">
         <h3 className="text-lg font-anton text-black tracking-widest uppercase bg-yellow-300 px-4 py-1 border-[2px] border-black shadow-[2px_2px_0px_#000] inline-block">{title}</h3>
       </div>
-      <div className="flex overflow-x-auto no-scrollbar gap-3 pb-3 px-2 snap-x" style={{ maskImage: 'linear-gradient(to right, transparent, black 15px, black calc(100% - 15px), transparent)', WebkitMaskImage: 'linear-gradient(to right, transparent, black 15px, black calc(100% - 15px), transparent)' }}>
+      <div className="flex overflow-x-auto custom-scrollbar gap-3 pb-3 px-2 snap-x" style={{ maskImage: 'linear-gradient(to right, transparent, black 15px, black calc(100% - 15px), transparent)', WebkitMaskImage: 'linear-gradient(to right, transparent, black 15px, black calc(100% - 15px), transparent)' }}>
         {items.map(item => {
           const isActive = selectedItems.includes(item);
           return (

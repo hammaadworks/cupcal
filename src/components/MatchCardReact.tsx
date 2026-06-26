@@ -55,7 +55,29 @@ export const MatchCardReact = ({ match, timezone, isMounted, isUpcoming, upcomin
   const awayColor = colorsMap[awayPrefix]?.[0] || '#bfdbfe';
   const status = getMatchStatus(match.date);
   const isDone = status === 'DONE';
-  const [showScore, setShowScore] = useState(false);
+  const [showScore, setShowScore] = useState((isDone && match.result) ? true : false);
+
+  let homeWinner = false;
+  let awayWinner = false;
+  let isDraw = false;
+  
+  if (isDone && match.result) {
+    if (match.result.homeScore > match.result.awayScore) homeWinner = true;
+    else if (match.result.awayScore > match.result.homeScore) awayWinner = true;
+    else {
+      if (match.result.homePenaltyScore !== undefined && match.result.awayPenaltyScore !== undefined) {
+         if (match.result.homePenaltyScore > match.result.awayPenaltyScore) homeWinner = true;
+         else if (match.result.awayPenaltyScore > match.result.homePenaltyScore) awayWinner = true;
+         else isDraw = true;
+      } else {
+         isDraw = true;
+      }
+    }
+  }
+
+  const globalGrey = isDone && !match.result;
+  const homeIsGrey = globalGrey || (isDone && match.result && !homeWinner && !isDraw);
+  const awayIsGrey = globalGrey || (isDone && match.result && !awayWinner && !isDraw);
 
   return (
     <div 
@@ -63,7 +85,7 @@ export const MatchCardReact = ({ match, timezone, isMounted, isUpcoming, upcomin
       tabIndex={0}
       onClick={(e) => onMatchClick(e, match)} 
       ref={isUpcoming ? upcomingRef : null}
-      className={`block w-full text-left relative overflow-hidden bg-white border-[4px] border-black rounded-[2rem] hover:-translate-y-2 hover:-translate-x-1 hover:shadow-[8px_8px_0px_#000] transition-all shadow-[4px_4px_0px_#000] flex flex-col group cursor-pointer ${isDone ? 'grayscale opacity-80' : ''}`}
+      className={`block w-full text-left relative overflow-hidden bg-white border-[4px] border-black rounded-[2rem] hover:-translate-y-2 hover:-translate-x-1 hover:shadow-[8px_8px_0px_#000] transition-all shadow-[4px_4px_0px_#000] flex flex-col group cursor-pointer ${globalGrey ? 'grayscale opacity-80' : ''}`}
     >
       
       {/* Header Info */}
@@ -85,7 +107,7 @@ export const MatchCardReact = ({ match, timezone, isMounted, isUpcoming, upcomin
       <div className="flex flex-row items-stretch justify-between w-full flex-1 p-0 relative">
         
         {/* Home Team Side */}
-        <div className="flex-1 flex flex-col items-center justify-center py-6 px-2 border-r-[3px] border-black relative z-0 min-w-0" style={{ backgroundColor: homeColor }}>
+        <div className={`flex-1 flex flex-col items-center justify-center py-6 px-2 border-r-[3px] border-black relative z-0 min-w-0 ${homeIsGrey ? 'grayscale opacity-80' : ''}`} style={{ backgroundColor: homeColor }}>
           {getTeamLogo(match.homeTeam) ? (
             <img src={getTeamLogo(match.homeTeam)} alt={match.homeTeam} className="w-12 h-12 sm:w-16 sm:h-16 object-contain drop-shadow-[2px_2px_0px_#000] mb-2" onError={(e) => e.currentTarget.style.display='none'} />
           ) : (
@@ -118,7 +140,7 @@ export const MatchCardReact = ({ match, timezone, isMounted, isUpcoming, upcomin
         </div>
 
         {/* Away Team Side */}
-        <div className="flex-1 flex flex-col items-center justify-center py-6 px-2 border-l-[3px] border-black relative z-0 min-w-0" style={{ backgroundColor: awayColor }}>
+        <div className={`flex-1 flex flex-col items-center justify-center py-6 px-2 border-l-[3px] border-black relative z-0 min-w-0 ${awayIsGrey ? 'grayscale opacity-80' : ''}`} style={{ backgroundColor: awayColor }}>
           {getTeamLogo(match.awayTeam) ? (
             <img src={getTeamLogo(match.awayTeam)} alt={match.awayTeam} className="w-12 h-12 sm:w-16 sm:h-16 object-contain drop-shadow-[2px_2px_0px_#000] mb-2" onError={(e) => e.currentTarget.style.display='none'} />
           ) : (

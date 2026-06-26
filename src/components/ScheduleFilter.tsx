@@ -47,6 +47,7 @@ export default function ScheduleFilter({ matches }: FilterProps) {
   const [selectedMatch, setSelectedMatch] = useState<Match | null>(null);
   const [exportMatches, setExportMatches] = useState<Match[] | null>(null);
   const [squadSearch, setSquadSearch] = useState<string>('');
+  const [filtersOpen, setFiltersOpen] = useState<boolean>(true);
 
   const toggleSelection = (setter: React.Dispatch<React.SetStateAction<string[]>>, item: string) => {
     setter(prev => prev.includes(item) ? prev.filter(i => i !== item) : [...prev, item]);
@@ -55,7 +56,16 @@ export default function ScheduleFilter({ matches }: FilterProps) {
   useEffect(() => {
     setIsMounted(true);
     const handleScroll = () => {
-      setIsSticky(window.scrollY > 250);
+      const isNowSticky = window.scrollY > 250;
+      setIsSticky(isNowSticky);
+      // Auto collapse if they scroll down, but only if they haven't explicitly opened it while sticky
+      if (isNowSticky && !document.documentElement.dataset.stickyFiltersToggled) {
+          setFiltersOpen(false);
+          document.documentElement.dataset.stickyFiltersToggled = 'true';
+      } else if (!isNowSticky) {
+          setFiltersOpen(true);
+          delete document.documentElement.dataset.stickyFiltersToggled;
+      }
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
@@ -115,7 +125,25 @@ export default function ScheduleFilter({ matches }: FilterProps) {
     matches.forEach(m => uniqueDates.add(getLocalDateString(m.date, $timezone)));
     const sorted = Array.from(uniqueDates).sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
     if (sorted.length > 0 && !selectedDate) {
-      setSelectedDate(sorted[0]);
+      const now = new Date().getTime();
+      const sortedMatches = [...matches].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+      let nextMatch = null;
+      for (const m of sortedMatches) {
+          if (now - new Date(m.date).getTime() <= 120 * 60000) {
+              nextMatch = m;
+              break;
+          }
+      }
+      if (!nextMatch && sortedMatches.length > 0) nextMatch = sortedMatches[sortedMatches.length - 1];
+      
+      const todayDate = getLocalDateString(new Date().toISOString(), $timezone);
+      if (sorted.includes(todayDate)) {
+          setSelectedDate(todayDate);
+      } else if (nextMatch) {
+          setSelectedDate(getLocalDateString(nextMatch.date, $timezone));
+      } else {
+          setSelectedDate(sorted[0]);
+      }
     }
     return sorted;
   }, [matches, $timezone, isMounted]);
@@ -175,6 +203,24 @@ export default function ScheduleFilter({ matches }: FilterProps) {
     return () => observerRef.current?.disconnect();
   }, [groupedMatches, isMounted, hasAdvancedFilters]);
 
+  const [initialScrolled, setInitialScrolled] = useState(false);
+
+  useEffect(() => {
+    if (isMounted && !hasAdvancedFilters && !initialScrolled && selectedDate) {
+      const el = document.getElementById(`group-${selectedDate}`);
+      if (el) {
+        setTimeout(() => {
+          const elAgain = document.getElementById(`group-${selectedDate}`);
+          if (elAgain) {
+            const y = elAgain.getBoundingClientRect().top + window.scrollY - 180;
+            window.scrollTo({ top: y, behavior: 'auto' });
+            setInitialScrolled(true);
+          }
+        }, 100);
+      }
+    }
+  }, [isMounted, hasAdvancedFilters, initialScrolled, selectedDate]);
+
   useEffect(() => {
     if (selectedDate && !hasAdvancedFilters) {
       const tab = document.getElementById(`date-tab-${selectedDate}`);
@@ -189,9 +235,13 @@ export default function ScheduleFilter({ matches }: FilterProps) {
   }, [selectedDate, hasAdvancedFilters]);
 
   const scrollToUpcoming = () => {
-    if (upcomingMatchRef.current) {
-        const y = upcomingMatchRef.current.getBoundingClientRect().top + window.scrollY - 100;
-        window.scrollTo({ top: y, behavior: 'smooth' });
+    if (upcomingMatch) {
+        const dateKey = getLocalDateString(upcomingMatch.date, $timezone);
+        const el = document.getElementById(`group-${dateKey}`);
+        if (el) {
+            const y = el.getBoundingClientRect().top + window.scrollY - 180;
+            window.scrollTo({ top: y, behavior: 'smooth' });
+        }
     }
   };
 
@@ -254,97 +304,151 @@ export default function ScheduleFilter({ matches }: FilterProps) {
         </div>
 
         {/* Sticky Mega Header: Timezone, Filters, Dates */}
-        <div className="sticky top-16 z-40 bg-[#f9a8d4]/90 backdrop-blur-md pb-4 pt-4 -mx-2 px-2 md:mx-0 md:px-0 mb-8 border-transparent shadow-none border-none transition-all duration-300">
+        <div className="sticky top-16 z-40 bg-[#f9a8d4]/95 backdrop-blur-xl pb-2 pt-2 -mx-2 px-2 md:mx-0 md:px-0 mb-8 border-transparent shadow-[0_4px_10px_rgba(0,0,0,0.1)] border-none transition-all duration-300 rounded-b-2xl md:rounded-2xl">
 
-        {/* Filter Scrollers */}
-        <div className="space-y-6">
-           {/* Visual Team Filter (Horizontal Scroll) */}
-           <div className="space-y-3">
-              <div className="flex justify-between items-center px-2 gap-4">
-                 <h3 className="text-xl font-anton text-black tracking-widest uppercase bg-yellow-300 px-4 py-1 border-[2px] border-black shadow-[2px_2px_0px_#000] inline-block shrink-0">SQUADS</h3>
-                 <div className={`transition-all duration-500 ease-in-out origin-left flex items-center ${isSticky ? 'opacity-100 max-w-[280px] scale-100 ml-2 mr-auto' : 'opacity-0 max-w-0 overflow-hidden scale-75 m-0'}`}>
-                    <TimezoneSelector />
-                 </div>
-                 <div className="relative flex-1 max-w-[300px]">
-                   <input 
-                     type="text" 
-                     placeholder="SEARCH SQUAD..." 
-                     value={squadSearch} 
-                     onChange={(e) => setSquadSearch(e.target.value)} 
-                     className="w-full text-sm font-anton tracking-widest px-4 py-2 bg-white border-[3px] border-black rounded-full shadow-[2px_2px_0px_#000] focus:outline-none focus:bg-pink-100 placeholder-gray-400 transition-all uppercase"
-                   />
-                   {squadSearch && (
-                     <button onClick={() => setSquadSearch('')} className="absolute right-3 top-1/2 -translate-y-1/2 bg-black text-white rounded-full w-5 h-5 flex items-center justify-center font-bold text-xs hover:bg-pink-500 hover:scale-110 transition-all">✕</button>
-                   )}
-                 </div>
-              </div>
-              <div className="flex overflow-x-auto no-scrollbar gap-4 pb-4 px-2 snap-x" style={{ maskImage: 'linear-gradient(to right, transparent, black 15px, black calc(100% - 15px), transparent)', WebkitMaskImage: 'linear-gradient(to right, transparent, black 15px, black calc(100% - 15px), transparent)' }}>
-                 {(() => {
-                    const teamData = allTeams.map(team => {
-                      const nicknames: string[] = [];
-                      const t = team.toLowerCase();
-                      if (t === 'ivory coast') nicknames.push('cote', 'côte', 'cote d ivoire', 'cotedeivore', 'cote d ivori');
-                      if (t === 'morocco') nicknames.push('maghreb');
-                      if (t === 'spain') nicknames.push('espana', 'españa', 'la roja');
-                      if (t === 'czechia') nicknames.push('czech republic');
-                      if (t === 'germany') nicknames.push('deutschland', 'die mannschaft');
-                      if (t === 'usa') nicknames.push('united states', 'america', 'usmnt');
-                      if (t === 'netherlands') nicknames.push('holland', 'oranje');
-                      if (t === 'italy') nicknames.push('italia', 'azzurri');
-                      if (t === 'brazil') nicknames.push('brasil', 'selecao', 'seleção');
-                      if (t === 'mexico') nicknames.push('el tri');
-                      if (t === 'england') nicknames.push('three lions');
-                      if (t === 'australia') nicknames.push('socceroos');
-                      return { name: team, nicknames };
-                    });
-                    
-                    const fuse = new Fuse(teamData, {
-                      keys: ['name', 'nicknames'],
-                      threshold: 0.3,
-                      ignoreLocation: true,
-                    });
-                    
-                    const filteredTeams = squadSearch 
-                      ? fuse.search(squadSearch).map(r => r.item.name)
-                      : allTeams;
+        <details 
+          className="group bg-white border-[4px] border-black shadow-[4px_4px_0px_#000] mb-4 rounded-xl overflow-hidden transition-all"
+          open={filtersOpen}
+          onClick={(e) => {
+            e.preventDefault();
+            setFiltersOpen(!filtersOpen);
+          }}
+        >
+          <summary className="p-3 md:p-4 font-anton tracking-widest uppercase text-base md:text-lg cursor-pointer bg-yellow-300 hover:bg-pink-300 list-none flex justify-between items-center transition-colors border-b-[4px] border-transparent group-open:border-black">
+            <div className="flex items-center gap-2">
+              <span className="text-xl">🔍</span>
+              <span>{hasAdvancedFilters ? 'FILTERS APPLIED (TAP TO EDIT)' : 'SEARCH & FILTERS'}</span>
+            </div>
+            <span className={`transition-transform bg-white rounded-full w-6 h-6 flex items-center justify-center border-[2px] border-black shadow-[2px_2px_0px_#000] text-sm ${filtersOpen ? 'rotate-180' : ''}`}>▼</span>
+          </summary>
+
+          <div className="p-4 space-y-6 bg-gray-50 max-h-[60vh] overflow-y-auto">
+             {/* Visual Team Filter (Horizontal Scroll) */}
+             <div className="space-y-3">
+                <div className="flex justify-between items-center px-2 gap-2 md:gap-4">
+                   <h3 className="text-sm md:text-xl font-anton text-black tracking-widest uppercase bg-yellow-300 px-2 md:px-4 py-1 border-[2px] border-black shadow-[2px_2px_0px_#000] inline-block shrink-0">SQUADS</h3>
+                   <div className="relative flex-1 max-w-[300px]">
+                     <input 
+                       type="text" 
+                       placeholder="SEARCH SQUAD..." 
+                       value={squadSearch} 
+                       onChange={(e) => setSquadSearch(e.target.value)} 
+                       className="w-full text-sm font-anton tracking-widest px-4 py-2 bg-white border-[3px] border-black rounded-full shadow-[2px_2px_0px_#000] focus:outline-none focus:bg-pink-100 placeholder-gray-400 transition-all uppercase"
+                     />
+                     {squadSearch && (
+                       <button onClick={() => setSquadSearch('')} className="absolute right-3 top-1/2 -translate-y-1/2 bg-black text-white rounded-full w-5 h-5 flex items-center justify-center font-bold text-xs hover:bg-pink-500 hover:scale-110 transition-all">✕</button>
+                     )}
+                   </div>
+                </div>
+                <div className="flex overflow-x-auto custom-scrollbar gap-4 pb-4 px-2 snap-x" style={{ maskImage: 'linear-gradient(to right, transparent, black 15px, black calc(100% - 15px), transparent)', WebkitMaskImage: 'linear-gradient(to right, transparent, black 15px, black calc(100% - 15px), transparent)' }}>
+                   {(() => {
+                      const teamData = allTeams.map(team => {
+                        const nicknames: string[] = [];
+                        const t = team.toLowerCase();
+                        if (t === 'ivory coast') nicknames.push('cote', 'côte', 'cote d ivoire', 'cotedeivore', 'cote d ivori');
+                        if (t === 'morocco') nicknames.push('maghreb');
+                        if (t === 'spain') nicknames.push('espana', 'españa', 'la roja');
+                        if (t === 'czechia') nicknames.push('czech republic');
+                        if (t === 'germany') nicknames.push('deutschland', 'die mannschaft');
+                        if (t === 'usa') nicknames.push('united states', 'america', 'usmnt');
+                        if (t === 'netherlands') nicknames.push('holland', 'oranje');
+                        if (t === 'italy') nicknames.push('italia', 'azzurri');
+                        if (t === 'brazil') nicknames.push('brasil', 'selecao', 'seleção');
+                        if (t === 'mexico') nicknames.push('el tri');
+                        if (t === 'england') nicknames.push('three lions');
+                        if (t === 'australia') nicknames.push('socceroos');
+                        return { name: team, nicknames };
+                      });
                       
-                    return filteredTeams.map(team => {
-                       const isActive = selectedTeams.includes(team);
-                       const logo = getTeamLogo(team);
-                       return (
-                          <button 
-                             key={team} 
-                             onClick={() => toggleSelection(setSelectedTeams, team)}
-                             className={`snap-center flex-shrink-0 flex flex-col items-center gap-2 p-3 w-24 rounded-xl border-[3px] border-black transition-all ${isActive ? 'bg-black shadow-[4px_4px_0px_#f9a8d4] scale-105' : 'bg-white hover:bg-gray-100 shadow-[2px_2px_0px_#000]'}`}
-                          >
-                             <div className="w-12 h-12 flex items-center justify-center">
-                                {logo ? <img src={logo} alt={team} className="w-full h-full object-contain drop-shadow-[2px_2px_0px_rgba(255,255,255,0.8)]" /> : <span className="text-2xl">🏳️</span>}
-                             </div>
-                             <span className={`text-[11px] font-anton uppercase text-center w-full truncate ${isActive ? 'text-pink-400' : 'text-black'}`}>{team}</span>
-                          </button>
-                       );
-                    });
-                 })()}
-              </div>
-           </div>
-
-           {/* Advanced Filters Accordion */}
-           <details className="group bg-white border-[4px] border-black shadow-[0_4px_0px_#000] mb-4">
-             <summary className="p-3 font-black uppercase text-lg cursor-pointer bg-yellow-300 hover:bg-pink-300 list-none flex justify-between items-center transition-colors">
-               Advanced Filters (Stages, Groups, Turfs)
-               <span className="group-open:rotate-180 transition-transform">▼</span>
-             </summary>
-             <div className="p-4 space-y-6 border-t-[4px] border-black bg-gray-50 max-h-[50vh] overflow-y-auto">
-               <FilterScroller title="STAGES" items={allStages} selectedItems={selectedStages} toggleSelection={toggleSelection} setter={setSelectedStages} />
-               <FilterScroller title="GROUPS" items={allGroups} selectedItems={selectedGroups} toggleSelection={toggleSelection} setter={setSelectedGroups} />
-               <FilterScroller title="TURFS" items={allVenues} selectedItems={selectedVenues} toggleSelection={toggleSelection} setter={setSelectedVenues} />
+                      const fuse = new Fuse(teamData, {
+                        keys: ['name', 'nicknames'],
+                        threshold: 0.3,
+                        ignoreLocation: true,
+                      });
+                      
+                      const filteredTeams = squadSearch 
+                        ? fuse.search(squadSearch).map(r => r.item.name)
+                        : allTeams;
+                        
+                      return filteredTeams.map(team => {
+                         const isActive = selectedTeams.includes(team);
+                         const logo = getTeamLogo(team);
+                         return (
+                            <button 
+                               key={team} 
+                               onClick={() => toggleSelection(setSelectedTeams, team)}
+                               className={`snap-center flex-shrink-0 flex flex-col items-center gap-2 p-3 w-24 rounded-xl border-[3px] border-black transition-all ${isActive ? 'bg-black shadow-[4px_4px_0px_#f9a8d4] scale-105' : 'bg-white hover:bg-gray-100 shadow-[2px_2px_0px_#000]'}`}
+                            >
+                               <div className="w-12 h-12 flex items-center justify-center">
+                                  {logo ? <img src={logo} alt={team} className="w-full h-full object-contain drop-shadow-[2px_2px_0px_rgba(255,255,255,0.8)]" /> : <span className="text-2xl">🏳️</span>}
+                               </div>
+                               <span className={`text-[11px] font-anton uppercase text-center w-full truncate ${isActive ? 'text-pink-400' : 'text-black'}`}>{team}</span>
+                            </button>
+                         );
+                      });
+                   })()}
+                </div>
              </div>
-           </details>
-        </div>
+
+             {/* Advanced Filters block inside the accordion */}
+             <div className="pt-4 border-t-[4px] border-black border-dashed">
+               <h4 className="font-anton tracking-widest uppercase text-base md:text-lg mb-4 text-pink-600">ADVANCED: STAGES, GROUPS, TURFS</h4>
+               <div className="space-y-6">
+                 <FilterScroller title="STAGES" items={allStages} selectedItems={selectedStages} toggleSelection={toggleSelection} setter={setSelectedStages} />
+                 <FilterScroller title="GROUPS" items={allGroups} selectedItems={selectedGroups} toggleSelection={toggleSelection} setter={setSelectedGroups} />
+                 <FilterScroller title="TURFS" items={allVenues} selectedItems={selectedVenues} toggleSelection={toggleSelection} setter={setSelectedVenues} />
+               </div>
+             </div>
+          </div>
+        </details>
   
         {/* Date Selector (Hidden if any advanced filter is applied to show all matching matches) */}
         {!hasAdvancedFilters && (
-          <div className="flex overflow-x-auto no-scrollbar gap-3 pb-4 pt-4 px-2 snap-x bg-transparent mb-2" id="date-scroll-container" style={{ maskImage: 'linear-gradient(to right, transparent, black 15px, black calc(100% - 15px), transparent)', WebkitMaskImage: 'linear-gradient(to right, transparent, black 15px, black calc(100% - 15px), transparent)' }}>
+          <div className="relative">
+             <div className="flex justify-between px-2 mb-2 items-center">
+                 <span className="font-anton text-sm uppercase tracking-widest text-black">MATCH DAYS</span>
+                 <div className="flex gap-2 items-center">
+                   <button onClick={(e) => {
+                      const activeGroup = groupedMatches.find(g => g.date === selectedDate);
+                      if (activeGroup) {
+                         const displayMatches = activeGroup.matches.filter(m => !(upcomingMatch && !hasAdvancedFilters && m.id === upcomingMatch.id));
+                         handleDownloadAll(e, displayMatches);
+                      }
+                   }} className="text-[10px] sm:text-xs font-anton uppercase bg-[#fef08a] text-black px-3 py-1 rounded-full border-[2px] border-black hover:bg-yellow-400 hover:scale-105 transition-transform shadow-[2px_2px_0px_#000]">
+                      + ADD {selectedDate ? (() => { const l = formatDateLabel(selectedDate, isMounted); return l.dayStr + ' ' + l.dayNum; })() : 'DAY'}
+                   </button>
+                   <button onClick={() => {
+                    const todayDate = getLocalDateString(new Date().toISOString(), $timezone);
+                    let targetDate = todayDate;
+                    if (!dates.includes(todayDate)) {
+                        const now = new Date().getTime();
+                        const sortedMatches = [...matches].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+                        let nextMatch = null;
+                        for (const m of sortedMatches) {
+                            if (now - new Date(m.date).getTime() <= 120 * 60000) {
+                                nextMatch = m;
+                                break;
+                            }
+                        }
+                        if (!nextMatch && sortedMatches.length > 0) nextMatch = sortedMatches[sortedMatches.length - 1];
+                        if (nextMatch) targetDate = getLocalDateString(nextMatch.date, $timezone);
+                    }
+                    if (targetDate) {
+                        setSelectedDate(targetDate);
+                        setTimeout(() => {
+                            const el = document.getElementById(`group-${targetDate}`);
+                            if (el) {
+                               const y = el.getBoundingClientRect().top + window.pageYOffset - 180;
+                               window.scrollTo({ top: y, behavior: 'smooth' });
+                            }
+                        }, 50);
+                    }
+                 }} className="text-[10px] sm:text-xs font-anton uppercase bg-black text-white px-3 py-1 rounded-full border-[2px] border-black hover:bg-pink-500 hover:scale-105 transition-transform shadow-[2px_2px_0px_#000]">
+                    JUMP TO TODAY
+                 </button>
+                 </div>
+             </div>
+             <div className="flex overflow-x-auto custom-scrollbar gap-3 pb-4 pt-1 px-2 snap-x bg-transparent mb-2" id="date-scroll-container" style={{ maskImage: 'linear-gradient(to right, transparent, black 15px, black calc(100% - 15px), transparent)', WebkitMaskImage: 'linear-gradient(to right, transparent, black 15px, black calc(100% - 15px), transparent)' }}>
             {dates.map((date) => {
               const isActive = date === selectedDate;
               const { dayNum, dayStr } = formatDateLabel(date, isMounted);
@@ -371,11 +475,26 @@ export default function ScheduleFilter({ matches }: FilterProps) {
               );
             })}
           </div>
+          </div>
         )}
         </div> {/* Close Sticky Mega Header */}
   
-        {/* Featured / Live Match Card */}
-        {upcomingMatch && !hasAdvancedFilters && (() => {
+        {/* Grouped Fixtures List */}
+        <div className="space-y-12">
+          {groupedMatches.map(group => {
+            const { fullDate } = formatDateLabel(group.date, isMounted);
+            const isUpcomingGroup = upcomingMatch && !hasAdvancedFilters && getLocalDateString(upcomingMatch.date, $timezone) === group.date;
+            const displayMatches = group.matches.filter(m => !(upcomingMatch && !hasAdvancedFilters && m.id === upcomingMatch.id));
+  
+            if (displayMatches.length === 0 && !isUpcomingGroup) return null;
+  
+            return (
+              <div key={group.date} id={`group-${group.date}`} data-date={group.date} className="date-group space-y-4 pt-4">
+                <div className="w-full border-t-[4px] border-black border-dashed mb-8 opacity-50"></div>
+                <div className="grid md:grid-cols-2 gap-8 px-2">
+                  {isUpcomingGroup && (() => {
+        
+        
           const colorsMap = teamColors as Record<string, string[]>;
           const homePrefix = getTeamPrefix(upcomingMatch.homeTeam);
           const awayPrefix = getTeamPrefix(upcomingMatch.awayTeam);
@@ -383,7 +502,7 @@ export default function ScheduleFilter({ matches }: FilterProps) {
           const awayColor = colorsMap[awayPrefix]?.[0] || '#fbcfe8';
           
           return (
-          <div className="space-y-4 px-2">
+          <div className="md:col-span-2 space-y-4 mb-4">
             <div className="flex justify-between items-center px-1">
               <h2 className="text-3xl font-anton text-black tracking-tight uppercase">LIVE NOW / NEXT</h2>
               <button onClick={(e) => handleDownloadSingle(e, upcomingMatch)} className="text-xs font-anton text-white bg-black hover:bg-pink-500 hover:-translate-y-1 hover:-translate-x-1 uppercase tracking-widest px-4 py-2 rounded-full border-[3px] border-black shadow-[4px_4px_0px_#000] transition-all flex items-center gap-2">
@@ -430,29 +549,10 @@ export default function ScheduleFilter({ matches }: FilterProps) {
             </div>
           </div>
           );
-        })()}
+        
   
-        {/* Grouped Fixtures List */}
-        <div className="space-y-12">
-          {groupedMatches.map(group => {
-            const { fullDate } = formatDateLabel(group.date, isMounted);
-            const displayMatches = group.matches.filter(m => !(upcomingMatch && !hasAdvancedFilters && m.id === upcomingMatch.id));
-  
-            if (displayMatches.length === 0) return null;
-  
-            return (
-              <div key={group.date} id={`group-${group.date}`} data-date={group.date} className="date-group space-y-4 pt-4">
-                <div className="w-full border-t-[4px] border-black border-dashed mb-8 opacity-50"></div>
-                <div className="sticky top-[400px] z-20 bg-[#fef08a] border-[3px] border-black py-3 px-4 md:py-4 md:px-6 shadow-[4px_4px_0px_#000] flex flex-col sm:flex-row justify-between items-center gap-3 md:gap-4 mb-8 mx-2 md:mx-0 rounded-xl">
-                  <h3 className="text-xl sm:text-2xl md:text-3xl font-anton text-black tracking-widest uppercase text-center sm:text-left leading-none">
-                    {fullDate}
-                  </h3>
-                  <button onClick={(e) => handleDownloadAll(e, displayMatches)} className="text-[10px] sm:text-xs font-anton text-white hover:text-black uppercase tracking-widest bg-black hover:bg-white px-4 py-2 rounded-full border-[2px] border-black transition-colors flex items-center justify-center gap-2 shadow-[2px_2px_0px_#000] w-full sm:w-auto">
-                     Add Day To Cal
-                  </button>
-                </div>
-                
-                <div className="grid md:grid-cols-2 gap-8 px-2">
+
+                  })()}
                   {displayMatches.map((match) => (
                     <MatchCardReact
                       key={match.id}

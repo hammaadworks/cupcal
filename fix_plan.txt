@@ -1,0 +1,5 @@
+1. FilterScroller.tsx: Change overflow-x-auto to have a custom scrollbar or remove no-scrollbar so it's scrollable on desktop. We can use a custom styled scrollbar in global.css.
+2. ScheduleFilter.tsx: Change `no-scrollbar` to custom scrollbar on dates & teams.
+3. ScheduleFilter.tsx: Fix initial `selectedDate` to be the upcoming match's date instead of sorted[0].
+4. ScheduleFilter.tsx: Move the Featured Match Card into the `groupedMatches` map, rendering it inside the correct date group.
+5. ScheduleFilter.tsx: Add `useEffect` to auto-scroll the window to `group-${selectedDate}` on initial load.
