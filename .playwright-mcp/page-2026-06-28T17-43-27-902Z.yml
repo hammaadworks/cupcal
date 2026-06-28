@@ -1,0 +1,97 @@
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - link "Host Country Fan Logo Host Country Fan Logo Host Country Fan Logo cupcal" [ref=e4] [cursor=pointer]:
+      - /url: /
+      - generic [ref=e6]:
+        - img "Host Country Fan Logo" [ref=e7]
+        - img "Host Country Fan Logo" [ref=e8]
+        - img "Host Country Fan Logo" [ref=e9]
+      - generic [ref=e10]: cupcal
+  - link "🚨 THIS SPOT IS AVAILABLE FOR SPONSORSHIP 🚨 Reach millions of fans! Click here 🚨 THIS SPOT IS AVAILABLE FOR SPONSORSHIP 🚨" [ref=e12] [cursor=pointer]:
+    - /url: mailto:sponsor@cupcal.online?subject=Sponsorship Inquiry
+    - generic [ref=e13]: 🚨 THIS SPOT IS AVAILABLE FOR SPONSORSHIP 🚨
+    - generic [ref=e14]: Reach millions of fans! Click here
+    - generic [ref=e15]: 🚨 THIS SPOT IS AVAILABLE FOR SPONSORSHIP 🚨
+  - generic [ref=e17]:
+    - heading "We are live on Beta! 🚀" [level=1] [ref=e18]
+    - paragraph [ref=e19]:
+      - text: Thank you for checking out Cupcal.
+      - text: "We have now moved to our official home:"
+      - strong [ref=e20]: cupcal.online
+      - text: You'll be redirected automatically in 3 seconds.
+    - link "Go to Cupcal.online →" [ref=e22] [cursor=pointer]:
+      - /url: https://cupcal.online
+  - contentinfo [ref=e23]:
+    - generic [ref=e24]:
+      - generic [ref=e25]:
+        - generic [ref=e26]:
+          - generic [ref=e27]:
+            - generic [ref=e29]:
+              - img "Host Country Fan Logo" [ref=e30]
+              - img "Host Country Fan Logo" [ref=e31]
+              - img "Host Country Fan Logo" [ref=e32]
+            - heading "CUPCAL" [level=3] [ref=e33]
+          - paragraph [ref=e34]: The ultimate, vibe-heavy schedule for the 2026 Global Football Tournament.
+          - generic [ref=e35]:
+            - link "X (Twitter)" [ref=e36] [cursor=pointer]:
+              - /url: https://x.com/hammaadworks
+            - link "GitHub" [ref=e37] [cursor=pointer]:
+              - /url: https://github.com/hammaadworks
+        - generic [ref=e38]:
+          - heading "Explore" [level=3] [ref=e39]
+          - list [ref=e40]:
+            - listitem [ref=e41]:
+              - link "Schedule & Matches" [ref=e42] [cursor=pointer]:
+                - /url: /
+            - listitem [ref=e43]:
+              - link "Tournament Tree (Finals)" [ref=e44] [cursor=pointer]:
+                - /url: /tree
+            - listitem [ref=e45]:
+              - link "Watch Parties" [ref=e46] [cursor=pointer]:
+                - /url: /watch-party
+            - listitem [ref=e47]:
+              - link "Open Stats" [ref=e48] [cursor=pointer]:
+                - /url: /stats
+            - listitem [ref=e49]:
+              - link "Guides & Lore" [ref=e50] [cursor=pointer]:
+                - /url: /blog
+        - generic [ref=e51]:
+          - heading "Sponsors" [level=3] [ref=e52]
+          - paragraph [ref=e53]: Want to reach millions of football fans?
+          - link "Become a Sponsor" [ref=e54] [cursor=pointer]:
+            - /url: mailto:sponsor@cupcal.com
+        - generic [ref=e55]:
+          - heading "Top FAQs" [level=3] [ref=e56]
+          - list [ref=e57]:
+            - listitem [ref=e58]:
+              - link "When does the 2026 Global Football Tournament start and end?" [ref=e59] [cursor=pointer]:
+                - /url: /faq/when-does-2026-world-cup-start
+            - listitem [ref=e60]:
+              - link "How many teams will participate in the 2026 Global Tournament?" [ref=e61] [cursor=pointer]:
+                - /url: /faq/how-many-teams-in-2026-world-cup
+            - listitem [ref=e62]:
+              - link "Where will the 2026 Global Football Tournament final be held?" [ref=e63] [cursor=pointer]:
+                - /url: /faq/where-is-2026-world-cup-final
+            - listitem [ref=e64]:
+              - link "Which cities are hosting the 2026 Global Tournament?" [ref=e65] [cursor=pointer]:
+                - /url: /faq/2026-world-cup-host-cities
+            - listitem [ref=e66]:
+              - link "View All FAQs →" [ref=e67] [cursor=pointer]:
+                - /url: /faq
+      - paragraph [ref=e69]:
+        - text: Cooked up with Alhamdulillah by
+        - link "hammaadworks" [ref=e70] [cursor=pointer]:
+          - /url: https://hammaadworks.com
+  - generic [ref=e73]:
+    - button "Menu" [ref=e74]:
+      - img [ref=e76]
+      - generic: Menu
+    - button "Inspect" [ref=e80]:
+      - img [ref=e82]
+      - generic: Inspect
+    - button "Audit" [ref=e84]:
+      - img [ref=e86]
+      - generic: Audit
+    - button "Settings" [ref=e89]:
+      - img [ref=e91]
+      - generic: Settings

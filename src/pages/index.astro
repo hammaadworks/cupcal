@@ -39,25 +39,5 @@ const matches = await getMatches();
 			</div>
 		</section>
 
-		<section class="py-20 border-b-[3px] border-black relative z-20 bg-[#a7f3d0]">
-			<div class="container px-4 mx-auto max-w-4xl">
-				<h2 class="text-4xl md:text-5xl font-anton text-center mb-12 text-black uppercase tracking-tight">SPILL THE TEA (FAQ)</h2>
-				<div class="grid gap-6">
-					{faqData.slice(0, 6).map((faq) => (
-						<a href={`/faq/${faq.slug}`} class="group p-6 bg-white border-[3px] border-black rounded-xl shadow-[4px_4px_0px_#000] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[6px_6px_0px_#000] transition-all">
-							<h3 class="text-xl font-bold text-black group-hover:text-pink-500 transition-colors uppercase font-anton tracking-wide">
-								{faq.question}
-							</h3>
-							<p class="mt-2 text-black font-medium line-clamp-2">
-								{faq.answer}
-							</p>
-						</a>
-					))}
-				</div>
-				<div class="text-center mt-12">
-					<p class="text-black font-bold">Still confused? Check out the full lore in our FAQ.</p>
-				</div>
-			</div>
-		</section>
 	</main>
 </BaseLayout>

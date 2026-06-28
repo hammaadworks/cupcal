@@ -54,6 +54,16 @@ const UMAMI_SHARE_URL = "https://umami-cc.vercel.app/share/OySWXozMG2JKu5eI";
                     <p class="text-xl font-medium text-black/80 mb-8 max-w-xl mx-auto">
                         To prove the authenticity of our traffic and engagement (including calendar syncs), we have opened our raw Umami analytics dashboard to the public.
                     </p>
+
+                    <!-- Live Dynamic Screenshot of the Umami Dashboard -->
+                    <div class="mb-8 border-[3px] border-black rounded-xl overflow-hidden shadow-[4px_4px_0px_#000] max-w-2xl mx-auto">
+                        <img 
+                            src="https://api.microlink.io/?url=https%3A%2F%2Fumami-cc.vercel.app%2Fshare%2FOySWXozMG2JKu5eI&screenshot=true&embed=screenshot.url" 
+                            alt="Live Umami Analytics Dashboard Preview" 
+                            class="w-full h-auto object-cover opacity-90 hover:opacity-100 transition-opacity"
+                            loading="lazy"
+                        />
+                    </div>
                     
                     <a href={UMAMI_SHARE_URL} target="_blank" rel="noopener noreferrer" class="inline-block bg-pink-500 hover:bg-black text-white font-anton text-2xl uppercase tracking-widest py-4 px-10 rounded-full border-[4px] border-black shadow-[6px_6px_0px_#000] hover:shadow-[8px_8px_0px_#pink-500] hover:-translate-y-1 transition-all">
                         Launch Live Dashboard <span aria-hidden="true" class="ml-2">↗</span>

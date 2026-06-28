@@ -3,7 +3,6 @@ import '../styles/global.css';
 import SponsorBanner from '../components/SponsorBanner.astro';
 import Footer from '../components/Footer.astro';
 import MorphingLogo from '../components/MorphingLogo';
-import PreviewLanding from '../components/PreviewLanding.astro';
 
 interface Props {
 	title: string;
@@ -11,9 +10,6 @@ interface Props {
 }
 
 const { title, description = "The clean, betting-free Global schedule for the 2026 Global Football Tournament." } = Astro.props;
-
-const stayOnPreview = Astro.cookies.has('stay_on_preview');
-const isPreview = Astro.url.hostname === "preview.cupcal.online" && !stayOnPreview;
 ---
 
 <!doctype html>
@@ -44,11 +40,7 @@ const isPreview = Astro.url.hostname === "preview.cupcal.online" && !stayOnPrevi
 		</script>
 	</head>
 	<body class="bg-brand-primary text-text font-body selection:bg-pink-300 selection:text-black overflow-x-clip w-full relative">
-		{isPreview ? (
-			<PreviewLanding />
-		) : (
-			<>
-				<nav class="bg-white border-b-[4px] border-black sticky top-0 z-50 shadow-[0_4px_0px_#000]">
+		<nav class="bg-white border-b-[4px] border-black sticky top-0 z-50 shadow-[0_4px_0px_#000]">
 			<div class="container mx-auto px-4 h-16 flex items-center justify-between">
 				<a href="/" class="flex items-center gap-2 text-3xl font-anton text-black tracking-widest uppercase">
 					<MorphingLogo client:load className="w-10 h-10" />
@@ -67,7 +59,5 @@ const isPreview = Astro.url.hostname === "preview.cupcal.online" && !stayOnPrevi
 		<SponsorBanner />
 		<slot />
 		<Footer />
-			</>
-		)}
 	</body>
 </html>

@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="404 - Page Not Found">
+	<main class="min-h-[85vh] relative z-10 overflow-x-clip w-full flex items-center justify-center py-20">
+        <div class="bg-typography-container opacity-50">
+            <div class="bg-text-line">OFFSIDE OFFSIDE OFFSIDE OFFSIDE OFFSIDE</div>
+            <div class="bg-text-line">404 ERROR 404 ERROR 404 ERROR 404 ERROR</div>
+            <div class="bg-text-line">PAGE NOT FOUND PAGE NOT FOUND PAGE NOT FOUND</div>
+            <div class="bg-text-line">OFFSIDE OFFSIDE OFFSIDE OFFSIDE OFFSIDE</div>
+            <div class="bg-text-line">404 ERROR 404 ERROR 404 ERROR 404 ERROR</div>
+        </div>
+
+		<section class="container px-4 mx-auto relative z-20">
+			<div class="max-w-3xl mx-auto bg-white border-[4px] border-black p-8 md:p-16 shadow-[12px_12px_0px_#000] text-center rounded-3xl transform rotate-1 hover:rotate-0 transition-transform duration-300">
+                <div class="text-6xl mb-6">🚩</div>
+                <h1 class="text-8xl md:text-[10rem] font-anton mb-2 text-pink-500 tracking-tighter leading-none" style="text-shadow: 4px 4px 0px #000, -2px -2px 0px #000, 2px -2px 0px #000, -2px 2px 0px #000;">
+                    404
+                </h1>
+                <h2 class="text-4xl md:text-5xl font-anton mb-6 text-black uppercase tracking-tight">
+                    YOU'RE OFFSIDE!
+                </h2>
+				<p class="text-lg md:text-xl font-bold mb-10 uppercase tracking-widest text-slate-600">
+                    The page you're looking for doesn't exist or got red carded.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+                    <a href="/" class="w-full sm:w-auto inline-block bg-yellow-300 text-black font-anton text-xl uppercase tracking-widest px-8 py-4 rounded-xl border-[4px] border-black shadow-[4px_4px_0px_#000] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[6px_6px_0px_#000] transition-all">
+                        ← BACK TO HOME
+                    </a>
+                    <a href="/finals" class="w-full sm:w-auto inline-block bg-black text-white font-anton text-xl uppercase tracking-widest px-8 py-4 rounded-xl border-[4px] border-black shadow-[4px_4px_0px_#f9a8d4] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[6px_6px_0px_#f9a8d4] hover:bg-pink-600 transition-all">
+                        BUY FINALS TICKET 🏆
+                    </a>
+                </div>
+			</div>
+		</section>
+	</main>
+</BaseLayout>

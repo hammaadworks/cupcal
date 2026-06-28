@@ -205,17 +205,24 @@ export default function ScheduleFilter({ matches }: FilterProps) {
 
   const [initialScrolled, setInitialScrolled] = useState(false);
 
+  const scrollToDateGroup = (dateStr: string, behavior: ScrollBehavior = 'smooth') => {
+    const el = document.getElementById(`group-${dateStr}`);
+    const header = document.getElementById('sticky-header');
+    const headerHeight = header ? header.getBoundingClientRect().height : 180;
+    if (el) {
+      // 64 for top-16, 20 for slight padding above the group
+      const y = el.getBoundingClientRect().top + window.scrollY - headerHeight - 64 - 20;
+      window.scrollTo({ top: y, behavior });
+    }
+  };
+
   useEffect(() => {
     if (isMounted && !hasAdvancedFilters && !initialScrolled && selectedDate) {
       const el = document.getElementById(`group-${selectedDate}`);
       if (el) {
         setTimeout(() => {
-          const elAgain = document.getElementById(`group-${selectedDate}`);
-          if (elAgain) {
-            const y = elAgain.getBoundingClientRect().top + window.scrollY - 180;
-            window.scrollTo({ top: y, behavior: 'auto' });
-            setInitialScrolled(true);
-          }
+          scrollToDateGroup(selectedDate, 'auto');
+          setInitialScrolled(true);
         }, 100);
       }
     }
@@ -237,11 +244,7 @@ export default function ScheduleFilter({ matches }: FilterProps) {
   const scrollToUpcoming = () => {
     if (upcomingMatch) {
         const dateKey = getLocalDateString(upcomingMatch.kickoffUtc, $timezone);
-        const el = document.getElementById(`group-${dateKey}`);
-        if (el) {
-            const y = el.getBoundingClientRect().top + window.scrollY - 180;
-            window.scrollTo({ top: y, behavior: 'smooth' });
-        }
+        scrollToDateGroup(dateKey);
     }
   };
 
@@ -309,7 +312,7 @@ export default function ScheduleFilter({ matches }: FilterProps) {
         </div>
 
         {/* Sticky Mega Header: Timezone, Filters, Dates */}
-        <div className="sticky top-16 z-40 bg-[#f9a8d4]/95 backdrop-blur-xl pb-2 pt-2 -mx-2 px-2 md:mx-0 md:px-0 mb-8 border-transparent shadow-[0_4px_10px_rgba(0,0,0,0.1)] border-none transition-all duration-300 rounded-b-2xl md:rounded-2xl">
+        <div id="sticky-header" className="sticky top-16 z-40 bg-[#f9a8d4]/95 backdrop-blur-xl pb-2 pt-2 -mx-2 px-2 md:mx-0 md:px-0 mb-8 border-transparent shadow-[0_4px_10px_rgba(0,0,0,0.1)] border-none transition-all duration-300 rounded-b-2xl md:rounded-2xl">
 
         <details 
           className="group bg-white border-[4px] border-black shadow-[4px_4px_0px_#000] mb-4 rounded-xl overflow-hidden transition-all"
@@ -430,11 +433,7 @@ export default function ScheduleFilter({ matches }: FilterProps) {
                     if (targetDate) {
                         setSelectedDate(targetDate);
                         setTimeout(() => {
-                            const el = document.getElementById(`group-${targetDate}`);
-                            if (el) {
-                               const y = el.getBoundingClientRect().top + window.pageYOffset - 180;
-                               window.scrollTo({ top: y, behavior: 'smooth' });
-                            }
+                            scrollToDateGroup(targetDate);
                         }, 50);
                     }
                  }} className="text-[10px] sm:text-xs font-anton uppercase bg-black text-white px-3 py-1 rounded-full border-[2px] border-black hover:bg-pink-500 hover:scale-105 transition-transform shadow-[2px_2px_0px_#000]">
@@ -452,11 +451,7 @@ export default function ScheduleFilter({ matches }: FilterProps) {
                   key={date}
                   id={`date-tab-${date}`}
                   onClick={() => {
-                    const el = document.getElementById(`group-${date}`);
-                    if (el) {
-                       const y = el.getBoundingClientRect().top + window.pageYOffset - 180;
-                       window.scrollTo({ top: y, behavior: 'smooth' });
-                    }
+                    scrollToDateGroup(date);
                   }}
                   className={`snap-center relative flex-shrink-0 flex flex-col items-center justify-center w-[72px] h-[88px] rounded-[1rem] border-[3px] border-black transition-all duration-200 ${
                     isActive ? 'bg-black text-white shadow-[4px_4px_0px_#000] scale-105' : 'bg-white text-black hover:bg-gray-100 shadow-[2px_2px_0px_#000]'
@@ -484,7 +479,13 @@ export default function ScheduleFilter({ matches }: FilterProps) {
   
             return (
               <div key={group.date} id={`group-${group.date}`} data-date={group.date} className="date-group space-y-4 pt-4">
-                <div className="w-full border-t-[4px] border-black border-dashed mb-8 opacity-50"></div>
+                <div className="relative flex py-4 items-center mb-8">
+                    <div className="flex-grow border-t-[4px] border-black border-dashed opacity-50"></div>
+                    <span className="flex-shrink-0 mx-4 text-black font-anton tracking-widest text-lg md:text-xl uppercase bg-white px-4 py-1 border-[2px] border-black rounded-full shadow-[2px_2px_0px_#000]">
+                        {fullDate}
+                    </span>
+                    <div className="flex-grow border-t-[4px] border-black border-dashed opacity-50"></div>
+                </div>
                 <div className="grid md:grid-cols-2 gap-8 px-2">
                   {isUpcomingGroup && (() => {
         
