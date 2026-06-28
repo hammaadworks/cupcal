@@ -42,7 +42,7 @@ const { title, description = "The clean, betting-free Global schedule for the 20
 	<body class="bg-brand-primary text-text font-body selection:bg-pink-300 selection:text-black overflow-x-clip w-full relative">
 		<nav class="bg-white border-b-[4px] border-black sticky top-0 z-50 shadow-[0_4px_0px_#000]">
 			<div class="container mx-auto px-4 h-16 flex items-center justify-between">
-				<a href="/" class="flex items-center gap-2 text-3xl font-anton text-black tracking-widest uppercase">
+				<a href="/" class="flex items-center gap-2 text-3xl font-anton text-black tracking-widest uppercase relative z-50">
 					<MorphingLogo client:load className="w-10 h-10" />
 					<span>cup<span class="text-pink-500">cal</span></span>
 				</a>
@@ -52,11 +52,55 @@ const { title, description = "The clean, betting-free Global schedule for the 20
 						<a href="/watch-party" class="text-lg font-anton text-black hover:text-pink-500 transition-colors uppercase tracking-widest border-[2px] border-transparent hover:border-black px-3 py-1 rounded-full hover:shadow-[2px_2px_0px_#000] hover:-translate-y-1 hover:-translate-x-1">Watch Parties</a>
 						<a href="/stats" class="text-lg font-anton text-black hover:text-pink-500 transition-colors uppercase tracking-widest border-[2px] border-transparent hover:border-black px-3 py-1 rounded-full hover:shadow-[2px_2px_0px_#000] hover:-translate-y-1 hover:-translate-x-1">Stats</a>
 					</div>
+					<button id="mobile-menu-btn" aria-label="Toggle Menu" class="md:hidden flex flex-col justify-center items-center w-10 h-10 border-[2px] border-black shadow-[2px_2px_0px_#000] bg-white active:translate-x-[2px] active:translate-y-[2px] active:shadow-[0px_0px_0px_#000] relative z-[60] group cursor-pointer transition-all">
+						<span class="w-5 h-0.5 bg-black mb-1 transition-all group-[.open]:rotate-45 group-[.open]:translate-y-[6px]"></span>
+						<span class="w-5 h-0.5 bg-black mb-1 transition-all group-[.open]:opacity-0"></span>
+						<span class="w-5 h-0.5 bg-black transition-all group-[.open]:-rotate-45 group-[.open]:-translate-y-[6px]"></span>
+					</button>
 				</div>
 			</div>
 		</nav>
+
+		<!-- Mobile Menu Overlay -->
+		<div id="mobile-menu" class="fixed inset-0 bg-brand-primary z-40 translate-x-full transition-transform duration-300 md:hidden flex flex-col pt-24 px-6 gap-6 overscroll-contain overflow-y-auto pb-8">
+			<a href="/tree" class="text-4xl font-anton text-white bg-pink-500 text-center uppercase tracking-widest border-[4px] border-black py-4 shadow-[4px_4px_0px_#000] active:translate-x-[4px] active:translate-y-[4px] active:shadow-[0px_0px_0px_#000] transition-all">THE TREE</a>
+			<a href="/watch-party" class="text-4xl font-anton text-black text-center uppercase tracking-widest border-[4px] border-black bg-white py-4 shadow-[4px_4px_0px_#000] active:translate-x-[4px] active:translate-y-[4px] active:shadow-[0px_0px_0px_#000] transition-all">Watch Parties</a>
+			<a href="/stats" class="text-4xl font-anton text-black text-center uppercase tracking-widest border-[4px] border-black bg-white py-4 shadow-[4px_4px_0px_#000] active:translate-x-[4px] active:translate-y-[4px] active:shadow-[0px_0px_0px_#000] transition-all">Stats</a>
+		</div>
+
 		<SponsorBanner />
 		<slot />
 		<Footer />
+
+		<script>
+			// Mobile menu toggle logic
+			const setupMobileMenu = () => {
+				const btn = document.getElementById('mobile-menu-btn');
+				const menu = document.getElementById('mobile-menu');
+
+				if (!btn || !menu) return;
+
+				// Use a clean event listener approach
+				const handleToggle = () => {
+					const isOpen = btn.classList.contains('open');
+					if (isOpen) {
+						btn.classList.remove('open');
+						menu.classList.add('translate-x-full');
+						document.body.style.overflow = '';
+					} else {
+						btn.classList.add('open');
+						menu.classList.remove('translate-x-full');
+						document.body.style.overflow = 'hidden';
+					}
+				};
+
+				// Remove old listener if exists to prevent duplicates on Astro page swaps
+				btn.removeEventListener('click', handleToggle);
+				btn.addEventListener('click', handleToggle);
+			};
+
+			setupMobileMenu();
+			document.addEventListener('astro:page-load', setupMobileMenu);
+		</script>
 	</body>
 </html>

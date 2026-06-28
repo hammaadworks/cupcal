@@ -92,6 +92,23 @@ export default function TournamentTree({ matches }: TreeProps) {
     const dateStr = mounted ? dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: $timezone || 'UTC' }) : '--';
     const timeStr = formatTime(match.kickoffUtc, $timezone, mounted);
 
+    let homeLost = false;
+    let awayLost = false;
+    
+    if (match.status === 'FINISHED' && match.homeScore !== null && match.awayScore !== null) {
+      if (match.homeScore > match.awayScore) {
+        awayLost = true;
+      } else if (match.awayScore > match.homeScore) {
+        homeLost = true;
+      } else if (match.homePenalties !== undefined && match.homePenalties !== null && match.awayPenalties !== undefined && match.awayPenalties !== null) {
+        if (match.homePenalties > match.awayPenalties) {
+          awayLost = true;
+        } else if (match.awayPenalties > match.homePenalties) {
+          homeLost = true;
+        }
+      }
+    }
+
     return (
       <div 
         id={`tree-match-${match.matchNumber}`}
@@ -116,7 +133,7 @@ export default function TournamentTree({ matches }: TreeProps) {
           <span className="font-bold text-[9px] md:text-[10px] uppercase tracking-wider text-gray-300">{dateStr} &bull; {timeStr}</span>
         </div>
         <div className="p-2 bg-white">
-          <div className="flex justify-between items-center py-2 relative bg-gray-50 rounded-xl px-2.5 border-[2px] border-transparent hover:border-black transition-colors mb-1">
+          <div className={`flex justify-between items-center py-2 relative bg-gray-50 rounded-xl px-2.5 border-[2px] border-transparent hover:border-black transition-colors mb-1 ${homeLost ? 'opacity-40 grayscale' : ''}`}>
             <div className="absolute left-0 top-0 bottom-0 w-2 rounded-l-md" style={{ backgroundColor: getTeamColor(match.home) }}></div>
             <div className="flex items-center gap-2 w-3/4 pl-3">
                {match.home && getTeamLogo(match.home) ? <img src={getTeamLogo(match.home)} className="w-4 h-4 md:w-5 md:h-5 object-contain drop-shadow-sm" /> : <span className="w-4 h-4 md:w-5 md:h-5 text-[10px] md:text-[12px]">🏳️</span>}
@@ -124,7 +141,7 @@ export default function TournamentTree({ matches }: TreeProps) {
             </div>
             <span className="text-black font-black text-sm md:text-base leading-none">{match.homeScore ?? '-'}</span>
           </div>
-          <div className="flex justify-between items-center py-2 relative bg-gray-50 rounded-xl px-2.5 border-[2px] border-transparent hover:border-black transition-colors">
+          <div className={`flex justify-between items-center py-2 relative bg-gray-50 rounded-xl px-2.5 border-[2px] border-transparent hover:border-black transition-colors ${awayLost ? 'opacity-40 grayscale' : ''}`}>
             <div className="absolute left-0 top-0 bottom-0 w-2 rounded-l-md" style={{ backgroundColor: getTeamColor(match.away) }}></div>
             <div className="flex items-center gap-2 w-3/4 pl-3">
                {match.away && getTeamLogo(match.away) ? <img src={getTeamLogo(match.away)} className="w-4 h-4 md:w-5 md:h-5 object-contain drop-shadow-sm" /> : <span className="w-4 h-4 md:w-5 md:h-5 text-[10px] md:text-[12px]">🏳️</span>}
