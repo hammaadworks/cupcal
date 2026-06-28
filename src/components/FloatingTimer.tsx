@@ -7,7 +7,7 @@ export const FloatingTimer = ({ match, onClick }: { match: Match, onClick: () =>
   
   useEffect(() => {
     const update = () => {
-      const matchTime = new Date(match.date).getTime();
+      const matchTime = new Date(match.kickoffUtc).getTime();
       const now = new Date().getTime();
       const diff = matchTime - now;
       if (diff < 0) {
@@ -24,16 +24,16 @@ export const FloatingTimer = ({ match, onClick }: { match: Match, onClick: () =>
     update();
     const interval = setInterval(update, 1000);
     return () => clearInterval(interval);
-  }, [match.date]);
+  }, [match.kickoffUtc]);
 
   return (
     <button onClick={onClick} className="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-50 bg-black text-white border-[3px] border-black shadow-[4px_4px_0px_#000] rounded-xl py-2 px-4 flex flex-col items-center hover:-translate-y-1 hover:shadow-[6px_6px_0px_#000] transition-all group">
       <div className="text-xl md:text-2xl font-anton text-pink-400 tracking-widest group-hover:text-pink-300">{timeLeft}</div>
       <div className="text-[10px] uppercase font-anton tracking-widest mt-1 mb-2">Upcoming Match</div>
       <div className="flex items-center gap-2">
-         {getTeamLogo(match.homeTeam) ? <img src={getTeamLogo(match.homeTeam)} className="w-6 h-6 md:w-8 md:h-8 object-contain" /> : <span className="text-sm">🏳️</span>}
+         {match.home && getTeamLogo(match.home) ? <img src={getTeamLogo(match.home)} className="w-6 h-6 md:w-8 md:h-8 object-contain" /> : <span className="text-sm">🏳️</span>}
          <span className="font-anton text-xs text-gray-400">VS</span>
-         {getTeamLogo(match.awayTeam) ? <img src={getTeamLogo(match.awayTeam)} className="w-6 h-6 md:w-8 md:h-8 object-contain" /> : <span className="text-sm">🏳️</span>}
+         {match.away && getTeamLogo(match.away) ? <img src={getTeamLogo(match.away)} className="w-6 h-6 md:w-8 md:h-8 object-contain" /> : <span className="text-sm">🏳️</span>}
       </div>
     </button>
   );

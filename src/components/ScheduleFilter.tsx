@@ -2,6 +2,9 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { useStore } from '@nanostores/react';
 import { timezoneStore } from '../store';
 import { getTeamLogo, getTeamPrefix } from '../utils/logos';
+import { getTeamName, getTeam } from '../utils/teams';
+import { getStadiumFullName } from '../utils/stadiums';
+import { getSourceText } from '../utils/bracket';
 import StatusGenerator from './StatusGenerator';
 import FilterScroller from './FilterScroller';
 import teamColors from '../data/teamColors.json';
@@ -71,42 +74,39 @@ export default function ScheduleFilter({ matches }: FilterProps) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-
-
   const allTeams = useMemo(() => {
     const teams = new Set<string>();
     matches.forEach(m => {
-      const isPlaceholder = (team: string) => team === 'TBD' || /^[1-3][A-Z]+$/.test(team) || /^(?:W|L|RU)\d+$/i.test(team) || team.includes('Winner') || team.includes('Loser') || team.includes('Runner');
-      if (!isPlaceholder(m.homeTeam)) teams.add(m.homeTeam);
-      if (!isPlaceholder(m.awayTeam)) teams.add(m.awayTeam);
+      if (m.home) teams.add(m.home);
+      if (m.away) teams.add(m.away);
     });
-    return Array.from(teams).sort();
+    return Array.from(teams).sort((a, b) => getTeamName(a).localeCompare(getTeamName(b)));
   }, [matches]);
 
-  const allVenues = useMemo(() => Array.from(new Set(matches.map(m => m.venue))).sort(), [matches]);
-  const allStages = useMemo(() => Array.from(new Set(matches.map(m => m.stage))).sort(), [matches]);
-  const allGroups = useMemo(() => Array.from(new Set(matches.map(m => m.group))).filter(g => g && g !== 'Group Match').sort(), [matches]);
+  const allVenues = useMemo(() => Array.from(new Set(matches.map(m => getStadiumFullName(m.stadiumId)))).sort(), [matches]);
+  const allStages = useMemo(() => Array.from(new Set(matches.map(m => m.stage === 'GROUP' ? 'GROUP' : m.stage))).sort(), [matches]);
+  const allGroups = useMemo(() => Array.from(new Set(matches.map(m => m.group).filter(Boolean) as string[])).sort(), [matches]);
 
   const groupedMatches = useMemo(() => {
     if (!isMounted) return [];
     
     let filtered = matches;
     if (selectedTeams.length > 0) {
-      filtered = filtered.filter(m => selectedTeams.includes(m.homeTeam) || selectedTeams.includes(m.awayTeam));
+      filtered = filtered.filter(m => (m.home && selectedTeams.includes(m.home)) || (m.away && selectedTeams.includes(m.away)));
     }
     if (selectedVenues.length > 0) {
-      filtered = filtered.filter(m => selectedVenues.includes(m.venue));
+      filtered = filtered.filter(m => selectedVenues.includes(getStadiumFullName(m.stadiumId)));
     }
     if (selectedStages.length > 0) {
-      filtered = filtered.filter(m => selectedStages.includes(m.stage));
+      filtered = filtered.filter(m => selectedStages.includes(m.stage === 'GROUP' ? 'GROUP' : m.stage));
     }
     if (selectedGroups.length > 0) {
-      filtered = filtered.filter(m => selectedGroups.includes(m.group));
+      filtered = filtered.filter(m => m.group && selectedGroups.includes(m.group));
     }
     
     const groups: { [key: string]: Match[] } = {};
     filtered.forEach(m => {
-      const dateKey = getLocalDateString(m.date, $timezone);
+      const dateKey = getLocalDateString(m.kickoffUtc, $timezone);
       if (!groups[dateKey]) groups[dateKey] = [];
       groups[dateKey].push(m);
     });
@@ -115,21 +115,21 @@ export default function ScheduleFilter({ matches }: FilterProps) {
     
     return sortedDates.map(date => ({
       date,
-      matches: groups[date].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+      matches: groups[date].sort((a, b) => new Date(a.kickoffUtc).getTime() - new Date(b.kickoffUtc).getTime())
     }));
   }, [matches, $timezone, isMounted, selectedTeams, selectedVenues, selectedStages, selectedGroups, selectedDate]);
 
   const dates = useMemo(() => {
     if (!isMounted) return [];
     const uniqueDates = new Set<string>();
-    matches.forEach(m => uniqueDates.add(getLocalDateString(m.date, $timezone)));
+    matches.forEach(m => uniqueDates.add(getLocalDateString(m.kickoffUtc, $timezone)));
     const sorted = Array.from(uniqueDates).sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
     if (sorted.length > 0 && !selectedDate) {
       const now = new Date().getTime();
-      const sortedMatches = [...matches].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+      const sortedMatches = [...matches].sort((a, b) => new Date(a.kickoffUtc).getTime() - new Date(b.kickoffUtc).getTime());
       let nextMatch = null;
       for (const m of sortedMatches) {
-          if (now - new Date(m.date).getTime() <= 120 * 60000) {
+          if (now - new Date(m.kickoffUtc).getTime() <= 120 * 60000) {
               nextMatch = m;
               break;
           }
@@ -140,7 +140,7 @@ export default function ScheduleFilter({ matches }: FilterProps) {
       if (sorted.includes(todayDate)) {
           setSelectedDate(todayDate);
       } else if (nextMatch) {
-          setSelectedDate(getLocalDateString(nextMatch.date, $timezone));
+          setSelectedDate(getLocalDateString(nextMatch.kickoffUtc, $timezone));
       } else {
           setSelectedDate(sorted[0]);
       }
@@ -169,10 +169,10 @@ export default function ScheduleFilter({ matches }: FilterProps) {
   const upcomingMatch = useMemo(() => {
     if (!isMounted) return null;
     const now = new Date().getTime();
-    const sorted = [...matches].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+    const sorted = [...matches].sort((a, b) => new Date(a.kickoffUtc).getTime() - new Date(b.kickoffUtc).getTime());
     
     for (const m of sorted) {
-        const matchTime = new Date(m.date).getTime();
+        const matchTime = new Date(m.kickoffUtc).getTime();
         const diff = now - matchTime;
         if (diff <= 120 * 60000) {
             return m;
@@ -236,7 +236,7 @@ export default function ScheduleFilter({ matches }: FilterProps) {
 
   const scrollToUpcoming = () => {
     if (upcomingMatch) {
-        const dateKey = getLocalDateString(upcomingMatch.date, $timezone);
+        const dateKey = getLocalDateString(upcomingMatch.kickoffUtc, $timezone);
         const el = document.getElementById(`group-${dateKey}`);
         if (el) {
             const y = el.getBoundingClientRect().top + window.scrollY - 180;
@@ -252,6 +252,11 @@ export default function ScheduleFilter({ matches }: FilterProps) {
   return (
     <div className="w-full max-w-4xl mx-auto space-y-12 font-sans mt-12 pb-32 px-2 md:px-0">
         
+        {/*
+        Removing FloatingTimer entirely, but wait, the component imports it.
+        Let's pass the updated match object format to FloatingTimer.
+        Wait, I haven't updated FloatingTimer yet. I will do it next.
+        */}
         {upcomingMatch && <FloatingTimer match={upcomingMatch} onClick={scrollToUpcoming} />}
         
         {/* Advanced Filter & Hero Section */}
@@ -274,7 +279,7 @@ export default function ScheduleFilter({ matches }: FilterProps) {
                 <span className="font-anton text-sm uppercase tracking-widest text-black">ACTIVE:</span>
                 {selectedTeams.map(t => (
                    <span key={t} className="bg-black text-white px-3 py-1 rounded-full text-xs font-anton uppercase tracking-widest border-[2px] border-black flex items-center gap-2 shadow-[2px_2px_0px_#000]">
-                      {t} 
+                      {getTeamName(t)} 
                       <button onClick={() => toggleSelection(setSelectedTeams, t)} className="hover:text-pink-500">✕</button>
                    </span>
                 ))}
@@ -342,47 +347,36 @@ export default function ScheduleFilter({ matches }: FilterProps) {
                 </div>
                 <div className="flex overflow-x-auto custom-scrollbar gap-4 pb-4 px-2 snap-x" style={{ maskImage: 'linear-gradient(to right, transparent, black 15px, black calc(100% - 15px), transparent)', WebkitMaskImage: 'linear-gradient(to right, transparent, black 15px, black calc(100% - 15px), transparent)' }}>
                    {(() => {
-                      const teamData = allTeams.map(team => {
-                        const nicknames: string[] = [];
-                        const t = team.toLowerCase();
-                        if (t === 'ivory coast') nicknames.push('cote', 'côte', 'cote d ivoire', 'cotedeivore', 'cote d ivori');
-                        if (t === 'morocco') nicknames.push('maghreb');
-                        if (t === 'spain') nicknames.push('espana', 'españa', 'la roja');
-                        if (t === 'czechia') nicknames.push('czech republic');
-                        if (t === 'germany') nicknames.push('deutschland', 'die mannschaft');
-                        if (t === 'usa') nicknames.push('united states', 'america', 'usmnt');
-                        if (t === 'netherlands') nicknames.push('holland', 'oranje');
-                        if (t === 'italy') nicknames.push('italia', 'azzurri');
-                        if (t === 'brazil') nicknames.push('brasil', 'selecao', 'seleção');
-                        if (t === 'mexico') nicknames.push('el tri');
-                        if (t === 'england') nicknames.push('three lions');
-                        if (t === 'australia') nicknames.push('socceroos');
-                        return { name: team, nicknames };
+                      const teamData = allTeams.map(teamCode => {
+                        const name = getTeamName(teamCode);
+                        const nicknames = TEAM_ALIASES[teamCode] || [];
+                        return { code: teamCode, name, nicknames };
                       });
                       
                       const fuse = new Fuse(teamData, {
-                        keys: ['name', 'nicknames'],
+                        keys: ['name', 'nicknames', 'code'],
                         threshold: 0.3,
                         ignoreLocation: true,
                       });
                       
                       const filteredTeams = squadSearch 
-                        ? fuse.search(squadSearch).map(r => r.item.name)
+                        ? fuse.search(squadSearch).map(r => r.item.code)
                         : allTeams;
                         
-                      return filteredTeams.map(team => {
-                         const isActive = selectedTeams.includes(team);
-                         const logo = getTeamLogo(team);
+                      return filteredTeams.map(teamCode => {
+                         const isActive = selectedTeams.includes(teamCode);
+                         const logo = getTeamLogo(teamCode);
+                         const name = getTeamName(teamCode);
                          return (
                             <button 
-                               key={team} 
-                               onClick={() => toggleSelection(setSelectedTeams, team)}
+                               key={teamCode} 
+                               onClick={() => toggleSelection(setSelectedTeams, teamCode)}
                                className={`snap-center flex-shrink-0 flex flex-col items-center gap-2 p-3 w-24 rounded-xl border-[3px] border-black transition-all ${isActive ? 'bg-black shadow-[4px_4px_0px_#f9a8d4] scale-105' : 'bg-white hover:bg-gray-100 shadow-[2px_2px_0px_#000]'}`}
                             >
                                <div className="w-12 h-12 flex items-center justify-center">
-                                  {logo ? <img src={logo} alt={team} className="w-full h-full object-contain drop-shadow-[2px_2px_0px_rgba(255,255,255,0.8)]" /> : <span className="text-2xl">🏳️</span>}
+                                  {logo ? <img src={logo} alt={name} className="w-full h-full object-contain drop-shadow-[2px_2px_0px_rgba(255,255,255,0.8)]" /> : <span className="text-2xl">🏳️</span>}
                                </div>
-                               <span className={`text-[11px] font-anton uppercase text-center w-full truncate ${isActive ? 'text-pink-400' : 'text-black'}`}>{team}</span>
+                               <span className={`text-[11px] font-anton uppercase text-center w-full truncate ${isActive ? 'text-pink-400' : 'text-black'}`}>{name}</span>
                             </button>
                          );
                       });
@@ -422,16 +416,16 @@ export default function ScheduleFilter({ matches }: FilterProps) {
                     let targetDate = todayDate;
                     if (!dates.includes(todayDate)) {
                         const now = new Date().getTime();
-                        const sortedMatches = [...matches].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+                        const sortedMatches = [...matches].sort((a, b) => new Date(a.kickoffUtc).getTime() - new Date(b.kickoffUtc).getTime());
                         let nextMatch = null;
                         for (const m of sortedMatches) {
-                            if (now - new Date(m.date).getTime() <= 120 * 60000) {
+                            if (now - new Date(m.kickoffUtc).getTime() <= 120 * 60000) {
                                 nextMatch = m;
                                 break;
                             }
                         }
                         if (!nextMatch && sortedMatches.length > 0) nextMatch = sortedMatches[sortedMatches.length - 1];
-                        if (nextMatch) targetDate = getLocalDateString(nextMatch.date, $timezone);
+                        if (nextMatch) targetDate = getLocalDateString(nextMatch.kickoffUtc, $timezone);
                     }
                     if (targetDate) {
                         setSelectedDate(targetDate);
@@ -483,7 +477,7 @@ export default function ScheduleFilter({ matches }: FilterProps) {
         <div className="space-y-12">
           {groupedMatches.map(group => {
             const { fullDate } = formatDateLabel(group.date, isMounted);
-            const isUpcomingGroup = upcomingMatch && !hasAdvancedFilters && getLocalDateString(upcomingMatch.date, $timezone) === group.date;
+            const isUpcomingGroup = upcomingMatch && !hasAdvancedFilters && getLocalDateString(upcomingMatch.kickoffUtc, $timezone) === group.date;
             const displayMatches = group.matches.filter(m => !(upcomingMatch && !hasAdvancedFilters && m.id === upcomingMatch.id));
   
             if (displayMatches.length === 0 && !isUpcomingGroup) return null;
@@ -496,10 +490,12 @@ export default function ScheduleFilter({ matches }: FilterProps) {
         
         
           const colorsMap = teamColors as Record<string, string[]>;
-          const homePrefix = getTeamPrefix(upcomingMatch.homeTeam);
-          const awayPrefix = getTeamPrefix(upcomingMatch.awayTeam);
+          const homePrefix = getTeamPrefix(upcomingMatch.home || '');
+          const awayPrefix = getTeamPrefix(upcomingMatch.away || '');
           const homeColor = colorsMap[homePrefix]?.[0] || '#a7f3d0';
           const awayColor = colorsMap[awayPrefix]?.[0] || '#fbcfe8';
+          const homeName = upcomingMatch.home ? getTeamName(upcomingMatch.home) : getSourceText(upcomingMatch.homeSource);
+          const awayName = upcomingMatch.away ? getTeamName(upcomingMatch.away) : getSourceText(upcomingMatch.awaySource);
           
           return (
           <div className="md:col-span-2 space-y-4 mb-4">
@@ -514,7 +510,7 @@ export default function ScheduleFilter({ matches }: FilterProps) {
             <div onClick={(e) => handleMatchClick(e, upcomingMatch)} role="button" tabIndex={0} className="block w-full text-left match-card relative border-[3px] border-black shadow-[8px_8px_0px_#000] rounded-tl-[3rem] rounded-br-[3rem] rounded-tr-xl rounded-bl-xl hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[10px_10px_0px_#000] transition-all overflow-hidden cursor-pointer" style={{ background: `linear-gradient(90deg, ${homeColor} 50%, ${awayColor} 50%)` }}>
               <div className="absolute top-0 left-1/2 -translate-x-1/2 mt-0 bg-black px-6 py-1 rounded-b-xl border-b-[3px] border-l-[3px] border-r-[3px] border-black z-10 flex gap-2">
                 {(() => {
-                  const status = getMatchStatus(upcomingMatch.date);
+                  const status = getMatchStatus(upcomingMatch.kickoffUtc);
                   return <div className={`${status==='LIVE'?'text-red-500 animate-pulse':status==='DONE'?'text-gray-400':'text-blue-400'} font-anton tracking-widest text-sm uppercase`}>{status}</div>
                 })()}
                 <div className="text-white font-anton tracking-widest text-sm uppercase">M{upcomingMatch.matchNumber}</div>
@@ -522,28 +518,28 @@ export default function ScheduleFilter({ matches }: FilterProps) {
   
               <div className="flex items-center justify-between mt-8 p-6 md:p-8 relative z-0">
                 <div className="flex flex-col items-center gap-4 w-1/3">
-                  {getTeamLogo(upcomingMatch.homeTeam) ? (
-                    <img src={getTeamLogo(upcomingMatch.homeTeam)} alt={upcomingMatch.homeTeam} className="w-16 h-16 md:w-24 md:h-24 object-contain drop-shadow-[2px_2px_0px_#000]" onError={(e) => e.currentTarget.style.display='none'} />
+                  {upcomingMatch.home && getTeamLogo(upcomingMatch.home) ? (
+                    <img src={getTeamLogo(upcomingMatch.home)} alt={homeName} className="w-16 h-16 md:w-24 md:h-24 object-contain drop-shadow-[2px_2px_0px_#000]" onError={(e) => e.currentTarget.style.display='none'} />
                   ) : (
                     <span className="text-4xl drop-shadow-xl mb-2">🏳️</span>
                   )}
-                  <span className="font-anton text-sm sm:text-xl md:text-3xl text-center text-white drop-shadow-[2px_2px_0px_#000] uppercase break-words">{upcomingMatch.homeTeam}</span>
+                  <span className="font-anton text-sm sm:text-xl md:text-3xl text-center text-white drop-shadow-[2px_2px_0px_#000] uppercase break-words">{homeName}</span>
                 </div>
                 
                 <div className="w-1/3 flex flex-col items-center justify-center">
-                  <MatchCountdown dateStr={upcomingMatch.date} />
+                  <MatchCountdown dateStr={upcomingMatch.kickoffUtc} />
                   <div className="mt-6 text-[10px] md:text-sm font-anton text-black uppercase tracking-widest bg-white px-2 py-1 md:px-4 rounded-full border-[2px] border-black text-center shadow-[2px_2px_0px_#000]">
-                    {formatTime(upcomingMatch.date, $timezone, isMounted)}
+                    {formatTime(upcomingMatch.kickoffUtc, $timezone, isMounted)}
                   </div>
                 </div>
   
                 <div className="flex flex-col items-center gap-4 w-1/3">
-                  {getTeamLogo(upcomingMatch.awayTeam) ? (
-                    <img src={getTeamLogo(upcomingMatch.awayTeam)} alt={upcomingMatch.awayTeam} className="w-16 h-16 md:w-24 md:h-24 object-contain drop-shadow-[2px_2px_0px_#000]" onError={(e) => e.currentTarget.style.display='none'} />
+                  {upcomingMatch.away && getTeamLogo(upcomingMatch.away) ? (
+                    <img src={getTeamLogo(upcomingMatch.away)} alt={awayName} className="w-16 h-16 md:w-24 md:h-24 object-contain drop-shadow-[2px_2px_0px_#000]" onError={(e) => e.currentTarget.style.display='none'} />
                   ) : (
                     <span className="text-4xl drop-shadow-xl mb-2">🏳️</span>
                   )}
-                  <span className="font-anton text-sm sm:text-xl md:text-3xl text-center text-white drop-shadow-[2px_2px_0px_#000] uppercase break-words">{upcomingMatch.awayTeam}</span>
+                  <span className="font-anton text-sm sm:text-xl md:text-3xl text-center text-white drop-shadow-[2px_2px_0px_#000] uppercase break-words">{awayName}</span>
                 </div>
               </div>
             </div>

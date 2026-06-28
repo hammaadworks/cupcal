@@ -1,9 +1,11 @@
 import React from 'react';
 import type { Match } from '../types/match';
 import { getTeamLogo, getTeamPrefix } from '../utils/logos';
+import { getTeamName } from '../utils/teams';
 import { formatTime, getMatchStatus } from '../utils/date';
 import teamColors from '../data/teamColors.json';
 import { useState, useEffect } from 'react';
+import { getWinner, getSourceText } from '../utils/bracket';
 
 const CardTimer = ({ dateStr }: { dateStr: string }) => {
   const [timeLeft, setTimeLeft] = useState('');
@@ -49,35 +51,25 @@ interface Props {
 
 export const MatchCardReact = ({ match, timezone, isMounted, isUpcoming, upcomingRef, onMatchClick, onDownloadSingle }: Props) => {
   const colorsMap = teamColors as Record<string, string[]>;
-  const homePrefix = getTeamPrefix(match.homeTeam);
-  const awayPrefix = getTeamPrefix(match.awayTeam);
+  const homePrefix = getTeamPrefix(match.home || '');
+  const awayPrefix = getTeamPrefix(match.away || '');
   const homeColor = colorsMap[homePrefix]?.[0] || '#fbcfe8';
   const awayColor = colorsMap[awayPrefix]?.[0] || '#bfdbfe';
-  const status = getMatchStatus(match.date);
+  const status = getMatchStatus(match.kickoffUtc);
   const isDone = status === 'DONE';
-  const [showScore, setShowScore] = useState((isDone && match.result) ? true : false);
+  const hasResult = match.homeScore !== null && match.awayScore !== null;
+  const [showScore, setShowScore] = useState((isDone && hasResult) ? true : false);
 
-  let homeWinner = false;
-  let awayWinner = false;
-  let isDraw = false;
+  const winner = getWinner(match);
   
-  if (isDone && match.result) {
-    if (match.result.homeScore > match.result.awayScore) homeWinner = true;
-    else if (match.result.awayScore > match.result.homeScore) awayWinner = true;
-    else {
-      if (match.result.homePenaltyScore !== undefined && match.result.awayPenaltyScore !== undefined) {
-         if (match.result.homePenaltyScore > match.result.awayPenaltyScore) homeWinner = true;
-         else if (match.result.awayPenaltyScore > match.result.homePenaltyScore) awayWinner = true;
-         else isDraw = true;
-      } else {
-         isDraw = true;
-      }
-    }
-  }
+  const isDraw = hasResult && match.homeScore === match.awayScore && (match.homePenalties === undefined || match.homePenalties === match.awayPenalties);
 
-  const globalGrey = isDone && !match.result;
-  const homeIsGrey = globalGrey || (isDone && match.result && !homeWinner && !isDraw);
-  const awayIsGrey = globalGrey || (isDone && match.result && !awayWinner && !isDraw);
+  const globalGrey = isDone && !hasResult;
+  const homeIsGrey = globalGrey || (isDone && hasResult && winner !== match.home && !isDraw);
+  const awayIsGrey = globalGrey || (isDone && hasResult && winner !== match.away && !isDraw);
+
+  const homeName = match.home ? getTeamName(match.home) : getSourceText(match.homeSource);
+  const awayName = match.away ? getTeamName(match.away) : getSourceText(match.awaySource);
 
   return (
     <div 
@@ -91,7 +83,7 @@ export const MatchCardReact = ({ match, timezone, isMounted, isUpcoming, upcomin
       {/* Header Info */}
       <div className="w-full flex justify-between items-center px-4 py-2 bg-black text-white border-b-[3px] border-black z-10 shrink-0">
         <span className="text-[10px] sm:text-xs font-anton uppercase tracking-widest text-pink-400">
-          M{match.matchNumber} &bull; {match.stage.replace('Group Stage', `Gr ${match.group}`)}
+          M{match.matchNumber} &bull; {match.stage === 'GROUP' ? `Gr ${match.group}` : match.stage}
         </span>
         {status !== 'DONE' && (
           <button 
@@ -108,23 +100,30 @@ export const MatchCardReact = ({ match, timezone, isMounted, isUpcoming, upcomin
         
         {/* Home Team Side */}
         <div className={`flex-1 flex flex-col items-center justify-center py-6 px-2 border-r-[3px] border-black relative z-0 min-w-0 ${homeIsGrey ? 'grayscale opacity-80' : ''}`} style={{ backgroundColor: homeColor }}>
-          {getTeamLogo(match.homeTeam) ? (
-            <img src={getTeamLogo(match.homeTeam)} alt={match.homeTeam} className="w-12 h-12 sm:w-16 sm:h-16 object-contain drop-shadow-[2px_2px_0px_#000] mb-2" onError={(e) => e.currentTarget.style.display='none'} />
+          {match.home && getTeamLogo(match.home) ? (
+            <img src={getTeamLogo(match.home)} alt={homeName} className="w-12 h-12 sm:w-16 sm:h-16 object-contain drop-shadow-[2px_2px_0px_#000] mb-2" onError={(e) => e.currentTarget.style.display='none'} />
           ) : (
             <span className="text-3xl sm:text-4xl mb-2 drop-shadow-[2px_2px_0px_#000]">🏳️</span>
           )}
-          <span className="font-anton text-[10px] sm:text-sm md:text-lg text-white uppercase leading-none drop-shadow-[2px_2px_0px_#000] text-center px-1 truncate w-full">{match.homeTeam}</span>
+          <span className="font-anton text-[10px] sm:text-sm md:text-lg text-white uppercase leading-none drop-shadow-[2px_2px_0px_#000] text-center px-1 truncate w-full">{homeName}</span>
         </div>
 
         {/* Center VS / Time */}
         <div className="w-20 md:w-28 shrink-0 flex flex-col items-center justify-center bg-white relative z-10 py-6 px-1 text-center">
            <div className="text-[9px] md:text-[10px] text-gray-500 font-black uppercase mb-1 leading-none">KICKOFF</div>
-           <span className="font-anton text-[14px] md:text-xl lg:text-2xl text-black leading-none tracking-tight whitespace-pre-line">{formatTime(match.date, timezone, isMounted).replace(' ', '\n')}</span>
-           {match.result ? (
+           <span className="font-anton text-[14px] md:text-xl lg:text-2xl text-black leading-none tracking-tight whitespace-pre-line">{formatTime(match.kickoffUtc, timezone, isMounted).replace(' ', '\n')}</span>
+           {hasResult ? (
              showScore ? (
-               <span className="font-anton text-[14px] sm:text-lg text-pink-500 mt-2 block w-full text-center tracking-widest bg-yellow-100 border-[2px] border-black rounded-lg py-1 px-2 shadow-[2px_2px_0px_#000]">
-                 {match.result.homeScore} - {match.result.awayScore}
-               </span>
+               <div className="flex flex-col items-center mt-2 w-full">
+                 <span className="font-anton text-[14px] sm:text-lg text-pink-500 block w-full text-center tracking-widest bg-yellow-100 border-[2px] border-black rounded-lg py-1 px-2 shadow-[2px_2px_0px_#000]">
+                   {match.homeScore} - {match.awayScore}
+                 </span>
+                 {match.homePenalties != null && match.awayPenalties != null && (
+                   <span className="font-anton text-[10px] mt-1 text-gray-600">
+                     ({match.homePenalties}-{match.awayPenalties} pens)
+                   </span>
+                 )}
+               </div>
              ) : (
                <button 
                  onClick={(e) => { e.stopPropagation(); setShowScore(true); }}
@@ -141,18 +140,18 @@ export const MatchCardReact = ({ match, timezone, isMounted, isUpcoming, upcomin
 
         {/* Away Team Side */}
         <div className={`flex-1 flex flex-col items-center justify-center py-6 px-2 border-l-[3px] border-black relative z-0 min-w-0 ${awayIsGrey ? 'grayscale opacity-80' : ''}`} style={{ backgroundColor: awayColor }}>
-          {getTeamLogo(match.awayTeam) ? (
-            <img src={getTeamLogo(match.awayTeam)} alt={match.awayTeam} className="w-12 h-12 sm:w-16 sm:h-16 object-contain drop-shadow-[2px_2px_0px_#000] mb-2" onError={(e) => e.currentTarget.style.display='none'} />
+          {match.away && getTeamLogo(match.away) ? (
+            <img src={getTeamLogo(match.away)} alt={awayName} className="w-12 h-12 sm:w-16 sm:h-16 object-contain drop-shadow-[2px_2px_0px_#000] mb-2" onError={(e) => e.currentTarget.style.display='none'} />
           ) : (
             <span className="text-3xl sm:text-4xl mb-2 drop-shadow-[2px_2px_0px_#000]">🏳️</span>
           )}
-          <span className="font-anton text-[10px] sm:text-sm md:text-lg text-white uppercase leading-none drop-shadow-[2px_2px_0px_#000] text-center px-1 truncate w-full">{match.awayTeam}</span>
+          <span className="font-anton text-[10px] sm:text-sm md:text-lg text-white uppercase leading-none drop-shadow-[2px_2px_0px_#000] text-center px-1 truncate w-full">{awayName}</span>
         </div>
 
       </div>
 
       {/* Footer Timer */}
-      <CardTimer dateStr={match.date} />
+      <CardTimer dateStr={match.kickoffUtc} />
 
     </div>
   );

@@ -1,7 +1,17 @@
-export function getTeamPrefix(teamName: string): string {
-  if (!teamName || teamName === 'TBD' || /[0-9]/.test(teamName)) return '';
+import { getTeam } from './teams';
+
+export function getTeamPrefix(teamNameOrCode: string): string {
+  if (!teamNameOrCode || teamNameOrCode === 'TBD' || /[0-9]/.test(teamNameOrCode)) return '';
+  
+  // Check if it's a code
+  const team = getTeam(teamNameOrCode);
+  if (team) {
+    return team.slug;
+  }
+  
+  // Fallback for raw names (if still passed anywhere during migration)
   const normalize = (name: string) => name.toLowerCase().replace(/[^a-z]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
-  const normalizedName = normalize(teamName);
+  const normalizedName = normalize(teamNameOrCode);
   
   const map: Record<string, string> = {
     'netherlands': 'dutch',
@@ -28,9 +38,25 @@ export function getTeamPrefix(teamName: string): string {
   return map[normalizedName] || normalizedName;
 }
 
-export function getTeamLogo(teamName: string): string {
-  if (teamName === 'TBD' || !teamName) return '';
-  const filePrefix = getTeamPrefix(teamName);
+export function getTeamLogo(teamCode: string | null): string {
+  if (!teamCode || teamCode === 'TBD') return '';
+  
+  const team = getTeam(teamCode);
+  let filePrefix = '';
+  
+  if (team) {
+    // We'll map the team slug to the prefix used by football-logos.cc
+    filePrefix = team.slug;
+    
+    // Some specific overrides for the filenames
+    if (filePrefix === 'netherlands') filePrefix = 'dutch';
+    if (filePrefix === 'portugal') filePrefix = 'portuguese';
+    if (filePrefix === 'cote-divoire') filePrefix = 'ivory-coast';
+    if (filePrefix === 'czechia') filePrefix = 'czech-republic';
+  } else {
+    filePrefix = getTeamPrefix(teamCode);
+  }
+
   if (!filePrefix) return '';
 
   // Most use `-national-team`, portugal uses `-football-federation`

@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import type { Match } from '../types/match';
+import { getTeamName } from '../utils/teams';
+import { getStadiumFullName } from '../utils/stadiums';
+import { getSourceText } from '../utils/bracket';
 
 interface ExportMetadata {
   summary: string;
@@ -19,9 +22,13 @@ export default function CalendarExportModal({ matches, onClose }: Props) {
   useEffect(() => {
     const initial: Record<string, ExportMetadata> = {};
     matches.forEach(m => {
+      const homeName = m.home ? getTeamName(m.home) : getSourceText(m.homeSource);
+      const awayName = m.away ? getTeamName(m.away) : getSourceText(m.awaySource);
+      const venueName = getStadiumFullName(m.stadiumId);
+      
       initial[m.id] = {
-        summary: `⚽ ${m.homeTeam} vs ${m.awayTeam}`,
-        description: `${m.stage} Match\\nVenue: ${m.venue}`,
+        summary: `⚽ ${homeName} vs ${awayName}`,
+        description: `${m.stage} Match\\nVenue: ${venueName}`,
         alarmMinutes: 15
       };
     });
@@ -32,13 +39,15 @@ export default function CalendarExportModal({ matches, onClose }: Props) {
     let icsContent = `BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//cupcal.online//EN\nCALSCALE:GREGORIAN\n`;
     
     matches.forEach(m => {
-      const d = new Date(m.date);
+      const d = new Date(m.kickoffUtc);
       const start = d.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
       const end = new Date(d.getTime() + 120 * 60000).toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
       const meta = metadata[m.id];
       if (!meta) return;
       
-      icsContent += `BEGIN:VEVENT\nUID:${m.id}@cupcal.online\nDTSTAMP:${start}\nDTSTART:${start}\nDTEND:${end}\nSUMMARY:${meta.summary}\nDESCRIPTION:${meta.description}\nLOCATION:${m.venue}\nBEGIN:VALARM\nTRIGGER:-PT${meta.alarmMinutes}M\nACTION:DISPLAY\nDESCRIPTION:Match starts in ${meta.alarmMinutes}m!\nEND:VALARM\nEND:VEVENT\n`;
+      const venueName = getStadiumFullName(m.stadiumId);
+      
+      icsContent += `BEGIN:VEVENT\nUID:${m.id}@cupcal.online\nDTSTAMP:${start}\nDTSTART:${start}\nDTEND:${end}\nSUMMARY:${meta.summary}\nDESCRIPTION:${meta.description}\nLOCATION:${venueName}\nBEGIN:VALARM\nTRIGGER:-PT${meta.alarmMinutes}M\nACTION:DISPLAY\nDESCRIPTION:Match starts in ${meta.alarmMinutes}m!\nEND:VALARM\nEND:VEVENT\n`;
     });
     
     icsContent += `END:VCALENDAR`;
@@ -46,7 +55,11 @@ export default function CalendarExportModal({ matches, onClose }: Props) {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = matches.length === 1 ? `Match_${matches[0].homeTeam}_vs_${matches[0].awayTeam}.ics` : `cupcal_schedule.ics`;
+    
+    const firstHome = matches.length === 1 ? (matches[0].home ? getTeamName(matches[0].home) : getSourceText(matches[0].homeSource)) : '';
+    const firstAway = matches.length === 1 ? (matches[0].away ? getTeamName(matches[0].away) : getSourceText(matches[0].awaySource)) : '';
+
+    a.download = matches.length === 1 ? `Match_${firstHome}_vs_${firstAway}.ics` : `cupcal_schedule.ics`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -109,10 +122,14 @@ export default function CalendarExportModal({ matches, onClose }: Props) {
           {matches.map(m => {
             const meta = metadata[m.id];
             if (!meta) return null;
+            
+            const homeName = m.home ? getTeamName(m.home) : getSourceText(m.homeSource);
+            const awayName = m.away ? getTeamName(m.away) : getSourceText(m.awaySource);
+
             return (
               <div key={m.id} className="bg-white border-[3px] border-black p-4 hover:bg-gray-50">
                 <div className="text-xs font-black bg-black text-white px-2 py-1 inline-block uppercase tracking-widest mb-3">
-                  Match {m.matchNumber} &bull; {m.homeTeam} vs {m.awayTeam}
+                  Match {m.matchNumber} &bull; {homeName} vs {awayName}
                 </div>
                 
                 <div className="space-y-4">
@@ -174,7 +191,7 @@ export default function CalendarExportModal({ matches, onClose }: Props) {
           <button 
             onClick={handleDownload}
             data-umami-event={matches.length === 1 ? "calendar_export_single" : "calendar_export_bulk"}
-            data-umami-event-match={matches.length === 1 ? `${matches[0].homeTeam} vs ${matches[0].awayTeam}` : undefined}
+            data-umami-event-match={matches.length === 1 ? `${matches[0].home} vs ${matches[0].away}` : undefined}
             data-umami-event-stage={matches.length === 1 ? matches[0].stage : undefined}
             data-umami-event-count={matches.length > 1 ? matches.length : undefined}
             className="w-full bg-black text-white font-black text-xl uppercase tracking-widest py-4 border-[3px] border-black shadow-[4px_4px_0px_#f472b6] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[6px_6px_0px_#f472b6] transition-all"
