@@ -1,8 +1,15 @@
-export const parseUTCDate = (utcDateStr: string) => {
-  if (!utcDateStr.endsWith('Z')) {
-    return new Date(utcDateStr.replace(' ', 'T') + 'Z');
+export const parseUTCDate = (utcDateStr: string | null | undefined) => {
+  if (!utcDateStr) return new Date(); // Safe fallback
+  let str = utcDateStr.replace(' ', 'T');
+  
+  const tIndex = str.indexOf('T');
+  if (tIndex !== -1) {
+    const timePart = str.substring(tIndex + 1);
+    if (!timePart.endsWith('Z') && !timePart.includes('+') && !timePart.includes('-')) {
+      str += 'Z'; // Append Z only if no timezone info exists in the time part
+    }
   }
-  return new Date(utcDateStr);
+  return new Date(str);
 };
 
 export const getLocalDateString = (utcDateStr: string, tz: string) => {

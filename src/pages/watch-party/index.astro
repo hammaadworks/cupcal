@@ -5,19 +5,21 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 const mockParties = [
   {
     id: 1,
-    name: "Islamic Center of New York - Youth Hall",
-    city: "New York",
-    country: "USA",
-    description: "Family-friendly screening of USA matches on a 150-inch projector. Food and drinks provided.",
+    name: "Trevor Noah (Live Stream)",
+    city: "Online",
+    country: "Global",
+    description: "Join Trevor Noah for a live interactive online watch party covering the biggest matches.",
     is_verified: true,
+    link: "https://www.youtube.com/@trevornoah"
   },
   {
     id: 2,
-    name: "Community Center Halal Lounge",
-    city: "Toronto",
-    country: "Canada",
-    description: "Alcohol-free environment for families to enjoy the matches. Prayer facilities available.",
+    name: "IShowSpeed (Live Stream)",
+    city: "Online",
+    country: "Global",
+    description: "High energy, live interactive watch party with IShowSpeed on YouTube.",
     is_verified: true,
+    link: "https://www.youtube.com/@IShowSpeed"
   }
 ];
 ---
@@ -57,9 +59,9 @@ const mockParties = [
                 </p>
                 <p class="text-gray-800 text-sm max-w-lg font-medium">{party.description}</p>
               </div>
-              <button class="px-6 py-3 bg-white text-black border-[3px] border-black font-black hover:bg-yellow-300 transition-colors shrink-0 uppercase tracking-widest text-xs shadow-[4px_4px_0px_#000] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_#000]">
-                Get Details
-              </button>
+              <a href={party.link || '#'} target={party.link ? "_blank" : "_self"} rel={party.link ? "noopener noreferrer" : ""} class="px-6 py-3 bg-white text-black border-[3px] border-black font-black hover:bg-yellow-300 transition-colors shrink-0 uppercase tracking-widest text-xs shadow-[4px_4px_0px_#000] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_#000] block text-center mt-4 md:mt-0">
+                {party.link ? "Join Stream" : "Get Details"}
+              </a>
             </div>
           ))}
           {mockParties.length === 0 && (
