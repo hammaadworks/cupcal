@@ -35,9 +35,10 @@ const TEAM_ALIASES: Record<string, string[]> = {
 
 interface FilterProps {
   matches: Match[];
+  initialMatchId?: number;
 }
 
-export default function ScheduleFilter({ matches }: FilterProps) {
+export default function ScheduleFilter({ matches, initialMatchId }: FilterProps) {
   const [isMounted, setIsMounted] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
   const $timezone = useStore(timezoneStore);
@@ -58,6 +59,18 @@ export default function ScheduleFilter({ matches }: FilterProps) {
 
   useEffect(() => {
     setIsMounted(true);
+    
+    if (initialMatchId) {
+       const m = matches.find(x => x.matchNumber === initialMatchId);
+       if (m) {
+           setSelectedMatch(m);
+           setExportMatches([m]);
+           // Automatically set date to the match's date so it scrolls nicely
+           const dateKey = getLocalDateString(m.kickoffUtc, timezoneStore.get());
+           setSelectedDate(dateKey);
+       }
+    }
+
     const handleScroll = () => {
       const isNowSticky = window.scrollY > 250;
       setIsSticky(isNowSticky);

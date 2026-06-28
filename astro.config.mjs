@@ -9,7 +9,13 @@ import cloudflare from '@astrojs/cloudflare';
 // https://astro.build/config
 export default defineConfig({
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [tailwindcss()],
+    define: {
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
+    },
+    optimizeDeps: {
+      exclude: ['@nanostores/react']
+    }
   },
 
   integrations: [react()],

@@ -1,9 +1,10 @@
 .astro
 .env
-.env.local
+.env*
 wiki
 content
 dist
 assets
 .wrangler
 node_modules
+.playwright-mcp

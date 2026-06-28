@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ScheduleFilter from '../components/ScheduleFilter';
+import { getMatches } from '../utils/matches';
+
+export async function getStaticPaths() {
+  const matches = await getMatches();
+  return matches.map((match) => ({
+    params: { matchId: `m${match.matchNumber}` },
+    props: { match, matches },
+  }));
+}
+
+const { match, matches } = Astro.props;
+---
+
+<BaseLayout title={`Match ${match.matchNumber} - Official Schedule 2026`}>
+	<main class="min-h-screen relative z-10 overflow-x-clip w-full">
+        <div class="bg-typography-container">
+            <div class="bg-text-line">WORLD CUP 2026 WORLD CUP 2026 WORLD CUP 2026</div>
+            <div class="bg-text-line">CANADA MEXICO USA CANADA MEXICO USA</div>
+            <div class="bg-text-line">FOOTBALL SOCCER FOOTBALL SOCCER FOOTBALL</div>
+            <div class="bg-text-line">WORLD CUP 2026 WORLD CUP 2026 WORLD CUP 2026</div>
+            <div class="bg-text-line">CANADA MEXICO USA CANADA MEXICO USA</div>
+        </div>
+
+		<section id="schedule" class="pt-8 pb-10 container px-4 mx-auto relative z-20">
+			<div class="max-w-4xl mx-auto">
+                <h1 class="text-6xl md:text-8xl font-anton text-center mb-12 tracking-tighter leading-none">
+                    THE ULTIMATE<br/>FOOTBALL<br/>VIBES
+                </h1>
+
+				<ScheduleFilter client:load matches={matches} initialMatchId={match.matchNumber} />
+			</div>
+		</section>
+
+		<section id="bracket-link" class="py-20 border-y-[3px] border-black relative z-20 bg-[#ffd6e0]">
+			<div class="container px-4 mx-auto text-center">
+				<h2 class="text-4xl md:text-6xl font-anton mb-6 text-black uppercase tracking-tight">Knockout SZN</h2>
+				<p class="text-xl font-bold mb-8 uppercase tracking-widest text-black">See the full path to glory in the interactive tree.</p>
+				<a href="/tree" class="inline-block bg-black text-white font-anton text-2xl uppercase tracking-widest px-8 py-4 rounded-xl border-[4px] border-black shadow-[6px_6px_0px_#fbcfe8] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[8px_8px_0px_#fbcfe8] transition-all">
+					View Tournament Tree →
+				</a>
+			</div>
+		</section>
+
+	</main>
+</BaseLayout>

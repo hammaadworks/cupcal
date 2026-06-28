@@ -1,12 +1,28 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import type { Match } from '../types/match';
 import { getTeamName } from '../utils/teams';
 import { getSourceText } from '../utils/bracket';
 import { getTeamLogo } from '../utils/logos';
+import CalendarExportModal from './CalendarExportModal';
+import TimezoneSelector from './TimezoneSelector';
+import { useStore } from '@nanostores/react';
+import { timezoneStore } from '../store';
+import { formatTime, parseUTCDate } from '../utils/date';
+import MatchModalReact from './MatchModalReact';
 
 interface TreeProps {
   matches: Match[];
 }
+
+const getTeamColor = (teamCode: string | undefined | null) => {
+  if (!teamCode) return 'hsl(0, 0%, 50%)';
+  let hash = 0;
+  for (let i = 0; i < teamCode.length; i++) {
+    hash = teamCode.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  const hue = Math.abs(hash) % 360;
+  return `hsl(${hue}, 80%, 45%)`;
+};
 
 const RightConnector = () => (
   <div className="flex items-center w-6 md:w-10 h-full relative">
@@ -24,6 +40,31 @@ const LeftConnector = () => (
 
 export default function TournamentTree({ matches }: TreeProps) {
   const [filterTeam, setFilterTeam] = useState('');
+  const [exportMatch, setExportMatch] = useState<Match | null>(null);
+  const [selectedMatch, setSelectedMatch] = useState<Match | null>(null);
+  const $timezone = useStore(timezoneStore);
+  const [highlightMatchId, setHighlightMatchId] = useState<number | null>(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const mId = params.get('match');
+      if (mId) {
+        const id = parseInt(mId, 10);
+        if (!isNaN(id)) {
+          setHighlightMatchId(id);
+          setTimeout(() => {
+            const el = document.getElementById(`tree-match-${id}`);
+            if (el) {
+              el.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
+            }
+          }, 500);
+        }
+      }
+    }
+  }, []);
 
   const matchMap = useMemo(() => new Map(matches.map(m => [m.matchNumber, m])), [matches]);
 
@@ -41,22 +82,57 @@ export default function TournamentTree({ matches }: TreeProps) {
     const isMatched = !filterTeam || 
       homeName.toLowerCase().includes(filterTeam.toLowerCase()) || 
       awayName.toLowerCase().includes(filterTeam.toLowerCase());
+      
+    const isHighlighted = highlightMatchId === match.matchNumber;
+
+    const dateObj = parseUTCDate(match.kickoffUtc);
+    const dateStr = mounted ? dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: $timezone || 'UTC' }) : '--';
+    const timeStr = formatTime(match.kickoffUtc, $timezone, mounted);
 
     return (
-      <div className={`bg-white border-[3px] border-black rounded-xl p-2 w-40 md:w-48 text-xs text-black transition-all shrink-0 relative z-10 ${isMatched ? 'shadow-[4px_4px_0px_#000] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[6px_6px_0px_#000] opacity-100' : 'opacity-30 grayscale'}`}>
-        <div className="text-[9px] font-anton text-pink-600 mb-1 border-b-[2px] border-black pb-1 flex justify-between uppercase">
+      <div 
+        id={`tree-match-${match.matchNumber}`}
+        className={`bg-white border-[3px] border-black rounded-xl p-2 w-48 md:w-56 text-xs text-black transition-all shrink-0 relative z-10 ${isHighlighted ? 'shadow-[8px_8px_0px_#000] scale-[1.15] bg-yellow-300 border-[4px]' : isMatched ? 'shadow-[4px_4px_0px_#000] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[6px_6px_0px_#000] opacity-100' : 'opacity-30 grayscale'}`}
+      >
+        <div className="text-[9px] font-anton text-pink-600 mb-1 border-b-[2px] border-black pb-1 flex justify-between items-center uppercase">
           <span>M{match.matchNumber}</span>
-          <span>{new Date(match.kickoffUtc).toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' })}</span>
+          <div className="flex items-center gap-1">
+            <button 
+              onClick={(e) => {
+                e.stopPropagation();
+                setExportMatch(match);
+              }}
+              title="Add to Calendar"
+              className="hover:scale-125 transition-transform hover:text-black cursor-pointer"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+            </button>
+            <button 
+              onClick={(e) => {
+                e.stopPropagation();
+                setSelectedMatch(match);
+              }}
+              title="View Match Info"
+              className="hover:scale-125 transition-transform hover:text-black cursor-pointer text-sm leading-none"
+            >
+              ⚽
+            </button>
+          </div>
+          <span>{dateStr} &bull; {timeStr}</span>
         </div>
-        <div className="flex justify-between items-center py-1">
-          <div className="flex items-center gap-1 w-3/4">
+        <div className="flex justify-between items-center py-1 relative">
+          <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-4 rounded-full" style={{ backgroundColor: getTeamColor(match.home) }}></div>
+          <div className="flex items-center gap-1 w-3/4 pl-3">
              {match.home && getTeamLogo(match.home) ? <img src={getTeamLogo(match.home)} className="w-4 h-4 object-contain" /> : <span className="w-4 h-4 text-[10px]">🏳️</span>}
              <span className={`font-anton truncate uppercase ${isMatched && filterTeam && homeName.toLowerCase().includes(filterTeam.toLowerCase()) ? 'text-pink-600' : ''}`}>{homeName}</span>
           </div>
           <span className="text-black font-black">{match.homeScore ?? '-'}</span>
         </div>
-        <div className="flex justify-between items-center py-1 border-t-[2px] border-black">
-          <div className="flex items-center gap-1 w-3/4">
+        <div className="flex justify-between items-center py-1 border-t-[2px] border-black relative">
+          <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-4 rounded-full" style={{ backgroundColor: getTeamColor(match.away) }}></div>
+          <div className="flex items-center gap-1 w-3/4 pl-3">
              {match.away && getTeamLogo(match.away) ? <img src={getTeamLogo(match.away)} className="w-4 h-4 object-contain" /> : <span className="w-4 h-4 text-[10px]">🏳️</span>}
              <span className={`font-anton truncate uppercase ${isMatched && filterTeam && awayName.toLowerCase().includes(filterTeam.toLowerCase()) ? 'text-pink-600' : ''}`}>{awayName}</span>
           </div>
@@ -121,20 +197,28 @@ export default function TournamentTree({ matches }: TreeProps) {
   return (
     <div className="w-full py-0 px-0 md:px-4 mx-auto">
       
-      {/* Filter Bar */}
-      <div className="mb-12 flex flex-col md:flex-row justify-center items-center gap-4">
-        <label className="font-anton text-xl uppercase tracking-widest text-black">Filter Squad:</label>
-        <div className="relative w-full max-w-sm">
-          <input 
-            type="text" 
-            placeholder="Search country..." 
-            value={filterTeam}
-            onChange={e => setFilterTeam(e.target.value)}
-            className="w-full text-lg font-anton tracking-widest px-4 py-3 bg-white border-[3px] border-black rounded-full shadow-[4px_4px_0px_#000] focus:outline-none focus:bg-pink-100 uppercase"
-          />
-          {filterTeam && (
-            <button onClick={() => setFilterTeam('')} className="absolute right-4 top-1/2 -translate-y-1/2 font-bold text-xl hover:text-pink-600">✕</button>
-          )}
+      {/* Filter and Timezone Bar */}
+      <div className="mb-12 flex flex-col md:flex-row justify-center items-center gap-6">
+        <div className="flex items-center gap-3">
+          <label className="font-anton text-xl uppercase tracking-widest text-black">Filter Squad:</label>
+          <div className="relative w-full max-w-xs">
+            <input 
+              type="text" 
+              placeholder="Search country..." 
+              value={filterTeam}
+              onChange={e => {
+                setFilterTeam(e.target.value);
+                setHighlightMatchId(null);
+              }}
+              className="w-full text-lg font-anton tracking-widest px-4 py-3 bg-white border-[3px] border-black rounded-full shadow-[4px_4px_0px_#000] focus:outline-none focus:bg-pink-100 uppercase"
+            />
+            {filterTeam && (
+              <button onClick={() => setFilterTeam('')} className="absolute right-4 top-1/2 -translate-y-1/2 font-bold text-xl hover:text-pink-600">✕</button>
+            )}
+          </div>
+        </div>
+        <div className="flex items-center">
+           <TimezoneSelector compact={false} />
         </div>
       </div>
 
@@ -171,6 +255,22 @@ export default function TournamentTree({ matches }: TreeProps) {
 
         </div>
       </div>
+
+      {exportMatch && (
+        <CalendarExportModal matches={[exportMatch]} onClose={() => setExportMatch(null)} />
+      )}
+      {selectedMatch && (
+        <MatchModalReact 
+          match={selectedMatch} 
+          timezone={$timezone} 
+          isMounted={mounted} 
+          onClose={() => setSelectedMatch(null)}
+          onDownloadSingle={(e, m) => {
+            e.stopPropagation();
+            setExportMatch(m);
+          }}
+        />
+      )}
     </div>
   );
 }

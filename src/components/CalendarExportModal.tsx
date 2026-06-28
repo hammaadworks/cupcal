@@ -3,6 +3,8 @@ import type { Match } from '../types/match';
 import { getTeamName } from '../utils/teams';
 import { getStadiumFullName } from '../utils/stadiums';
 import { getSourceText } from '../utils/bracket';
+import { downloadIcsBlob } from '../utils/ics';
+import { parseUTCDate } from '../utils/date';
 
 interface ExportMetadata {
   summary: string;
@@ -39,7 +41,7 @@ export default function CalendarExportModal({ matches, onClose }: Props) {
     let icsContent = `BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//cupcal.online//EN\nCALSCALE:GREGORIAN\n`;
     
     matches.forEach(m => {
-      const d = new Date(m.kickoffUtc);
+      const d = parseUTCDate(m.kickoffUtc);
       const start = d.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
       const end = new Date(d.getTime() + 120 * 60000).toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
       const meta = metadata[m.id];
@@ -52,18 +54,12 @@ export default function CalendarExportModal({ matches, onClose }: Props) {
     
     icsContent += `END:VCALENDAR`;
     const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
     
     const firstHome = matches.length === 1 ? (matches[0].home ? getTeamName(matches[0].home) : getSourceText(matches[0].homeSource)) : '';
     const firstAway = matches.length === 1 ? (matches[0].away ? getTeamName(matches[0].away) : getSourceText(matches[0].awaySource)) : '';
+    const filename = matches.length === 1 ? `Match_${firstHome}_vs_${firstAway}.ics` : `cupcal_schedule.ics`;
 
-    a.download = matches.length === 1 ? `Match_${firstHome}_vs_${firstAway}.ics` : `cupcal_schedule.ics`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+    downloadIcsBlob(blob, filename);
     onClose();
   };
 

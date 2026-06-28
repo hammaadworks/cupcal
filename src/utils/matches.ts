@@ -32,7 +32,7 @@ export async function getMatches(): Promise<Match[]> {
   try {
     // 2. Fetch Knockout Matches (IDs 73-104) from Supabase
     const { data: knockouts, error: koError } = await supabase.from('knockout_matches').select('*');
-    if (koError) console.error("Error fetching knockout_matches:", koError);
+    if (koError) console.log("Error fetching knockout_matches:", koError);
 
     if (knockouts && knockouts.length > 0) {
       for (const ko of knockouts) {
@@ -56,7 +56,7 @@ export async function getMatches(): Promise<Match[]> {
       }
     }
   } catch (err) {
-    console.error("Failed to fetch supabase data:", err);
+    console.log("Failed to fetch supabase data:", err);
   }
 
   // 3. Convert back to array and sort
