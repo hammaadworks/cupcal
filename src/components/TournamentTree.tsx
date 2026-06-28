@@ -95,9 +95,9 @@ export default function TournamentTree({ matches }: TreeProps) {
     return (
       <div 
         id={`tree-match-${match.matchNumber}`}
-        className={`bg-white border-[3px] border-black rounded-2xl w-48 md:w-56 text-black transition-all shrink-0 relative z-10 overflow-hidden ${isHighlighted ? 'shadow-[8px_8px_0px_#000] scale-[1.15] border-[4px]' : isMatched ? 'shadow-[4px_4px_0px_#000] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[6px_6px_0px_#000] opacity-100' : 'opacity-30 grayscale'}`}
+        className={`bg-white border-[4px] border-black rounded-[2rem] w-52 md:w-60 text-black transition-all shrink-0 relative z-10 overflow-hidden ${isHighlighted ? 'shadow-[8px_8px_0px_#000] scale-[1.15]' : isMatched ? 'shadow-[4px_4px_0px_#000] hover:-translate-y-2 hover:-translate-x-1 hover:shadow-[8px_8px_0px_#000] opacity-100' : 'opacity-30 grayscale'}`}
       >
-        <div className="bg-black text-white px-2.5 py-1.5 flex justify-between items-center border-b-[3px] border-black">
+        <div className="bg-black text-white px-3 py-2 flex justify-between items-center border-b-[4px] border-black">
           <span className="font-anton text-[11px] tracking-widest text-pink-400">M{match.matchNumber}</span>
           <div className="flex items-center">
             <button 
@@ -115,8 +115,8 @@ export default function TournamentTree({ matches }: TreeProps) {
           </div>
           <span className="font-bold text-[9px] md:text-[10px] uppercase tracking-wider text-gray-300">{dateStr} &bull; {timeStr}</span>
         </div>
-        <div className="p-1.5 bg-white">
-          <div className="flex justify-between items-center py-1.5 relative bg-gray-50 rounded-lg px-2 border-[2px] border-transparent hover:border-black transition-colors mb-1">
+        <div className="p-2 bg-white">
+          <div className="flex justify-between items-center py-2 relative bg-gray-50 rounded-xl px-2.5 border-[2px] border-transparent hover:border-black transition-colors mb-1">
             <div className="absolute left-0 top-0 bottom-0 w-2 rounded-l-md" style={{ backgroundColor: getTeamColor(match.home) }}></div>
             <div className="flex items-center gap-2 w-3/4 pl-3">
                {match.home && getTeamLogo(match.home) ? <img src={getTeamLogo(match.home)} className="w-4 h-4 md:w-5 md:h-5 object-contain drop-shadow-sm" /> : <span className="w-4 h-4 md:w-5 md:h-5 text-[10px] md:text-[12px]">🏳️</span>}
@@ -124,7 +124,7 @@ export default function TournamentTree({ matches }: TreeProps) {
             </div>
             <span className="text-black font-black text-sm md:text-base leading-none">{match.homeScore ?? '-'}</span>
           </div>
-          <div className="flex justify-between items-center py-1.5 relative bg-gray-50 rounded-lg px-2 border-[2px] border-transparent hover:border-black transition-colors">
+          <div className="flex justify-between items-center py-2 relative bg-gray-50 rounded-xl px-2.5 border-[2px] border-transparent hover:border-black transition-colors">
             <div className="absolute left-0 top-0 bottom-0 w-2 rounded-l-md" style={{ backgroundColor: getTeamColor(match.away) }}></div>
             <div className="flex items-center gap-2 w-3/4 pl-3">
                {match.away && getTeamLogo(match.away) ? <img src={getTeamLogo(match.away)} className="w-4 h-4 md:w-5 md:h-5 object-contain drop-shadow-sm" /> : <span className="w-4 h-4 md:w-5 md:h-5 text-[10px] md:text-[12px]">🏳️</span>}
@@ -199,24 +199,24 @@ export default function TournamentTree({ matches }: TreeProps) {
     <div className="w-full py-0 px-0 md:px-4 mx-auto">
       
       {/* Filter and Timezone Bar */}
-      <div className="mb-12 flex flex-col md:flex-row justify-center items-center gap-6">
-        <div className="flex items-center gap-2 bg-white border-[3px] border-black rounded-full p-1 shadow-[4px_4px_0px_#000]">
+      <div className="mb-10 flex flex-col md:flex-row justify-center items-stretch gap-4 md:gap-5">
+        <div className="flex items-center gap-1 bg-white border-[4px] border-black rounded-full p-1 shadow-[4px_4px_0px_#000] self-center">
           <button 
             onClick={() => setViewMode('wide')}
-            className={`px-4 py-2 rounded-full font-anton uppercase tracking-widest text-sm transition-colors ${viewMode === 'wide' ? 'bg-black text-white' : 'hover:bg-gray-200'}`}
+            className={`px-5 py-2.5 rounded-full font-anton uppercase tracking-widest text-sm transition-all ${viewMode === 'wide' ? 'bg-black text-white shadow-inner' : 'hover:bg-gray-100'}`}
           >
             Wide View
           </button>
           <button 
             onClick={() => setViewMode('tall')}
-            className={`px-4 py-2 rounded-full font-anton uppercase tracking-widest text-sm transition-colors ${viewMode === 'tall' ? 'bg-black text-white' : 'hover:bg-gray-200'}`}
+            className={`px-5 py-2.5 rounded-full font-anton uppercase tracking-widest text-sm transition-all ${viewMode === 'tall' ? 'bg-black text-white shadow-inner' : 'hover:bg-gray-100'}`}
           >
             Tall View
           </button>
         </div>
-        <div className="flex items-center gap-3">
-          <label className="font-anton text-xl uppercase tracking-widest text-black hidden lg:block">Filter Squad:</label>
-          <div className="relative w-full max-w-xs">
+        <div className="flex items-center gap-3 self-center">
+          <label className="font-anton text-lg uppercase tracking-widest text-black hidden lg:block shrink-0">Filter Squad:</label>
+          <div className="relative">
             <input 
               type="text" 
               placeholder="Search country..." 
@@ -225,38 +225,38 @@ export default function TournamentTree({ matches }: TreeProps) {
                 setFilterTeam(e.target.value);
                 setHighlightMatchId(null);
               }}
-              className="w-full text-lg font-anton tracking-widest px-4 py-3 bg-white border-[3px] border-black rounded-full shadow-[4px_4px_0px_#000] focus:outline-none focus:bg-pink-100 uppercase"
+              className="w-56 text-base font-anton tracking-widest px-5 py-2.5 bg-white border-[4px] border-black rounded-full shadow-[4px_4px_0px_#000] focus:outline-none focus:bg-pink-100 focus:shadow-[6px_6px_0px_#000] focus:-translate-y-0.5 transition-all uppercase placeholder:text-gray-400"
             />
             {filterTeam && (
-              <button onClick={() => setFilterTeam('')} className="absolute right-4 top-1/2 -translate-y-1/2 font-bold text-xl hover:text-pink-600">✕</button>
+              <button onClick={() => setFilterTeam('')} className="absolute right-4 top-1/2 -translate-y-1/2 font-bold text-xl hover:text-pink-600 transition-colors">✕</button>
             )}
           </div>
         </div>
-        <div className="flex items-center">
+        <div className="flex items-center self-center">
            <TimezoneSelector compact={false} />
         </div>
       </div>
 
-      <div className="w-full overflow-x-auto no-scrollbar pb-16 pt-8 cursor-grab active:cursor-grabbing">
+      <div className="w-full overflow-x-auto custom-scrollbar pb-16 pt-8 cursor-grab active:cursor-grabbing">
         {viewMode === 'wide' ? (
-          <div className="flex flex-col min-w-max bg-[#ffd6e0] p-4 md:p-8 pt-6 border-y-[4px] md:border-[4px] md:rounded-[2rem] border-black shadow-[8px_8px_0px_#000]">
+          <div className="flex flex-col min-w-max bg-white p-4 md:p-8 pt-6 border-y-[4px] md:border-[4px] md:rounded-[2rem] border-black shadow-[8px_8px_0px_#000]">
             <div className="flex flex-row mb-6 items-center">
                {['ROUND OF 32', 'ROUND OF 16', 'QUARTER-FINALS', 'SEMI-FINALS'].map((tag, i) => (
                  <React.Fragment key={tag}>
-                   <div className="w-48 md:w-56 flex justify-center shrink-0">
-                     <span className="font-anton text-[10px] md:text-xs uppercase tracking-widest bg-white text-pink-600 border-[3px] border-pink-600 rounded-full px-3 py-1 shadow-[2px_2px_0px_#db2777]">{tag}</span>
+                   <div className="w-52 md:w-60 flex justify-center shrink-0">
+                     <span className="font-anton text-[10px] md:text-xs uppercase tracking-widest bg-pink-50 text-pink-600 border-[3px] border-pink-600 rounded-full px-3 py-1 shadow-[2px_2px_0px_#db2777]">{tag}</span>
                    </div>
                    <div className="w-6 md:w-10 shrink-0"></div>
                  </React.Fragment>
                ))}
-               <div className="w-48 md:w-56 flex justify-center shrink-0 px-2 md:px-4 box-content">
-                 <h2 className="font-anton text-xl md:text-2xl uppercase tracking-widest bg-yellow-300 px-4 py-1 border-[3px] border-black shadow-[4px_4px_0px_#000] -rotate-2">FINAL</h2>
+               <div className="w-52 md:w-60 flex justify-center shrink-0 px-2 md:px-4 box-content">
+                 <h2 className="font-anton text-xl md:text-2xl uppercase tracking-widest bg-yellow-300 px-4 py-1 border-[4px] border-black shadow-[4px_4px_0px_#000] -rotate-2">FINAL</h2>
                </div>
                {['SEMI-FINALS', 'QUARTER-FINALS', 'ROUND OF 16', 'ROUND OF 32'].map((tag, i) => (
                  <React.Fragment key={tag}>
                    <div className="w-6 md:w-10 shrink-0"></div>
-                   <div className="w-48 md:w-56 flex justify-center shrink-0">
-                     <span className="font-anton text-[10px] md:text-xs uppercase tracking-widest bg-white text-pink-600 border-[3px] border-pink-600 rounded-full px-3 py-1 shadow-[2px_2px_0px_#db2777]">{tag}</span>
+                   <div className="w-52 md:w-60 flex justify-center shrink-0">
+                     <span className="font-anton text-[10px] md:text-xs uppercase tracking-widest bg-pink-50 text-pink-600 border-[3px] border-pink-600 rounded-full px-3 py-1 shadow-[2px_2px_0px_#db2777]">{tag}</span>
                    </div>
                  </React.Fragment>
                ))}
@@ -287,18 +287,18 @@ export default function TournamentTree({ matches }: TreeProps) {
             </div>
           </div>
         ) : (
-          <div className="flex flex-col min-w-max bg-[#ffd6e0] p-4 md:p-8 pt-6 border-y-[4px] md:border-[4px] md:rounded-[2rem] border-black shadow-[8px_8px_0px_#000]">
+          <div className="flex flex-col min-w-max bg-white p-4 md:p-8 pt-6 border-y-[4px] md:border-[4px] md:rounded-[2rem] border-black shadow-[8px_8px_0px_#000]">
             <div className="flex flex-row mb-6 items-center">
                {['ROUND OF 32', 'ROUND OF 16', 'QUARTER-FINALS', 'SEMI-FINALS'].map((tag, i) => (
                  <React.Fragment key={tag}>
-                   <div className="w-48 md:w-56 flex justify-center shrink-0">
-                     <span className="font-anton text-[10px] md:text-xs uppercase tracking-widest bg-white text-pink-600 border-[3px] border-pink-600 rounded-full px-3 py-1 shadow-[2px_2px_0px_#db2777]">{tag}</span>
+                   <div className="w-52 md:w-60 flex justify-center shrink-0">
+                     <span className="font-anton text-[10px] md:text-xs uppercase tracking-widest bg-pink-50 text-pink-600 border-[3px] border-pink-600 rounded-full px-3 py-1 shadow-[2px_2px_0px_#db2777]">{tag}</span>
                    </div>
                    <div className="w-6 md:w-10 shrink-0"></div>
                  </React.Fragment>
                ))}
-               <div className="w-48 md:w-56 flex justify-center shrink-0 px-1 md:px-4 box-content">
-                 <h2 className="font-anton text-xl md:text-2xl uppercase tracking-widest bg-yellow-300 px-4 py-1 border-[3px] border-black shadow-[4px_4px_0px_#000] -rotate-2">FINAL</h2>
+               <div className="w-52 md:w-60 flex justify-center shrink-0 px-1 md:px-4 box-content">
+                 <h2 className="font-anton text-xl md:text-2xl uppercase tracking-widest bg-yellow-300 px-4 py-1 border-[4px] border-black shadow-[4px_4px_0px_#000] -rotate-2">FINAL</h2>
                </div>
             </div>
             <div className="flex flex-row items-stretch justify-start">

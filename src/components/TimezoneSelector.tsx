@@ -52,7 +52,7 @@ export default function TimezoneSelector({ compact = false }: { compact?: boolea
   if (!mounted) return <div className={`bg-slate-100 rounded-xl animate-pulse border-[3px] border-black shadow-[4px_4px_0px_#000] ${compact ? 'h-8 w-32' : 'h-12 w-64'}`}></div>;
 
   return (
-    <div className={`flex items-center bg-yellow-300 border-[2px] md:border-[3px] border-black rounded-xl shadow-[2px_2px_0px_#000] md:shadow-[4px_4px_0px_#000] hover:-translate-y-1 hover:shadow-[4px_4px_0px_#000] md:hover:shadow-[6px_6px_0px_#000] transition-all overflow-hidden ${compact ? 'p-1 gap-1 md:gap-2' : 'p-2 gap-4'}`}>
+    <div className={`flex items-center bg-yellow-300 border-[3px] md:border-[4px] border-black rounded-2xl shadow-[2px_2px_0px_#000] md:shadow-[4px_4px_0px_#000] hover:-translate-y-1 hover:shadow-[4px_4px_0px_#000] md:hover:shadow-[6px_6px_0px_#000] transition-all overflow-hidden ${compact ? 'p-1 gap-1 md:gap-2' : 'p-1.5 gap-3'}`}>
       {!compact && (
         <label htmlFor="tz-select" className="text-xl md:text-2xl font-anton text-black uppercase tracking-widest hidden md:block whitespace-nowrap pl-2">
           WHERE ARE YOU?
