@@ -1,10 +1,8 @@
 import { supabase } from './supabase';
 import groupMatchesJson from '../data/group_matches.json';
-import knockoutPlaceholdersJson from '../data/knockout_placeholders.json';
 import type { GroupMatch, KnockoutMatch, Match } from '../types/match';
 
 const staticGroupMatches: GroupMatch[] = groupMatchesJson as GroupMatch[];
-const knockoutPlaceholders: Match[] = knockoutPlaceholdersJson as Match[];
 
 export async function getMatches(): Promise<Match[]> {
   const matchesMap = new Map<string, Match>();
@@ -23,17 +21,13 @@ export async function getMatches(): Promise<Match[]> {
       away: gm.away,
       homeScore: gm.homeScore,
       awayScore: gm.awayScore,
-      status: gm.status,
+      status: 'FINISHED',
       highlightUrl: gm.highlightSlug 
         ? `https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/${gm.highlightSlug}-highlights-match-report`
         : null
     });
   }
 
-  // Fallback to placeholders first, then overwrite with Supabase
-  for (const kp of knockoutPlaceholders) {
-    matchesMap.set(kp.id.toString(), kp);
-  }
 
   try {
     // 2. Fetch Knockout Matches (IDs 73-104) from Supabase

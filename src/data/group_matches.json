@@ -8,24 +8,22 @@
     "stadiumId": "estadio-azteca",
     "home": "MEX",
     "away": "RSA",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 2,
+    "awayScore": 0,
+    "highlightSlug": "mexico-south-africa"
   },
   {
     "id": 2,
     "matchNumber": 2,
     "group": "A",
     "matchday": 1,
-    "kickoffUtc": "2026-06-12T04:00:00Z",
+    "kickoffUtc": "2026-06-12T02:00:00Z",
     "stadiumId": "estadio-akron",
     "home": "KOR",
     "away": "CZE",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 2,
+    "awayScore": 1,
+    "highlightSlug": "south-korea-czechia"
   },
   {
     "id": 3,
@@ -36,38 +34,35 @@
     "stadiumId": "bmo-field",
     "home": "CAN",
     "away": "BIH",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 1,
+    "awayScore": 1,
+    "highlightSlug": "canada-bosnia-and-herzegovina"
   },
   {
     "id": 4,
     "matchNumber": 4,
     "group": "D",
     "matchday": 1,
-    "kickoffUtc": "2026-06-13T04:00:00Z",
+    "kickoffUtc": "2026-06-13T01:00:00Z",
     "stadiumId": "sofi-stadium",
     "home": "USA",
     "away": "PAR",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 4,
+    "awayScore": 1,
+    "highlightSlug": "usa-paraguay"
   },
   {
     "id": 5,
     "matchNumber": 5,
     "group": "B",
     "matchday": 1,
-    "kickoffUtc": "2026-06-13T22:00:00Z",
+    "kickoffUtc": "2026-06-13T19:00:00Z",
     "stadiumId": "levis-stadium",
     "home": "QAT",
     "away": "SUI",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 1,
+    "awayScore": 1,
+    "highlightSlug": "qatar-switzerland"
   },
   {
     "id": 6,
@@ -78,10 +73,9 @@
     "stadiumId": "metlife-stadium",
     "home": "BRA",
     "away": "MAR",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 1,
+    "awayScore": 1,
+    "highlightSlug": "brazil-morocco"
   },
   {
     "id": 7,
@@ -92,52 +86,48 @@
     "stadiumId": "gillette-stadium",
     "home": "HAI",
     "away": "SCO",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 0,
+    "awayScore": 1,
+    "highlightSlug": "haiti-scotland"
   },
   {
     "id": 8,
     "matchNumber": 8,
     "group": "D",
     "matchday": 1,
-    "kickoffUtc": "2026-06-14T07:00:00Z",
+    "kickoffUtc": "2026-06-14T04:00:00Z",
     "stadiumId": "bc-place",
     "home": "AUS",
     "away": "TUR",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 2,
+    "awayScore": 0,
+    "highlightSlug": "australia-turkiye"
   },
   {
     "id": 9,
     "matchNumber": 9,
     "group": "E",
     "matchday": 1,
-    "kickoffUtc": "2026-06-14T18:00:00Z",
+    "kickoffUtc": "2026-06-14T17:00:00Z",
     "stadiumId": "nrg-stadium",
     "home": "GER",
-    "away": "Curacao",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "away": "CUW",
+    "homeScore": 7,
+    "awayScore": 1,
+    "highlightSlug": "germany-curacao"
   },
   {
     "id": 10,
     "matchNumber": 10,
     "group": "F",
     "matchday": 1,
-    "kickoffUtc": "2026-06-14T21:00:00Z",
+    "kickoffUtc": "2026-06-14T20:00:00Z",
     "stadiumId": "att-stadium",
     "home": "NED",
     "away": "JPN",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 2,
+    "awayScore": 2,
+    "highlightSlug": "netherlands-japan"
   },
   {
     "id": 11,
@@ -146,26 +136,24 @@
     "matchday": 1,
     "kickoffUtc": "2026-06-14T23:00:00Z",
     "stadiumId": "lincoln-financial-field",
-    "home": "Ivory Coast",
+    "home": "CIV",
     "away": "ECU",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 1,
+    "awayScore": 0,
+    "highlightSlug": "cote-d-ivoire-ecuador"
   },
   {
     "id": 12,
     "matchNumber": 12,
     "group": "F",
     "matchday": 1,
-    "kickoffUtc": "2026-06-15T04:00:00Z",
+    "kickoffUtc": "2026-06-15T02:00:00Z",
     "stadiumId": "estadio-bbva",
     "home": "SWE",
     "away": "TUN",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 5,
+    "awayScore": 1,
+    "highlightSlug": "sweden-tunisia"
   },
   {
     "id": 13,
@@ -176,24 +164,22 @@
     "stadiumId": "mercedes-benz-stadium",
     "home": "ESP",
     "away": "Cape Verde",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 0,
+    "awayScore": 0,
+    "highlightSlug": "spain-cabo-verde"
   },
   {
     "id": 14,
     "matchNumber": 14,
     "group": "G",
     "matchday": 1,
-    "kickoffUtc": "2026-06-15T22:00:00Z",
+    "kickoffUtc": "2026-06-15T19:00:00Z",
     "stadiumId": "lumen-field",
     "home": "BEL",
     "away": "EGY",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 1,
+    "awayScore": 1,
+    "highlightSlug": "belgium-egypt"
   },
   {
     "id": 15,
@@ -204,24 +190,22 @@
     "stadiumId": "hard-rock-stadium",
     "home": "KSA",
     "away": "URU",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 1,
+    "awayScore": 1,
+    "highlightSlug": "saudi-arabia-uruguay"
   },
   {
     "id": 16,
     "matchNumber": 16,
     "group": "G",
     "matchday": 1,
-    "kickoffUtc": "2026-06-16T04:00:00Z",
+    "kickoffUtc": "2026-06-16T01:00:00Z",
     "stadiumId": "sofi-stadium",
     "home": "IRN",
     "away": "NZL",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 2,
+    "awayScore": 2,
+    "highlightSlug": "iran-new-zealand"
   },
   {
     "id": 17,
@@ -232,10 +216,9 @@
     "stadiumId": "metlife-stadium",
     "home": "FRA",
     "away": "SEN",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 3,
+    "awayScore": 1,
+    "highlightSlug": "france-senegal"
   },
   {
     "id": 18,
@@ -246,10 +229,9 @@
     "stadiumId": "gillette-stadium",
     "home": "IRQ",
     "away": "NOR",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 1,
+    "awayScore": 4,
+    "highlightSlug": "iraq-norway"
   },
   {
     "id": 19,
@@ -260,10 +242,9 @@
     "stadiumId": "arrowhead-stadium",
     "home": "ARG",
     "away": "ALG",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 3,
+    "awayScore": 0,
+    "highlightSlug": "argentina-algeria"
   },
   {
     "id": 20,
@@ -274,10 +255,9 @@
     "stadiumId": "levis-stadium",
     "home": "AUT",
     "away": "JOR",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 3,
+    "awayScore": 1,
+    "highlightSlug": "austria-jordan"
   },
   {
     "id": 21,
@@ -288,10 +268,9 @@
     "stadiumId": "nrg-stadium",
     "home": "POR",
     "away": "DR Congo",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 1,
+    "awayScore": 1,
+    "highlightSlug": "portugal-dr-congo"
   },
   {
     "id": 22,
@@ -302,10 +281,9 @@
     "stadiumId": "att-stadium",
     "home": "ENG",
     "away": "CRO",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 4,
+    "awayScore": 2,
+    "highlightSlug": "england-croatia"
   },
   {
     "id": 23,
@@ -316,10 +294,9 @@
     "stadiumId": "bmo-field",
     "home": "GHA",
     "away": "PAN",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 1,
+    "awayScore": 0,
+    "highlightSlug": "ghana-panama"
   },
   {
     "id": 24,
@@ -330,10 +307,9 @@
     "stadiumId": "estadio-azteca",
     "home": "UZB",
     "away": "COL",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 1,
+    "awayScore": 3,
+    "highlightSlug": "uzbekistan-colombia"
   },
   {
     "id": 25,
@@ -344,10 +320,9 @@
     "stadiumId": "mercedes-benz-stadium",
     "home": "CZE",
     "away": "RSA",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 1,
+    "awayScore": 1,
+    "highlightSlug": "czechia-south-africa"
   },
   {
     "id": 26,
@@ -358,10 +333,9 @@
     "stadiumId": "sofi-stadium",
     "home": "SUI",
     "away": "BIH",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 4,
+    "awayScore": 1,
+    "highlightSlug": "switzerland-bosnia-and-herzegovina"
   },
   {
     "id": 27,
@@ -372,10 +346,9 @@
     "stadiumId": "bc-place",
     "home": "CAN",
     "away": "QAT",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 6,
+    "awayScore": 0,
+    "highlightSlug": "canada-qatar"
   },
   {
     "id": 28,
@@ -386,10 +359,9 @@
     "stadiumId": "estadio-akron",
     "home": "MEX",
     "away": "KOR",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 1,
+    "awayScore": 0,
+    "highlightSlug": "mexico-south-korea"
   },
   {
     "id": 29,
@@ -400,10 +372,9 @@
     "stadiumId": "lumen-field",
     "home": "USA",
     "away": "AUS",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 2,
+    "awayScore": 0,
+    "highlightSlug": "usa-australia"
   },
   {
     "id": 30,
@@ -414,10 +385,9 @@
     "stadiumId": "gillette-stadium",
     "home": "SCO",
     "away": "MAR",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 0,
+    "awayScore": 1,
+    "highlightSlug": "scotland-morocco"
   },
   {
     "id": 31,
@@ -428,10 +398,9 @@
     "stadiumId": "lincoln-financial-field",
     "home": "BRA",
     "away": "HAI",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 3,
+    "awayScore": 0,
+    "highlightSlug": "brazil-haiti"
   },
   {
     "id": 32,
@@ -442,10 +411,9 @@
     "stadiumId": "levis-stadium",
     "home": "TUR",
     "away": "PAR",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 0,
+    "awayScore": 1,
+    "highlightSlug": "turkiye-paraguay"
   },
   {
     "id": 33,
@@ -456,10 +424,9 @@
     "stadiumId": "nrg-stadium",
     "home": "NED",
     "away": "SWE",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 5,
+    "awayScore": 1,
+    "highlightSlug": "netherlands-sweden"
   },
   {
     "id": 34,
@@ -470,10 +437,9 @@
     "stadiumId": "bmo-field",
     "home": "GER",
     "away": "Ivory Coast",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 2,
+    "awayScore": 1,
+    "highlightSlug": "germany-cote-d-ivoire"
   },
   {
     "id": 35,
@@ -484,10 +450,9 @@
     "stadiumId": "arrowhead-stadium",
     "home": "ECU",
     "away": "Curacao",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 0,
+    "awayScore": 0,
+    "highlightSlug": "ecuador-curacao"
   },
   {
     "id": 36,
@@ -498,10 +463,9 @@
     "stadiumId": "estadio-bbva",
     "home": "TUN",
     "away": "JPN",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 0,
+    "awayScore": 4,
+    "highlightSlug": "tunisia-japan"
   },
   {
     "id": 37,
@@ -512,10 +476,9 @@
     "stadiumId": "mercedes-benz-stadium",
     "home": "ESP",
     "away": "KSA",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 4,
+    "awayScore": 0,
+    "highlightSlug": "spain-saudi-arabia"
   },
   {
     "id": 38,
@@ -526,10 +489,9 @@
     "stadiumId": "sofi-stadium",
     "home": "BEL",
     "away": "IRN",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 0,
+    "awayScore": 0,
+    "highlightSlug": "belgium-iran"
   },
   {
     "id": 39,
@@ -540,10 +502,9 @@
     "stadiumId": "hard-rock-stadium",
     "home": "URU",
     "away": "Cape Verde",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 2,
+    "awayScore": 2,
+    "highlightSlug": "uruguay-cabo-verde"
   },
   {
     "id": 40,
@@ -554,10 +515,9 @@
     "stadiumId": "bc-place",
     "home": "NZL",
     "away": "EGY",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 1,
+    "awayScore": 3,
+    "highlightSlug": "new-zealand-egypt"
   },
   {
     "id": 41,
@@ -568,10 +528,9 @@
     "stadiumId": "att-stadium",
     "home": "ARG",
     "away": "AUT",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 2,
+    "awayScore": 0,
+    "highlightSlug": "argentina-austria"
   },
   {
     "id": 42,
@@ -582,10 +541,9 @@
     "stadiumId": "lincoln-financial-field",
     "home": "FRA",
     "away": "IRQ",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 3,
+    "awayScore": 0,
+    "highlightSlug": "france-iraq"
   },
   {
     "id": 43,
@@ -596,10 +554,9 @@
     "stadiumId": "metlife-stadium",
     "home": "NOR",
     "away": "SEN",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 3,
+    "awayScore": 2,
+    "highlightSlug": "norway-senegal"
   },
   {
     "id": 44,
@@ -610,10 +567,9 @@
     "stadiumId": "levis-stadium",
     "home": "JOR",
     "away": "ALG",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 1,
+    "awayScore": 2,
+    "highlightSlug": "jordan-algeria"
   },
   {
     "id": 45,
@@ -624,10 +580,9 @@
     "stadiumId": "nrg-stadium",
     "home": "POR",
     "away": "UZB",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 5,
+    "awayScore": 0,
+    "highlightSlug": "portugal-uzbekistan"
   },
   {
     "id": 46,
@@ -638,10 +593,9 @@
     "stadiumId": "gillette-stadium",
     "home": "ENG",
     "away": "GHA",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 0,
+    "awayScore": 0,
+    "highlightSlug": "england-ghana"
   },
   {
     "id": 47,
@@ -652,10 +606,9 @@
     "stadiumId": "bmo-field",
     "home": "PAN",
     "away": "CRO",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 0,
+    "awayScore": 1,
+    "highlightSlug": "panama-croatia"
   },
   {
     "id": 48,
@@ -666,10 +619,9 @@
     "stadiumId": "estadio-akron",
     "home": "COL",
     "away": "DR Congo",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 1,
+    "awayScore": 0,
+    "highlightSlug": "colombia-dr-congo"
   },
   {
     "id": 49,
@@ -680,10 +632,9 @@
     "stadiumId": "bc-place",
     "home": "SUI",
     "away": "CAN",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 2,
+    "awayScore": 1,
+    "highlightSlug": "switzerland-canada"
   },
   {
     "id": 50,
@@ -694,10 +645,9 @@
     "stadiumId": "lumen-field",
     "home": "BIH",
     "away": "QAT",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 3,
+    "awayScore": 1,
+    "highlightSlug": "bosnia-and-herzegovina-qatar"
   },
   {
     "id": 51,
@@ -708,10 +658,9 @@
     "stadiumId": "hard-rock-stadium",
     "home": "SCO",
     "away": "BRA",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 0,
+    "awayScore": 3,
+    "highlightSlug": "scotland-brazil"
   },
   {
     "id": 52,
@@ -722,10 +671,9 @@
     "stadiumId": "mercedes-benz-stadium",
     "home": "MAR",
     "away": "HAI",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 4,
+    "awayScore": 2,
+    "highlightSlug": "morocco-haiti"
   },
   {
     "id": 53,
@@ -736,10 +684,9 @@
     "stadiumId": "estadio-azteca",
     "home": "CZE",
     "away": "MEX",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 0,
+    "awayScore": 3,
+    "highlightSlug": "czechia-mexico"
   },
   {
     "id": 54,
@@ -750,10 +697,9 @@
     "stadiumId": "estadio-bbva",
     "home": "RSA",
     "away": "KOR",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 1,
+    "awayScore": 0,
+    "highlightSlug": "south-africa-south-korea"
   },
   {
     "id": 55,
@@ -764,10 +710,9 @@
     "stadiumId": "lincoln-financial-field",
     "home": "ECU",
     "away": "GER",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 2,
+    "awayScore": 1,
+    "highlightSlug": "ecuador-germany"
   },
   {
     "id": 56,
@@ -778,10 +723,9 @@
     "stadiumId": "metlife-stadium",
     "home": "Curacao",
     "away": "Ivory Coast",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 0,
+    "awayScore": 2,
+    "highlightSlug": "curacao-cote-d-ivoire"
   },
   {
     "id": 57,
@@ -792,10 +736,9 @@
     "stadiumId": "att-stadium",
     "home": "TUN",
     "away": "NED",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 1,
+    "awayScore": 3,
+    "highlightSlug": "tunisia-netherlands"
   },
   {
     "id": 58,
@@ -806,10 +749,9 @@
     "stadiumId": "arrowhead-stadium",
     "home": "JPN",
     "away": "SWE",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 1,
+    "awayScore": 1,
+    "highlightSlug": "japan-sweden"
   },
   {
     "id": 59,
@@ -820,10 +762,9 @@
     "stadiumId": "sofi-stadium",
     "home": "TUR",
     "away": "USA",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 3,
+    "awayScore": 2,
+    "highlightSlug": "turkiye-usa"
   },
   {
     "id": 60,
@@ -834,10 +775,9 @@
     "stadiumId": "levis-stadium",
     "home": "PAR",
     "away": "AUS",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 0,
+    "awayScore": 0,
+    "highlightSlug": "paraguay-australia"
   },
   {
     "id": 61,
@@ -848,10 +788,9 @@
     "stadiumId": "gillette-stadium",
     "home": "NOR",
     "away": "FRA",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 1,
+    "awayScore": 4,
+    "highlightSlug": "norway-france"
   },
   {
     "id": 62,
@@ -862,10 +801,9 @@
     "stadiumId": "bmo-field",
     "home": "SEN",
     "away": "IRQ",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 5,
+    "awayScore": 0,
+    "highlightSlug": "senegal-iraq"
   },
   {
     "id": 63,
@@ -876,10 +814,9 @@
     "stadiumId": "nrg-stadium",
     "home": "URU",
     "away": "ESP",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 0,
+    "awayScore": 1,
+    "highlightSlug": "uruguay-spain"
   },
   {
     "id": 64,
@@ -890,10 +827,9 @@
     "stadiumId": "estadio-akron",
     "home": "Cape Verde",
     "away": "KSA",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 0,
+    "awayScore": 0,
+    "highlightSlug": "cabo-verde-saudi-arabia"
   },
   {
     "id": 65,
@@ -904,10 +840,9 @@
     "stadiumId": "lumen-field",
     "home": "NZL",
     "away": "BEL",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 1,
+    "awayScore": 5,
+    "highlightSlug": "new-zealand-belgium"
   },
   {
     "id": 66,
@@ -918,10 +853,9 @@
     "stadiumId": "bc-place",
     "home": "EGY",
     "away": "IRN",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 1,
+    "awayScore": 1,
+    "highlightSlug": "egypt-iran"
   },
   {
     "id": 67,
@@ -932,10 +866,9 @@
     "stadiumId": "metlife-stadium",
     "home": "PAN",
     "away": "ENG",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 0,
+    "awayScore": 2,
+    "highlightSlug": "panama-england"
   },
   {
     "id": 68,
@@ -946,10 +879,9 @@
     "stadiumId": "lincoln-financial-field",
     "home": "CRO",
     "away": "GHA",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 2,
+    "awayScore": 1,
+    "highlightSlug": "croatia-ghana"
   },
   {
     "id": 69,
@@ -960,10 +892,9 @@
     "stadiumId": "hard-rock-stadium",
     "home": "COL",
     "away": "POR",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 0,
+    "awayScore": 0,
+    "highlightSlug": "colombia-portugal"
   },
   {
     "id": 70,
@@ -974,10 +905,9 @@
     "stadiumId": "mercedes-benz-stadium",
     "home": "DR Congo",
     "away": "UZB",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 3,
+    "awayScore": 1,
+    "highlightSlug": "dr-congo-uzbekistan"
   },
   {
     "id": 71,
@@ -988,10 +918,9 @@
     "stadiumId": "arrowhead-stadium",
     "home": "JOR",
     "away": "ARG",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 1,
+    "awayScore": 3,
+    "highlightSlug": "jordan-argentina"
   },
   {
     "id": 72,
@@ -1002,9 +931,8 @@
     "stadiumId": "att-stadium",
     "home": "ALG",
     "away": "AUT",
-    "homeScore": null,
-    "awayScore": null,
-    "status": "SCHEDULED",
-    "highlightSlug": null
+    "homeScore": 3,
+    "awayScore": 3,
+    "highlightSlug": "algeria-austria"
   }
 ]

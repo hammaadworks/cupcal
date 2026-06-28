@@ -58,7 +58,6 @@ export const MatchCardReact = ({ match, timezone, isMounted, isUpcoming, upcomin
   const status = getMatchStatus(match.kickoffUtc);
   const isDone = status === 'DONE';
   const hasResult = match.homeScore !== null && match.awayScore !== null;
-  const [showScore, setShowScore] = useState((isDone && hasResult) ? true : false);
 
   const winner = getWinner(match);
   
@@ -113,7 +112,6 @@ export const MatchCardReact = ({ match, timezone, isMounted, isUpcoming, upcomin
            <div className="text-[9px] md:text-[10px] text-gray-500 font-black uppercase mb-1 leading-none">KICKOFF</div>
            <span className="font-anton text-[14px] md:text-xl lg:text-2xl text-black leading-none tracking-tight whitespace-pre-line">{formatTime(match.kickoffUtc, timezone, isMounted).replace(' ', '\n')}</span>
            {hasResult ? (
-             showScore ? (
                <div className="flex flex-col items-center mt-2 w-full">
                  <span className="font-anton text-[14px] sm:text-lg text-pink-500 block w-full text-center tracking-widest bg-yellow-100 border-[2px] border-black rounded-lg py-1 px-2 shadow-[2px_2px_0px_#000]">
                    {match.homeScore} - {match.awayScore}
@@ -124,15 +122,6 @@ export const MatchCardReact = ({ match, timezone, isMounted, isUpcoming, upcomin
                    </span>
                  )}
                </div>
-             ) : (
-               <button 
-                 onClick={(e) => { e.stopPropagation(); setShowScore(true); }}
-                 data-umami-event="spoiler_reveal"
-                 className="font-anton text-[9px] sm:text-[10px] text-white bg-black hover:bg-pink-500 mt-2 uppercase px-2 py-1 border-[2px] border-black rounded-lg transition-colors whitespace-nowrap"
-               >
-                 REVEAL SCORE
-               </button>
-             )
            ) : (
              <span className="font-anton text-[10px] sm:text-xs text-pink-500 mt-2">VS</span>
            )}

@@ -17,7 +17,7 @@ interface Props {
 
 export const MatchModalReact = ({ match, timezone, isMounted, onClose, onDownloadSingle }: Props) => {
   const status = getMatchStatus(match.kickoffUtc);
-  const [showScore, setShowScore] = React.useState(false);
+
   const hasResult = match.homeScore !== null && match.awayScore !== null;
   
   const homeName = match.home ? getTeamName(match.home) : getSourceText(match.homeSource);
@@ -65,7 +65,6 @@ export const MatchModalReact = ({ match, timezone, isMounted, onClose, onDownloa
 
           <div className="font-anton text-4xl md:text-6xl text-pink-500 z-10 drop-shadow-[2px_2px_0px_#000] whitespace-nowrap flex flex-col items-center">
             {hasResult ? (
-              showScore ? (
                 <>
                   <div>{match.homeScore} - {match.awayScore}</div>
                   {match.homePenalties != null && match.awayPenalties != null && (
@@ -74,15 +73,6 @@ export const MatchModalReact = ({ match, timezone, isMounted, onClose, onDownloa
                     </div>
                   )}
                 </>
-              ) : (
-                <button 
-                  onClick={(e) => { e.stopPropagation(); setShowScore(true); }}
-                  data-umami-event="spoiler_reveal"
-                  className="bg-black text-white hover:bg-pink-500 text-xl md:text-2xl px-4 py-2 rounded-xl border-[3px] border-black transition-colors uppercase"
-                >
-                  REVEAL SCORE
-                </button>
-              )
             ) : 'VS'}
           </div>
 

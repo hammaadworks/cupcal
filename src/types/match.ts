@@ -9,7 +9,6 @@ export type GroupMatch = {
   away: string | null;
   homeScore: number | null;
   awayScore: number | null;
-  status: 'SCHEDULED' | 'LIVE' | 'FINISHED';
   highlightSlug: string | null;
 }
 
