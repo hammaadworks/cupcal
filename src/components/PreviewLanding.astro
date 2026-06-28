@@ -1,0 +1,62 @@
+---
+// Preview Landing Page Component
+---
+
+<div id="preview-landing" class="fixed inset-0 z-[100] bg-brand-primary flex flex-col items-center justify-center p-4">
+  <div class="bg-white border-[4px] border-black p-8 max-w-lg w-full text-center shadow-[8px_8px_0px_#000] relative">
+    <h1 class="text-3xl md:text-4xl font-anton uppercase tracking-widest text-black mb-4">
+      🚀 Cupcal has officially launched!
+    </h1>
+    <p class="text-lg font-medium text-black/80 mb-6 font-inter">
+      You're visiting our original Preview URL.<br/><br/>
+      Cupcal has now moved to our official home:<br/>
+      <strong class="text-pink-500 font-bold text-xl">cupcal.online</strong><br/><br/>
+      You'll be redirected automatically in <span id="countdown" class="font-bold">3</span> seconds.
+    </p>
+    
+    <div class="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+      <a 
+        href="https://cupcal.online" 
+        class="bg-pink-500 hover:bg-pink-600 text-white font-anton text-xl uppercase tracking-widest px-6 py-3 border-[2px] border-black shadow-[4px_4px_0px_#000] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all inline-block"
+      >
+        Go to Cupcal →
+      </a>
+      <button 
+        id="cancel-redirect" 
+        class="bg-white hover:bg-gray-100 text-black font-anton text-xl uppercase tracking-widest px-6 py-3 border-[2px] border-black shadow-[4px_4px_0px_#000] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all cursor-pointer"
+      >
+        Stay on Preview
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  let timeLeft = 3;
+  let timerId: ReturnType<typeof setTimeout> | undefined;
+
+  const countdownEl = document.getElementById('countdown');
+  const cancelBtn = document.getElementById('cancel-redirect');
+
+  function updateRedirect() {
+    if (timeLeft <= 0) {
+      window.location.href = 'https://cupcal.online';
+    } else {
+      if (countdownEl) countdownEl.innerText = timeLeft.toString();
+      timeLeft--;
+      timerId = setTimeout(updateRedirect, 1000);
+    }
+  }
+
+  // Start the countdown
+  timerId = setTimeout(updateRedirect, 1000);
+
+  // Cancel redirect
+  if (cancelBtn) {
+    cancelBtn.addEventListener('click', () => {
+      clearTimeout(timerId);
+      document.cookie = "stay_on_preview=1; path=/; max-age=3600";
+      window.location.reload();
+    });
+  }
+</script>
