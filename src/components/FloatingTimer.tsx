@@ -27,12 +27,12 @@ export const FloatingTimer = ({ match, onClick }: { match: Match, onClick: () =>
   }, [match.kickoffUtc]);
 
   return (
-    <button onClick={onClick} className="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-50 bg-black text-white border-[3px] border-black shadow-[4px_4px_0px_#000] rounded-xl py-2 px-4 flex flex-col items-center hover:-translate-y-1 hover:shadow-[6px_6px_0px_#000] transition-all group">
-      <div className="text-xl md:text-2xl font-anton text-pink-400 tracking-widest group-hover:text-pink-300">{timeLeft}</div>
-      <div className="text-[10px] uppercase font-anton tracking-widest mt-1 mb-2">Upcoming Match</div>
+    <button onClick={onClick} className="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-50 bg-black text-white border-[3px] border-black shadow-[4px_4px_0px_#2E0D23] rounded-xl py-2 px-4 flex flex-col items-center hover:-translate-y-1 hover:shadow-[6px_6px_0px_#2E0D23] transition-all group">
+      <div className="text-xl md:text-2xl font-outfit text-blue-500 tracking-widest group-hover:text-blue-300">{timeLeft}</div>
+      <div className="text-[10px] uppercase font-outfit tracking-widest mt-1 mb-2">Upcoming Match</div>
       <div className="flex items-center gap-2">
          {match.home && getTeamLogo(match.home) ? <img src={getTeamLogo(match.home)} className="w-6 h-6 md:w-8 md:h-8 object-contain" /> : <span className="text-sm">🏳️</span>}
-         <span className="font-anton text-xs text-gray-400">VS</span>
+         <span className="font-outfit text-xs text-gray-400">VS</span>
          {match.away && getTeamLogo(match.away) ? <img src={getTeamLogo(match.away)} className="w-6 h-6 md:w-8 md:h-8 object-contain" /> : <span className="text-sm">🏳️</span>}
       </div>
     </button>

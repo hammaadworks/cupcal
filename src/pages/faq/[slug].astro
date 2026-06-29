@@ -2,6 +2,8 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import faqData from '../../data/seo/faq.json';
 
+export const prerender = true;
+
 export function getStaticPaths() {
   return faqData.map((f: any) => ({
     params: { slug: f.slug },

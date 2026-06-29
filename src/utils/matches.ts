@@ -50,7 +50,7 @@ export async function getMatches(): Promise<Match[]> {
           awayScore: ko.away_score,
           homePenalties: ko.home_penalties,
           awayPenalties: ko.away_penalties,
-          status: ko.status,
+          status: ko.status || (ko.home_score !== null && ko.away_score !== null ? 'FINISHED' : 'SCHEDULED'),
           highlightUrl: ko.highlight_url
         });
       }
@@ -59,7 +59,53 @@ export async function getMatches(): Promise<Match[]> {
     console.log("Failed to fetch supabase data:", err);
   }
 
-  // 3. Convert back to array and sort
+  // 3. Fallback for Knockout Matches (IDs 73-104) if Supabase is empty/failing
+  for (let i = 73; i <= 104; i++) {
+    if (!matchesMap.has(i.toString())) {
+      let stage: Match['stage'] = 'R32';
+      let homeSource = 'TBD';
+      let awaySource = 'TBD';
+
+      if (i >= 89 && i <= 96) {
+        stage = 'R16';
+        homeSource = `W${73 + (i - 89) * 2}`;
+        awaySource = `W${74 + (i - 89) * 2}`;
+      } else if (i >= 97 && i <= 100) {
+        stage = 'QF';
+        homeSource = `W${89 + (i - 97) * 2}`;
+        awaySource = `W${90 + (i - 97) * 2}`;
+      } else if (i === 101) {
+        stage = 'SF';
+        homeSource = 'W97';
+        awaySource = 'W98';
+      } else if (i === 102) {
+        stage = 'SF';
+        homeSource = 'W99';
+        awaySource = 'W100';
+      } else if (i === 103) {
+        stage = '3RD';
+        homeSource = 'L101';
+        awaySource = 'L102';
+      } else if (i === 104) {
+        stage = 'FINAL';
+        homeSource = 'W101';
+        awaySource = 'W102';
+      }
+      
+      matchesMap.set(i.toString(), {
+        id: i.toString(),
+        matchNumber: i,
+        stage,
+        kickoffUtc: '2026-07-01T00:00:00Z', // generic placeholder
+        stadiumId: 'nyc',
+        homeSource,
+        awaySource,
+        status: 'SCHEDULED'
+      });
+    }
+  }
+
+  // 4. Convert back to array and sort
   const finalMatches = Array.from(matchesMap.values());
   finalMatches.sort((a, b) => a.matchNumber - b.matchNumber);
   

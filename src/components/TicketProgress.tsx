@@ -106,14 +106,14 @@ export default function TicketProgress({
         {phase === 'soldout' ? (
           <p
             className="text-5xl md:text-7xl text-red-600 tracking-tight leading-none"
-            style={{ fontFamily: "'Anton', sans-serif" }}
+            style={{ fontFamily: "'Outfit', sans-serif" }}
           >
             SOLD OUT
           </p>
         ) : (
           <p
             className="text-5xl md:text-7xl text-black tracking-tight leading-none"
-            style={{ fontFamily: "'Anton', sans-serif" }}
+            style={{ fontFamily: "'Outfit', sans-serif" }}
           >
             {ticketsRemaining}{' '}
             <span className="text-2xl md:text-3xl text-gray-700">
@@ -125,14 +125,14 @@ export default function TicketProgress({
 
       {/* Phase 2 subtext */}
       {phase === 'buffer' && (
-        <p className="text-center text-sm md:text-base text-amber-800 font-semibold mb-4 bg-amber-100 border-[3px] border-amber-500 p-3 shadow-[3px_3px_0px_#000]">
+        <p className="text-center text-sm md:text-base text-amber-800 font-semibold mb-4 bg-amber-100 border-[3px] border-amber-500 p-3 shadow-[3px_3px_0px_#2E0D23]">
           🎉 Capacity is full, but we're still accepting a few more because we don't want you to miss
           out on the fun!
         </p>
       )}
 
       {/* Progress Bar — Brutalist */}
-      <div className="bg-white border-[4px] border-black shadow-[4px_4px_0px_#000] p-1">
+      <div className="bg-white border-[4px] border-black shadow-[4px_4px_0px_#2E0D23] p-1">
         <div
           className={`h-8 ${barColor} transition-all duration-700 ease-out`}
           style={{ width: `${progressPercent}%` }}
@@ -149,7 +149,7 @@ export default function TicketProgress({
         <form onSubmit={handleSubmit} className="mt-10">
           <h3
             className="text-3xl md:text-4xl text-black mb-6 tracking-tight"
-            style={{ fontFamily: "'Anton', sans-serif" }}
+            style={{ fontFamily: "'Outfit', sans-serif" }}
           >
             GRAB YOUR TICKET
           </h3>
@@ -169,7 +169,7 @@ export default function TicketProgress({
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Your full name"
-                className="w-full px-4 py-3 bg-white border-[3px] border-black text-black font-bold focus:outline-none focus:bg-pink-50 placeholder-gray-400 shadow-[4px_4px_0px_#000] transition-colors"
+                className="w-full px-4 py-3 bg-white border-[3px] border-black text-black font-bold focus:outline-none focus:bg-blue-50 placeholder-gray-400 shadow-[4px_4px_0px_#2E0D23] transition-colors"
                 required
               />
             </div>
@@ -188,7 +188,7 @@ export default function TicketProgress({
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.com"
-                className="w-full px-4 py-3 bg-white border-[3px] border-black text-black font-bold focus:outline-none focus:bg-pink-50 placeholder-gray-400 shadow-[4px_4px_0px_#000] transition-colors"
+                className="w-full px-4 py-3 bg-white border-[3px] border-black text-black font-bold focus:outline-none focus:bg-blue-50 placeholder-gray-400 shadow-[4px_4px_0px_#2E0D23] transition-colors"
                 required
               />
             </div>
@@ -207,7 +207,7 @@ export default function TicketProgress({
                 value={whatsapp}
                 onChange={(e) => setWhatsapp(e.target.value)}
                 placeholder="+91 98765 43210"
-                className="w-full px-4 py-3 bg-white border-[3px] border-black text-black font-bold focus:outline-none focus:bg-pink-50 placeholder-gray-400 shadow-[4px_4px_0px_#000] transition-colors"
+                className="w-full px-4 py-3 bg-white border-[3px] border-black text-black font-bold focus:outline-none focus:bg-blue-50 placeholder-gray-400 shadow-[4px_4px_0px_#2E0D23] transition-colors"
                 required
               />
             </div>
@@ -215,14 +215,14 @@ export default function TicketProgress({
             {/* Agreement Checkbox */}
             <label
               htmlFor="ticket-agree"
-              className="flex items-start gap-3 p-4 bg-yellow-100 border-[3px] border-black cursor-pointer select-none shadow-[3px_3px_0px_#000] hover:bg-yellow-200 transition-colors"
+              className="flex items-start gap-3 p-4 bg-yellow-100 border-[3px] border-black cursor-pointer select-none shadow-[3px_3px_0px_#2E0D23] hover:bg-yellow-200 transition-colors"
             >
               <input
                 id="ticket-agree"
                 type="checkbox"
                 checked={agreed}
                 onChange={(e) => setAgreed(e.target.checked)}
-                className="mt-1 w-5 h-5 accent-pink-500 shrink-0"
+                className="mt-1 w-5 h-5 accent-blue-600 shrink-0"
               />
               <span className="text-sm font-semibold text-black leading-snug">
                 I agree that this is a <strong>family-friendly, no-alcohol event</strong>. I will
@@ -231,8 +231,8 @@ export default function TicketProgress({
             </label>
 
             {/* Price Breakdown */}
-            <div className="bg-white border-[3px] border-black p-4 shadow-[4px_4px_0px_#000]">
-              <h4 className="text-black font-black uppercase tracking-widest mb-3" style={{ fontFamily: "'Anton', sans-serif" }}>Order Summary</h4>
+            <div className="bg-white border-[3px] border-black p-4 shadow-[4px_4px_0px_#2E0D23]">
+              <h4 className="text-black font-black uppercase tracking-widest mb-3" style={{ fontFamily: "'Outfit', sans-serif" }}>Order Summary</h4>
               <div className="space-y-2 text-sm font-semibold text-gray-700">
                 {Object.entries(priceBreakdown).map(([item, amount]) => (
                   <div key={item} className="flex justify-between border-b border-gray-200 pb-1">
@@ -253,10 +253,10 @@ export default function TicketProgress({
               disabled={!isFormValid || submitting}
               className={`w-full py-5 text-xl font-black uppercase tracking-wider border-[4px] border-black transition-all ${
                 isFormValid && !submitting
-                  ? 'bg-pink-500 text-white shadow-[6px_6px_0px_#000] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_#000] cursor-pointer active:translate-x-[4px] active:translate-y-[4px] active:shadow-none'
+                  ? 'bg-blue-600 text-white shadow-[6px_6px_0px_#2E0D23] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_#2E0D23] cursor-pointer active:translate-x-[4px] active:translate-y-[4px] active:shadow-none'
                   : 'bg-gray-300 text-gray-500 shadow-[4px_4px_0px_#999] cursor-not-allowed'
               }`}
-              style={{ fontFamily: "'Anton', sans-serif" }}
+              style={{ fontFamily: "'Outfit', sans-serif" }}
             >
               {submitting ? (
                 '⏳ PROCESSING...'
@@ -270,10 +270,10 @@ export default function TicketProgress({
 
       {/* Sold Out Message */}
       {phase === 'soldout' && (
-        <div className="mt-10 text-center p-8 bg-red-50 border-[4px] border-red-500 shadow-[4px_4px_0px_#000]">
+        <div className="mt-10 text-center p-8 bg-red-50 border-[4px] border-red-500 shadow-[4px_4px_0px_#2E0D23]">
           <p
             className="text-2xl text-red-600 mb-2"
-            style={{ fontFamily: "'Anton', sans-serif" }}
+            style={{ fontFamily: "'Outfit', sans-serif" }}
           >
             ALL TICKETS ARE GONE!
           </p>
@@ -281,7 +281,7 @@ export default function TicketProgress({
             Follow us on Instagram{' '}
             <a
               href="https://instagram.com/hammaadworks"
-              className="underline text-pink-600 hover:text-black"
+              className="underline text-blue-700 hover:text-black"
               target="_blank"
               rel="noopener noreferrer"
             >

@@ -8,7 +8,13 @@ body {
   overflow-x: clip;
 }
 
-h1, h2, h3, h4, h5, h6, .font-anton {
+h1, .font-heading {
+  font-family: var(--font-family-heading);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+h2, h3, h4, h5, h6, .font-outfit, .font-display {
   font-family: var(--font-family-display);
   text-transform: uppercase;
   letter-spacing: 0.05em;

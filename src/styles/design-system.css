@@ -1,24 +1,42 @@
 @theme {
-  --color-brand-primary: #ffd6e0;
-  --color-brand-secondary: #000000;
-  
-  --color-card-top-1: #fbcfe8;
-  --color-card-bottom-1: #bfdbfe;
-  
-  --color-card-top-2: #bbf7d0;
-  --color-card-bottom-2: #fef08a;
-  
-  --color-card-top-3: #e9d5ff;
-  --color-card-bottom-3: #fed7aa;
+  --color-brand-1: #FFEDBF;
+  --color-brand-2: #F7803C;
+  --color-brand-3: #F54828;
+  --color-brand-4: #2E0D23;
+  --color-brand-5: #F8E4C1;
 
-  --color-border: #000000;
-  --color-shadow: #000000;
-  --color-text: #000000;
-  --color-text-inverse: #ffffff;
+  --color-black: #2E0D23;
+  --color-white: #FFEDBF;
+
+  /* Remap the utility classes currently heavily used in the app */
+  --color-blue-100: #F8E4C1;
+  --color-blue-300: #F7803C;
+  --color-blue-500: #F7803C;
+  --color-blue-600: #F54828;
+  --color-blue-700: #F54828;
+  
+  --color-yellow-50: #F8E4C1;
+  --color-yellow-100: #FFEDBF;
+  --color-yellow-300: #F7803C;
+  --color-yellow-400: #F54828;
+  --color-yellow-500: #F54828;
+
+  --color-red-500: #F54828;
+  --color-red-600: #F54828;
+  --color-red-700: #F54828;
+
+  --color-brand-primary: #FFEDBF;
+  --color-brand-secondary: #F8E4C1;
+  
+  --color-border: #2E0D23;
+  --color-shadow: #2E0D23;
+  --color-text: #2E0D23;
+  --color-text-inverse: #FFEDBF;
   
   --border-width-brutalist: 3px;
   --border-width-thick: 4px;
 
-  --font-family-display: 'Anton', sans-serif;
-  --font-family-body: 'Inter', sans-serif;
+  --font-family-display: 'Syne', sans-serif;
+  --font-family-body: 'Anonymous Pro', monospace;
+  --font-family-heading: 'Anton', sans-serif;
 }

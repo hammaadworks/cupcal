@@ -13,7 +13,7 @@ function atou(b64: string) {
   return decodeURIComponent(escape(atob(b64)));
 }
 
-export const POST: APIRoute = async ({ request }) => {
+export const POST: APIRoute = async ({ request, locals }) => {
   try {
     const { response } = await request.json();
     const xVerifyHeader = request.headers.get('x-verify');
@@ -22,8 +22,9 @@ export const POST: APIRoute = async ({ request }) => {
       return new Response('Invalid payload', { status: 400 });
     }
 
-    const saltKey = import.meta.env.PHONEPE_SALT_KEY || '96434309-7796-489d-8924-ab56988a6076';
-    const saltIndex = import.meta.env.PHONEPE_SALT_INDEX || '1';
+    const env = (locals as any).runtime?.env || import.meta.env;
+    const saltKey = env.PHONEPE_SALT_KEY || '96434309-7796-489d-8924-ab56988a6076';
+    const saltIndex = env.PHONEPE_SALT_INDEX || '1';
 
     // Verify signature
     const stringToHash = response + saltKey;

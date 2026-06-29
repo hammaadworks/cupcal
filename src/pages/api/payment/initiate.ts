@@ -14,7 +14,7 @@ function utoa(str: string) {
   return btoa(unescape(encodeURIComponent(str)));
 }
 
-export const POST: APIRoute = async ({ request, url }) => {
+export const POST: APIRoute = async ({ request, url, locals }) => {
   try {
     const { eventId, email, whatsapp, priceInCents, name } = await request.json();
 
@@ -39,10 +39,10 @@ export const POST: APIRoute = async ({ request, url }) => {
 
     const transactionId = ticket.id;
     const amount = priceInCents; // Already in paise
-    // For Astro in Cloudflare, use import.meta.env
-    const merchantId = import.meta.env.PHONEPE_MERCHANT_ID || 'PGTESTPAYUAT';
-    const saltKey = import.meta.env.PHONEPE_SALT_KEY || '96434309-7796-489d-8924-ab56988a6076';
-    const saltIndex = import.meta.env.PHONEPE_SALT_INDEX || '1';
+    const env = (locals as any).runtime?.env || import.meta.env;
+    const merchantId = env.PHONEPE_MERCHANT_ID || 'PGTESTPAYUAT';
+    const saltKey = env.PHONEPE_SALT_KEY || '96434309-7796-489d-8924-ab56988a6076';
+    const saltIndex = env.PHONEPE_SALT_INDEX || '1';
     
     // Create base URL for redirects/callbacks
     const baseUrl = `${url.protocol}//${url.host}`;
@@ -66,7 +66,7 @@ export const POST: APIRoute = async ({ request, url }) => {
     const sha256Hash = await generateSha256(stringToHash);
     const xVerify = sha256Hash + "###" + saltIndex;
 
-    const phonePeUrl = import.meta.env.PHONEPE_ENV === 'PROD' 
+    const phonePeUrl = env.PHONEPE_ENV === 'PROD' 
       ? 'https://api.phonepe.com/apis/hermes/pg/v1/pay'
       : 'https://api-preprod.phonepe.com/apis/pg-sandbox/pg/v1/pay';
 

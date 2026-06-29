@@ -25,9 +25,9 @@ export const MatchCountdown = ({ dateStr }: { dateStr: string }) => {
   }, [dateStr]);
 
   return (
-    <div className="bg-black text-white border-[3px] border-black shadow-[4px_4px_0px_#000] rounded-xl py-3 px-6 inline-block">
-      <div className="text-3xl md:text-4xl font-anton text-pink-400 tracking-widest">{timeLeft}</div>
-      <div className="text-xs uppercase font-anton tracking-widest mt-1">Kickoff Countdown</div>
+    <div className="bg-black text-white border-[3px] border-black shadow-[4px_4px_0px_#2E0D23] rounded-xl py-3 px-6 inline-block">
+      <div className="text-3xl md:text-4xl font-outfit text-blue-500 tracking-widest">{timeLeft}</div>
+      <div className="text-xs uppercase font-outfit tracking-widest mt-1">Kickoff Countdown</div>
     </div>
   );
 };

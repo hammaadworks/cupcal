@@ -1,0 +1,31 @@
+{
+  "name": "cupcal",
+  "compatibility_date": "2026-04-15",
+  "workers_dev": true,
+  "preview_urls": true,
+  "observability": {
+    "enabled": true
+  },
+  "routes": [
+    {
+      "pattern": "preview.cupcal.online",
+      "custom_domain": true,
+      "zone_name": "cupcal.online",
+      "enabled": true,
+      "previews_enabled": false
+    },
+    {
+      "pattern": "cupcal.online",
+      "custom_domain": true,
+      "zone_name": "cupcal.online",
+      "enabled": true,
+      "previews_enabled": false
+    }
+  ],
+  "kv_namespaces": [
+    {
+      "binding": "SESSION",
+      "id": "3eadf3a4aba542a5b6329043c8c0c9dc"
+    }
+  ]
+}

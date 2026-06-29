@@ -52,15 +52,23 @@ const faqs = [
 
 <BaseLayout title="THE FINAL — World Cup 2026 Finals Watch Party" description="Join the ultimate FIFA World Cup 2026 Finals live screening in Bangalore. Family-friendly, no-alcohol watch party. Book your spot now!">
   <main class="min-h-screen relative z-10 overflow-x-clip w-full">
+    <div class="bg-typography-container">
+      <div class="bg-text-line">THE FINAL THE FINAL THE FINAL THE FINAL</div>
+      <div class="bg-text-line">CHAMPIONS CHAMPIONS CHAMPIONS CHAMPIONS</div>
+      <div class="bg-text-line">THE FINAL THE FINAL THE FINAL THE FINAL</div>
+      <div class="bg-text-line">CHAMPIONS CHAMPIONS CHAMPIONS CHAMPIONS</div>
+      <div class="bg-text-line">THE FINAL THE FINAL THE FINAL THE FINAL</div>
+    </div>
+
 
     <!-- ============ HERO ============ -->
     <section class="relative py-24 md:py-32 overflow-hidden bg-black text-white">
       <!-- Animated background text -->
       <div class="absolute inset-0 overflow-hidden pointer-events-none opacity-10">
-        <div class="absolute top-1/4 left-0 whitespace-nowrap text-[20vw] font-anton uppercase tracking-tighter leading-none animate-[scroll-left_30s_linear_infinite]" style="font-family: 'Anton', sans-serif;">
+        <div class="absolute top-1/4 left-0 whitespace-nowrap text-[20vw] font-outfit uppercase tracking-tighter leading-none animate-[scroll-left_30s_linear_infinite]" >
           FINAL FINAL FINAL FINAL FINAL FINAL
         </div>
-        <div class="absolute bottom-1/4 left-0 whitespace-nowrap text-[15vw] font-anton uppercase tracking-tighter leading-none animate-[scroll-right_35s_linear_infinite]" style="font-family: 'Anton', sans-serif;">
+        <div class="absolute bottom-1/4 left-0 whitespace-nowrap text-[15vw] font-outfit uppercase tracking-tighter leading-none animate-[scroll-right_35s_linear_infinite]" >
           WORLD CUP 2026 WORLD CUP 2026 WORLD CUP 2026
         </div>
       </div>
@@ -68,21 +76,21 @@ const faqs = [
       <div class="container mx-auto px-4 relative z-10 text-center">
         <!-- Badge -->
         <div class="inline-flex items-center gap-2 px-4 py-2 mb-8 bg-yellow-300 text-black border-[3px] border-white shadow-[4px_4px_0px_rgba(255,255,255,0.3)]">
-          <span class="text-sm font-black uppercase tracking-widest" style="font-family: 'Anton', sans-serif;">
+          <span class="text-sm font-black uppercase tracking-widest" >
             🏟️ Family-Friendly · No Alcohol · Local Turf
           </span>
         </div>
 
-        <h1 class="text-6xl md:text-8xl lg:text-[140px] font-black tracking-tighter leading-[0.85] mb-6" style="font-family: 'Anton', sans-serif;">
+        <h1 class="text-6xl md:text-8xl lg:text-[140px] font-black tracking-tighter leading-[0.85] mb-6" >
           THE FINAL<br/>
-          <span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-yellow-300 to-pink-500">WHISTLE</span>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-yellow-300 to-blue-600">WHISTLE</span>
         </h1>
 
         <p class="text-lg md:text-2xl text-gray-300 font-medium max-w-2xl mx-auto mb-8">
           FIFA World Cup 2026 Finals · Live Screening · Bangalore
         </p>
 
-        <a href="#tickets" class="inline-block px-10 py-4 bg-pink-500 text-white text-xl font-black uppercase tracking-wider border-[4px] border-white shadow-[6px_6px_0px_rgba(255,255,255,0.3)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_rgba(255,255,255,0.3)] transition-all" style="font-family: 'Anton', sans-serif;">
+        <a href="#tickets" class="inline-block px-10 py-4 bg-blue-600 text-white text-xl font-black uppercase tracking-wider border-[4px] border-white shadow-[6px_6px_0px_rgba(255,255,255,0.3)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_rgba(255,255,255,0.3)] transition-all" >
           🎟️ GRAB YOUR TICKET
         </a>
       </div>
@@ -99,37 +107,37 @@ const faqs = [
     <!-- ============ EVENT DETAILS ============ -->
     <section class="py-16 md:py-20 bg-white border-y-[4px] border-black">
       <div class="container mx-auto px-4 max-w-4xl">
-        <h2 class="text-4xl md:text-5xl text-black text-center mb-12 tracking-tight" style="font-family: 'Anton', sans-serif;">
+        <h2 class="text-4xl md:text-5xl text-black text-center mb-12 tracking-tight" >
           THE LOWDOWN
         </h2>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <!-- What -->
-          <div class="p-6 bg-pink-50 border-[3px] border-black shadow-[4px_4px_0px_#000]">
+          <div class="p-6 bg-blue-50 border-[3px] border-black shadow-[4px_4px_0px_#2E0D23]">
             <div class="text-3xl mb-2">📺</div>
-            <h3 class="text-xl font-black text-black uppercase tracking-widest mb-1" style="font-family: 'Anton', sans-serif;">What</h3>
+            <h3 class="text-xl font-black text-black uppercase tracking-widest mb-1" >What</h3>
             <p class="text-black font-medium">Live screening of the FIFA World Cup 2026 Final on a massive screen</p>
           </div>
 
           <!-- Where -->
-          <div class="p-6 bg-yellow-50 border-[3px] border-black shadow-[4px_4px_0px_#000]">
+          <div class="p-6 bg-yellow-50 border-[3px] border-black shadow-[4px_4px_0px_#2E0D23]">
             <div class="text-3xl mb-2">📍</div>
-            <h3 class="text-xl font-black text-black uppercase tracking-widest mb-1" style="font-family: 'Anton', sans-serif;">Where</h3>
+            <h3 class="text-xl font-black text-black uppercase tracking-widest mb-1" >Where</h3>
             <p class="text-black font-medium">{venueName}</p>
           </div>
 
           <!-- When -->
-          <div class="p-6 bg-green-50 border-[3px] border-black shadow-[4px_4px_0px_#000]">
+          <div class="p-6 bg-green-50 border-[3px] border-black shadow-[4px_4px_0px_#2E0D23]">
             <div class="text-3xl mb-2">📅</div>
-            <h3 class="text-xl font-black text-black uppercase tracking-widest mb-1" style="font-family: 'Anton', sans-serif;">When</h3>
+            <h3 class="text-xl font-black text-black uppercase tracking-widest mb-1" >When</h3>
             <p class="text-black font-medium">{eventDate}</p>
           </div>
 
           <!-- Capacity -->
-          <div class="p-6 bg-purple-50 border-[3px] border-black shadow-[4px_4px_0px_#000]">
+          <div class="p-6 bg-purple-50 border-[3px] border-black shadow-[4px_4px_0px_#2E0D23]">
             <div class="text-3xl mb-2">🎫</div>
-            <h3 class="text-xl font-black text-black uppercase tracking-widest mb-1" style="font-family: 'Anton', sans-serif;">Capacity & Price</h3>
-            <p class="text-black font-medium">{maxTickets} attendees · <span class="text-pink-600 font-black">₹{priceInCents / 100}</span></p>
+            <h3 class="text-xl font-black text-black uppercase tracking-widest mb-1" >Capacity & Price</h3>
+            <p class="text-black font-medium">{maxTickets} attendees · <span class="text-blue-700 font-black">₹{priceInCents / 100}</span></p>
           </div>
         </div>
       </div>
@@ -138,11 +146,11 @@ const faqs = [
     <!-- ============ TICKET PROGRESS + CHECKOUT ============ -->
     <section id="tickets" class="py-16 md:py-20 bg-brand-primary">
       <div class="container mx-auto px-4 max-w-2xl">
-        <h2 class="text-4xl md:text-5xl text-black text-center mb-10 tracking-tight" style="font-family: 'Anton', sans-serif;">
+        <h2 class="text-4xl md:text-5xl text-black text-center mb-10 tracking-tight" >
           SECURE YOUR SPOT
         </h2>
 
-        <div class="bg-white border-[4px] border-black shadow-[8px_8px_0px_#000] p-6 md:p-10">
+        <div class="bg-white border-[4px] border-black shadow-[8px_8px_0px_#2E0D23] p-6 md:p-10">
           <TicketProgress
             client:load
             ticketsSold={sold}
@@ -162,12 +170,12 @@ const faqs = [
 
           <!-- Rules -->
           <div>
-            <h2 class="text-3xl md:text-4xl text-black mb-8 tracking-tight" style="font-family: 'Anton', sans-serif;">
+            <h2 class="text-3xl md:text-4xl text-black mb-8 tracking-tight" >
               GROUND RULES
             </h2>
             <div class="grid gap-4">
               {rules.map((rule) => (
-                <div class="flex items-center gap-4 p-4 bg-white border-[3px] border-black shadow-[3px_3px_0px_#000]">
+                <div class="flex items-center gap-4 p-4 bg-white border-[3px] border-black shadow-[3px_3px_0px_#2E0D23]">
                   <span class="text-2xl shrink-0">{rule.emoji}</span>
                   <span class="text-black font-bold text-sm uppercase tracking-wider">{rule.text}</span>
                 </div>
@@ -177,13 +185,13 @@ const faqs = [
 
           <!-- FAQ -->
           <div>
-            <h2 class="text-3xl md:text-4xl text-black mb-8 tracking-tight" style="font-family: 'Anton', sans-serif;">
+            <h2 class="text-3xl md:text-4xl text-black mb-8 tracking-tight" >
               GOT QUESTIONS?
             </h2>
             <div class="grid gap-4">
               {faqs.map((faq) => (
-                <details class="group bg-white border-[3px] border-black shadow-[3px_3px_0px_#000] cursor-pointer">
-                  <summary class="p-4 text-black font-black text-sm uppercase tracking-wider list-none flex items-center justify-between" style="font-family: 'Anton', sans-serif;">
+                <details class="group bg-white border-[3px] border-black shadow-[3px_3px_0px_#2E0D23] cursor-pointer">
+                  <summary class="p-4 text-black font-black text-sm uppercase tracking-wider list-none flex items-center justify-between" >
                     {faq.q}
                     <span class="text-xl group-open:rotate-45 transition-transform duration-200 ml-2">+</span>
                   </summary>
@@ -201,7 +209,7 @@ const faqs = [
     <!-- ============ SPONSOR CTA ============ -->
     <section class="py-16 md:py-20 bg-black text-white">
       <div class="container mx-auto px-4 max-w-2xl text-center">
-        <h2 class="text-4xl md:text-5xl mb-4 tracking-tight" style="font-family: 'Anton', sans-serif;">
+        <h2 class="text-4xl md:text-5xl mb-4 tracking-tight" >
           WANT TO <span class="text-yellow-300">SPONSOR</span> THIS EVENT?
         </h2>
         <p class="text-lg text-gray-300 font-medium mb-8">
@@ -211,7 +219,7 @@ const faqs = [
           <a
             href="mailto:sponsor@cupcal.online"
             class="inline-block px-8 py-4 bg-yellow-300 text-black text-lg font-black uppercase tracking-wider border-[4px] border-white shadow-[6px_6px_0px_rgba(255,255,255,0.3)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_rgba(255,255,255,0.3)] transition-all"
-            style="font-family: 'Anton', sans-serif;"
+            
           >
             ✉️ GET IN TOUCH
           </a>
@@ -219,8 +227,8 @@ const faqs = [
             href="https://instagram.com/hammaadworks"
             target="_blank"
             rel="noopener noreferrer"
-            class="inline-block px-8 py-4 bg-pink-500 text-white text-lg font-black uppercase tracking-wider border-[4px] border-white shadow-[6px_6px_0px_rgba(255,255,255,0.3)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_rgba(255,255,255,0.3)] transition-all"
-            style="font-family: 'Anton', sans-serif;"
+            class="inline-block px-8 py-4 bg-blue-600 text-white text-lg font-black uppercase tracking-wider border-[4px] border-white shadow-[6px_6px_0px_rgba(255,255,255,0.3)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_rgba(255,255,255,0.3)] transition-all"
+            
           >
             📸 @HAMMAADWORKS
           </a>
@@ -233,12 +241,12 @@ const faqs = [
   <!-- Footer -->
   <footer class="py-12 border-t-[4px] border-black relative z-20 bg-yellow-300">
     <div class="container px-4 mx-auto text-center">
-      <p class="text-black text-xl font-anton uppercase tracking-widest mb-6">
-        Cooked up with Alhamdulillah by <a href="https://hammaadworks.com" class="text-pink-600 hover:text-black border-b-[3px] border-pink-600 hover:border-black transition-colors">hammaadworks</a>
+      <p class="text-black text-xl font-outfit uppercase tracking-widest mb-6">
+        Cooked up with Alhamdulillah by <a href="https://hammaadworks.com" class="text-blue-700 hover:text-black border-b-[3px] border-blue-700 hover:border-black transition-colors">hammaadworks</a>
       </p>
       <div class="flex justify-center gap-6">
-        <a href="https://x.com/hammaadworks" class="text-black font-anton uppercase tracking-widest text-xl hover:text-pink-600 transition-colors">X</a>
-        <a href="https://github.com/hammaadworks" class="text-black font-anton uppercase tracking-widest text-xl hover:text-pink-600 transition-colors">GitHub</a>
+        <a href="https://x.com/hammaadworks" class="text-black font-outfit uppercase tracking-widest text-xl hover:text-blue-700 transition-colors">X</a>
+        <a href="https://github.com/hammaadworks" class="text-black font-outfit uppercase tracking-widest text-xl hover:text-blue-700 transition-colors">GitHub</a>
       </div>
     </div>
   </footer>

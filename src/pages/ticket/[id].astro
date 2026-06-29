@@ -40,21 +40,21 @@ const purchaseDate = new Date(ticket.created_at).toLocaleDateString('en-IN', {
 ---
 
 <BaseLayout title="Your Ticket" description="Your confirmed ticket for the FIFA World Cup 2026 Finals Watch Party.">
-  <main class="min-h-screen py-12 md:py-20 px-4 bg-pink-100 relative overflow-hidden">
+  <main class="min-h-screen py-12 md:py-20 px-4 bg-blue-100 relative overflow-hidden">
     <!-- Background decorative elements -->
     <div class="absolute inset-0 pointer-events-none overflow-hidden">
       <div class="absolute -top-20 -left-20 w-72 h-72 bg-yellow-300 rounded-full opacity-20 blur-3xl"></div>
-      <div class="absolute -bottom-32 -right-32 w-96 h-96 bg-pink-400 rounded-full opacity-20 blur-3xl"></div>
+      <div class="absolute -bottom-32 -right-32 w-96 h-96 bg-blue-500 rounded-full opacity-20 blur-3xl"></div>
       <div class="absolute top-1/2 left-1/4 w-48 h-48 bg-green-300 rounded-full opacity-15 blur-3xl"></div>
     </div>
 
     <div class="container mx-auto max-w-lg relative z-20">
       <!-- Confirmed Header -->
       <div class="text-center mb-10">
-        <div class="inline-block py-2 px-5 mb-6 text-sm font-black tracking-widest text-black uppercase bg-green-400 border-[3px] border-black shadow-[4px_4px_0px_#000] animate-bounce">
+        <div class="inline-block py-2 px-5 mb-6 text-sm font-black tracking-widest text-black uppercase bg-green-400 border-[3px] border-black shadow-[4px_4px_0px_#2E0D23] animate-bounce">
           CONFIRMED ✅
         </div>
-        <h1 class="text-4xl md:text-6xl font-anton text-black uppercase tracking-tighter leading-none mb-4">
+        <h1 class="text-4xl md:text-6xl font-outfit text-black uppercase tracking-tighter leading-none mb-4">
           YOUR TICKET IS<br/>CONFIRMED 🎉
         </h1>
         <p class="text-lg text-black font-medium">You're in! Here's your golden ticket.</p>
@@ -64,12 +64,12 @@ const purchaseDate = new Date(ticket.created_at).toLocaleDateString('en-IN', {
       <div class="ticket-card-wrapper mb-10">
         <!-- Top colored strip -->
         <div class="bg-black text-white px-6 py-4 border-[4px] border-black border-b-0 flex items-center justify-between"
-             style="background: linear-gradient(135deg, #ec4899, #000000 60%);">
+             style="background: linear-gradient(135deg, #ec4899, #2E0D23000 60%);">
           <div class="flex items-center gap-3">
             <span class="text-2xl">⚽</span>
-            <span class="font-anton text-xl tracking-widest uppercase text-white">pitch<span class="text-yellow-300">26</span></span>
+            <span class="font-outfit text-xl tracking-widest uppercase text-white">pitch<span class="text-yellow-300">26</span></span>
           </div>
-          <span class="font-anton text-xs tracking-widest text-pink-200 uppercase">Admit One</span>
+          <span class="font-outfit text-xs tracking-widest text-blue-200 uppercase">Admit One</span>
         </div>
 
         <!-- Main Ticket Body -->
@@ -81,14 +81,14 @@ const purchaseDate = new Date(ticket.created_at).toLocaleDateString('en-IN', {
           <div class="p-6 md:p-8 md:pl-16">
             <!-- Event Name -->
             <div class="mb-6">
-              <h2 class="text-2xl md:text-3xl font-anton text-black uppercase tracking-tight leading-tight">
+              <h2 class="text-2xl md:text-3xl font-outfit text-black uppercase tracking-tight leading-tight">
                 FIFA WORLD CUP 2026<br/>FINALS WATCH PARTY
               </h2>
               <div class="mt-2 flex flex-wrap gap-2">
-                <span class="inline-block py-1 px-3 text-[10px] font-black tracking-widest text-black uppercase bg-yellow-300 border-[2px] border-black shadow-[2px_2px_0px_#000]">
+                <span class="inline-block py-1 px-3 text-[10px] font-black tracking-widest text-black uppercase bg-yellow-300 border-[2px] border-black shadow-[2px_2px_0px_#2E0D23]">
                   LIVE SCREENING
                 </span>
-                <span class="inline-block py-1 px-3 text-[10px] font-black tracking-widest text-black uppercase bg-pink-200 border-[2px] border-black shadow-[2px_2px_0px_#000]">
+                <span class="inline-block py-1 px-3 text-[10px] font-black tracking-widest text-black uppercase bg-blue-200 border-[2px] border-black shadow-[2px_2px_0px_#2E0D23]">
                   BANGALORE
                 </span>
               </div>
@@ -125,14 +125,14 @@ const purchaseDate = new Date(ticket.created_at).toLocaleDateString('en-IN', {
 
             <!-- QR Code Section -->
             <div class="flex flex-col md:flex-row items-center gap-6">
-              <div class="w-36 h-36 border-[3px] border-black bg-gray-50 flex items-center justify-center shadow-[4px_4px_0px_#000] shrink-0">
+              <div class="w-36 h-36 border-[3px] border-black bg-gray-50 flex items-center justify-center shadow-[4px_4px_0px_#2E0D23] shrink-0">
                 <div class="text-center">
                   <div class="text-3xl mb-1">📱</div>
                   <p class="text-xs font-black text-gray-400 uppercase tracking-widest">QR CODE</p>
                 </div>
               </div>
               <div class="text-center md:text-left">
-                <p class="text-lg font-anton text-black uppercase tracking-wide mb-1">Show this at the entrance</p>
+                <p class="text-lg font-outfit text-black uppercase tracking-wide mb-1">Show this at the entrance</p>
                 <p class="text-xs text-gray-500 font-medium">Present this ticket on your phone or a printout at the venue gate for entry.</p>
               </div>
             </div>
@@ -155,8 +155,8 @@ const purchaseDate = new Date(ticket.created_at).toLocaleDateString('en-IN', {
       </div>
 
       <!-- Save Reminder -->
-      <div class="bg-white border-[4px] border-black shadow-[6px_6px_0px_#000] p-6 mb-8 text-center">
-        <p class="text-xl font-anton text-black uppercase tracking-wide mb-2">📌 Save This Link!</p>
+      <div class="bg-white border-[4px] border-black shadow-[6px_6px_0px_#2E0D23] p-6 mb-8 text-center">
+        <p class="text-xl font-outfit text-black uppercase tracking-wide mb-2">📌 Save This Link!</p>
         <p class="text-sm text-gray-700 font-medium mb-4">
           Bookmark this page or take a screenshot. You'll need this ticket at the entrance.
         </p>
@@ -164,7 +164,7 @@ const purchaseDate = new Date(ticket.created_at).toLocaleDateString('en-IN', {
           <button
             onclick="navigator.clipboard.writeText(window.location.href).then(() => { const btn = document.getElementById('copy-btn'); btn.textContent = '✅ COPIED!'; setTimeout(() => btn.textContent = '📋 COPY LINK', 2000); })"
             id="copy-btn"
-            class="px-6 py-3 bg-yellow-300 text-black border-[3px] border-black font-black uppercase tracking-widest text-xs shadow-[4px_4px_0px_#000] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_#000] transition-all cursor-pointer"
+            class="px-6 py-3 bg-yellow-300 text-black border-[3px] border-black font-black uppercase tracking-widest text-xs shadow-[4px_4px_0px_#2E0D23] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_#2E0D23] transition-all cursor-pointer"
           >
             📋 COPY LINK
           </button>
@@ -173,7 +173,7 @@ const purchaseDate = new Date(ticket.created_at).toLocaleDateString('en-IN', {
 
       <!-- Lost ticket link -->
       <div class="text-center">
-        <a href="/my-ticket" class="text-black font-bold underline decoration-[3px] decoration-pink-500 hover:decoration-black transition-colors text-sm uppercase tracking-widest">
+        <a href="/my-ticket" class="text-black font-bold underline decoration-[3px] decoration-blue-600 hover:decoration-black transition-colors text-sm uppercase tracking-widest">
           Lost your ticket? Find it here →
         </a>
       </div>
@@ -201,7 +201,7 @@ const purchaseDate = new Date(ticket.created_at).toLocaleDateString('en-IN', {
       position: absolute;
       width: 20px;
       height: 20px;
-      background: #fce7f3; /* pink-100 to match page bg */
+      background: #fce7f3; /* blue-100 to match page bg */
       border-radius: 50%;
       top: 50%;
       transform: translateY(-50%);

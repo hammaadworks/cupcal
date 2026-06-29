@@ -89,15 +89,15 @@ export default function CalendarExportModal({ matches, onClose }: Props) {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="bg-yellow-300 border-b-[4px] border-black p-4 flex justify-between items-center shrink-0">
-          <h2 className="text-3xl font-black uppercase tracking-tighter text-black" style={{ fontFamily: 'Anton' }}>Export to Calendar</h2>
-          <button onClick={onClose} className="w-10 h-10 bg-white border-[3px] border-black rounded-full text-black hover:bg-pink-400 font-bold hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[4px_4px_0px_#000] transition-all flex items-center justify-center text-xl pb-1">
+          <h2 className="text-3xl font-black uppercase tracking-tighter text-black" style={{ fontFamily: 'Outfit' }}>Export to Calendar</h2>
+          <button onClick={onClose} className="w-10 h-10 bg-white border-[3px] border-black rounded-full text-black hover:bg-blue-500 font-bold hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[4px_4px_0px_#2E0D23] transition-all flex items-center justify-center text-xl pb-1">
             &times;
           </button>
         </div>
 
         <div className="flex-1 overflow-y-auto p-4 md:p-6 space-y-6">
           {matches.length > 1 && (
-             <div className="bg-pink-100 border-[3px] border-black p-4 shadow-[4px_4px_0px_#000]">
+             <div className="bg-blue-100 border-[3px] border-black p-4 shadow-[4px_4px_0px_#2E0D23]">
                 <h3 className="font-black uppercase tracking-widest text-black mb-3">Global Reminder (For all {matches.length} matches)</h3>
                 <div className="flex items-center gap-2">
                    <select onChange={(e) => applyGlobalAlarm(parseInt(e.target.value))} className="bg-white border-[2px] border-black px-4 py-2 font-bold uppercase cursor-pointer appearance-none">
@@ -130,13 +130,13 @@ export default function CalendarExportModal({ matches, onClose }: Props) {
                 
                 <div className="space-y-4">
                   {/* Timer Picker on Top */}
-                  <div className="bg-yellow-50 p-4 border-[3px] border-black text-center shadow-[4px_4px_0px_#000]">
+                  <div className="bg-yellow-50 p-4 border-[3px] border-black text-center shadow-[4px_4px_0px_#2E0D23]">
                     <label className="block text-sm font-black uppercase tracking-widest text-black mb-2">Reminder Alert (Scroll to select)</label>
                     <select 
                       size={3}
                       value={meta.alarmMinutes} 
                       onChange={(e) => updateMeta(m.id, 'alarmMinutes', parseInt(e.target.value))}
-                      className="w-full max-w-[250px] mx-auto bg-white border-[3px] border-black text-center text-lg font-bold uppercase cursor-pointer no-scrollbar focus:outline-none focus:border-pink-500 shadow-inner"
+                      className="w-full max-w-[250px] mx-auto bg-white border-[3px] border-black text-center text-lg font-bold uppercase cursor-pointer no-scrollbar focus:outline-none focus:border-blue-600 shadow-inner"
                       style={{ height: '100px' }}
                     >
                       <option value={-60}>60 mins after</option>
@@ -152,8 +152,8 @@ export default function CalendarExportModal({ matches, onClose }: Props) {
                   </div>
 
                   {/* Collapsible Metadata */}
-                  <details className="group border-[3px] border-black bg-white shadow-[4px_4px_0px_#000]">
-                    <summary className="p-4 font-black uppercase text-sm cursor-pointer hover:bg-pink-100 list-none flex justify-between items-center transition-colors">
+                  <details className="group border-[3px] border-black bg-white shadow-[4px_4px_0px_#2E0D23]">
+                    <summary className="p-4 font-black uppercase text-sm cursor-pointer hover:bg-blue-100 list-none flex justify-between items-center transition-colors">
                       Edit Meta Data (Optional)
                       <span className="group-open:rotate-180 transition-transform text-xl leading-none">▼</span>
                     </summary>
@@ -164,7 +164,7 @@ export default function CalendarExportModal({ matches, onClose }: Props) {
                           type="text" 
                           value={meta.summary} 
                           onChange={(e) => updateMeta(m.id, 'summary', e.target.value)}
-                          className="w-full bg-white border-[2px] border-black px-3 py-2 font-bold text-black focus:outline-none focus:bg-pink-50"
+                          className="w-full bg-white border-[2px] border-black px-3 py-2 font-bold text-black focus:outline-none focus:bg-blue-50"
                         />
                       </div>
                       <div>
@@ -172,7 +172,7 @@ export default function CalendarExportModal({ matches, onClose }: Props) {
                         <textarea 
                           value={meta.description} 
                           onChange={(e) => updateMeta(m.id, 'description', e.target.value)}
-                          className="w-full bg-white border-[2px] border-black px-3 py-2 font-bold text-black focus:outline-none focus:bg-pink-50 min-h-[60px]"
+                          className="w-full bg-white border-[2px] border-black px-3 py-2 font-bold text-black focus:outline-none focus:bg-blue-50 min-h-[60px]"
                         />
                       </div>
                     </div>
@@ -191,7 +191,7 @@ export default function CalendarExportModal({ matches, onClose }: Props) {
             data-umami-event-stage={matches.length === 1 ? matches[0].stage : undefined}
             data-umami-event-count={matches.length > 1 ? matches.length : undefined}
             className="w-full bg-black text-white font-black text-xl uppercase tracking-widest py-4 border-[3px] border-black shadow-[4px_4px_0px_#f472b6] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[6px_6px_0px_#f472b6] transition-all"
-            style={{ fontFamily: 'Anton' }}
+            style={{ fontFamily: 'Outfit' }}
           >
             Export ICS
           </button>

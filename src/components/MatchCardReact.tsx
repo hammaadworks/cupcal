@@ -6,6 +6,7 @@ import { formatTime, getMatchStatus } from '../utils/date';
 import teamColors from '../data/teamColors.json';
 import { useState, useEffect } from 'react';
 import { getWinner, getSourceText } from '../utils/bracket';
+import { getContrastYIQ } from '../utils/colors';
 
 const CardTimer = ({ dateStr }: { dateStr: string }) => {
   const [timeLeft, setTimeLeft] = useState('');
@@ -33,7 +34,7 @@ const CardTimer = ({ dateStr }: { dateStr: string }) => {
   const status = getMatchStatus(dateStr);
   
   return (
-    <div className={`py-1 px-3 w-full border-t-[3px] border-black text-center font-anton tracking-widest text-[10px] md:text-xs uppercase z-20 relative ${status === 'LIVE' ? 'bg-red-500 text-white animate-pulse' : status === 'DONE' ? 'bg-gray-300 text-gray-600' : 'bg-yellow-300 text-black'}`}>
+    <div className={`py-1 px-3 w-full border-t-[3px] border-black text-center font-outfit tracking-widest text-[10px] md:text-xs uppercase z-20 relative ${status === 'LIVE' ? 'bg-red-500 text-white animate-pulse' : status === 'DONE' ? 'bg-gray-300 text-gray-600' : 'bg-yellow-300 text-black'}`}>
       {timeLeft}
     </div>
   );
@@ -76,20 +77,20 @@ export const MatchCardReact = ({ match, timezone, isMounted, isUpcoming, upcomin
       tabIndex={0}
       onClick={(e) => onMatchClick(e, match)} 
       ref={isUpcoming ? upcomingRef : null}
-      className={`block w-full text-left relative overflow-hidden bg-white border-[4px] border-black rounded-[2rem] hover:-translate-y-2 hover:-translate-x-1 hover:shadow-[8px_8px_0px_#000] transition-all shadow-[4px_4px_0px_#000] flex flex-col group cursor-pointer ${globalGrey ? 'grayscale opacity-80' : ''}`}
+      className={`block w-full text-left relative overflow-hidden bg-white border-[4px] border-black rounded-[2rem] hover:-translate-y-2 hover:-translate-x-1 hover:shadow-[8px_8px_0px_#2E0D23] transition-all shadow-[4px_4px_0px_#2E0D23] flex flex-col group cursor-pointer ${globalGrey ? 'grayscale opacity-80' : ''}`}
     >
       
       {/* Header Info */}
       <div className="w-full flex justify-between items-center px-4 py-2 bg-black text-white border-b-[3px] border-black z-10 shrink-0">
-        <span className="text-[10px] sm:text-xs font-anton uppercase tracking-widest text-pink-400">
+        <span className="text-[10px] sm:text-xs font-outfit uppercase tracking-widest text-blue-500">
           M{match.matchNumber} &bull; {match.stage === 'GROUP' ? `Gr ${match.group}` : match.stage}
         </span>
         {status !== 'DONE' && (
           <button 
             onClick={(e) => { e.stopPropagation(); onDownloadSingle(e, match); }}
-            className="bg-white text-black hover:bg-pink-500 hover:text-white rounded-full px-2 py-[2px] text-[10px] font-anton tracking-widest border-[2px] border-black transition-all flex items-center gap-1"
+            className="bg-white text-black hover:bg-blue-600 hover:text-white rounded-full px-2 py-[2px] text-[10px] font-outfit tracking-widest border-[2px] border-black transition-all flex items-center gap-1"
           >
-             ADD CAL
+             SET ALERT
           </button>
         )}
       </div>
@@ -100,41 +101,41 @@ export const MatchCardReact = ({ match, timezone, isMounted, isUpcoming, upcomin
         {/* Home Team Side */}
         <div className={`flex-1 flex flex-col items-center justify-center py-6 px-2 border-r-[3px] border-black relative z-0 min-w-0 ${homeIsGrey ? 'grayscale opacity-80' : ''}`} style={{ backgroundColor: homeColor }}>
           {match.home && getTeamLogo(match.home) ? (
-            <img src={getTeamLogo(match.home)} alt={homeName} className="w-12 h-12 sm:w-16 sm:h-16 object-contain drop-shadow-[2px_2px_0px_#000] mb-2" onError={(e) => e.currentTarget.style.display='none'} />
+            <img src={getTeamLogo(match.home)} alt={homeName} className="w-12 h-12 sm:w-16 sm:h-16 object-contain drop-shadow-[2px_2px_0px_#2E0D23] mb-2" onError={(e) => e.currentTarget.style.display='none'} />
           ) : (
-            <span className="text-3xl sm:text-4xl mb-2 drop-shadow-[2px_2px_0px_#000]">🏳️</span>
+            <span className="text-3xl sm:text-4xl mb-2 drop-shadow-[2px_2px_0px_#2E0D23]">🏳️</span>
           )}
-          <span className="font-anton text-[10px] sm:text-sm md:text-lg text-white uppercase leading-none drop-shadow-[2px_2px_0px_#000] text-center px-1 truncate w-full">{homeName}</span>
+          <span className={`font-display text-[10px] sm:text-sm md:text-lg uppercase leading-none text-center px-1 truncate w-full ${getContrastYIQ(homeColor) === 'black' ? 'text-black drop-shadow-[2px_2px_0px_#FFEDBF]' : 'text-white drop-shadow-[2px_2px_0px_#2E0D23]'}`}>{homeName}</span>
         </div>
 
         {/* Center VS / Time */}
         <div className="w-20 md:w-28 shrink-0 flex flex-col items-center justify-center bg-white relative z-10 py-6 px-1 text-center">
            <div className="text-[9px] md:text-[10px] text-gray-500 font-black uppercase mb-1 leading-none">KICKOFF</div>
-           <span className="font-anton text-[14px] md:text-xl lg:text-2xl text-black leading-none tracking-tight whitespace-pre-line">{formatTime(match.kickoffUtc, timezone, isMounted).replace(' ', '\n')}</span>
+           <span className="font-outfit text-[14px] md:text-xl lg:text-2xl text-black leading-none tracking-tight whitespace-pre-line">{formatTime(match.kickoffUtc, timezone, isMounted).replace(' ', '\n')}</span>
            {hasResult ? (
                <div className="flex flex-col items-center mt-2 w-full">
-                 <span className="font-anton text-[14px] sm:text-lg text-pink-500 block w-full text-center tracking-widest bg-yellow-100 border-[2px] border-black rounded-lg py-1 px-2 shadow-[2px_2px_0px_#000]">
+                 <span className="font-outfit text-[14px] sm:text-lg text-blue-600 block w-full text-center tracking-widest bg-yellow-100 border-[2px] border-black rounded-lg py-1 px-2 shadow-[2px_2px_0px_#2E0D23]">
                    {match.homeScore} - {match.awayScore}
                  </span>
                  {match.homePenalties != null && match.awayPenalties != null && (
-                   <span className="font-anton text-[10px] mt-1 text-gray-600">
+                   <span className="font-outfit text-[10px] mt-1 text-gray-600">
                      ({match.homePenalties}-{match.awayPenalties} pens)
                    </span>
                  )}
                </div>
            ) : (
-             <span className="font-anton text-[10px] sm:text-xs text-pink-500 mt-2">VS</span>
+             <span className="font-outfit text-[10px] sm:text-xs text-blue-600 mt-2">VS</span>
            )}
         </div>
 
         {/* Away Team Side */}
         <div className={`flex-1 flex flex-col items-center justify-center py-6 px-2 border-l-[3px] border-black relative z-0 min-w-0 ${awayIsGrey ? 'grayscale opacity-80' : ''}`} style={{ backgroundColor: awayColor }}>
           {match.away && getTeamLogo(match.away) ? (
-            <img src={getTeamLogo(match.away)} alt={awayName} className="w-12 h-12 sm:w-16 sm:h-16 object-contain drop-shadow-[2px_2px_0px_#000] mb-2" onError={(e) => e.currentTarget.style.display='none'} />
+            <img src={getTeamLogo(match.away)} alt={awayName} className="w-12 h-12 sm:w-16 sm:h-16 object-contain drop-shadow-[2px_2px_0px_#2E0D23] mb-2" onError={(e) => e.currentTarget.style.display='none'} />
           ) : (
-            <span className="text-3xl sm:text-4xl mb-2 drop-shadow-[2px_2px_0px_#000]">🏳️</span>
+            <span className="text-3xl sm:text-4xl mb-2 drop-shadow-[2px_2px_0px_#2E0D23]">🏳️</span>
           )}
-          <span className="font-anton text-[10px] sm:text-sm md:text-lg text-white uppercase leading-none drop-shadow-[2px_2px_0px_#000] text-center px-1 truncate w-full">{awayName}</span>
+          <span className={`font-display text-[10px] sm:text-sm md:text-lg uppercase leading-none text-center px-1 truncate w-full ${getContrastYIQ(awayColor) === 'black' ? 'text-black drop-shadow-[2px_2px_0px_#FFEDBF]' : 'text-white drop-shadow-[2px_2px_0px_#2E0D23]'}`}>{awayName}</span>
         </div>
 
       </div>
