@@ -4,7 +4,6 @@ import SponsorBanner from '../components/SponsorBanner.astro';
 import Footer from '../components/Footer.astro';
 import MorphingLogo from '../components/MorphingLogo';
 import TimezoneSelector from '../components/TimezoneSelector';
-import GlobalCountryPicker from '../components/GlobalCountryPicker';
 
 interface Props {
 	title: string;
@@ -63,7 +62,7 @@ const currentPath = pathname.replace(/\/$/, ""); // Normalize path
 		</script>
 	</head>
 	<body class="bg-[#FAFAFA] text-text font-body selection:bg-blue-300 selection:text-black overflow-x-clip w-full relative">
-		<nav class="bg-white border-b-[4px] border-black sticky top-0 z-50 shadow-[0_4px_0px_#2E0D23]">
+		<nav class="bg-yellow-300 border-b-[4px] border-black sticky top-0 z-50 shadow-[0_4px_0px_#2E0D23]">
 			<div class="container mx-auto px-4 h-16 flex items-center justify-between">
 				<a href="/" class="flex items-center gap-2 text-3xl font-display text-black tracking-widest uppercase relative z-50 shrink-0">
 					<MorphingLogo client:load className="w-8 h-8 md:w-10 md:h-10" />
@@ -79,8 +78,7 @@ const currentPath = pathname.replace(/\/$/, ""); // Normalize path
 					</div>
 					
 					<div class="flex items-center gap-2 lg:gap-4 shrink-0">
-						<div class="hidden sm:flex items-center gap-2">
-                            <GlobalCountryPicker client:load compact={true} />
+						<div className="hidden sm:flex items-center gap-2">
 							<TimezoneSelector client:load compact={true} />
 						</div>
 						<button id="mobile-menu-btn" aria-label="Toggle Menu" class="md:hidden flex flex-col justify-center items-center w-10 h-10 border-[2px] border-black shadow-[2px_2px_0px_#2E0D23] bg-white active:translate-x-[2px] active:translate-y-[2px] active:shadow-[0px_0px_0px_#2E0D23] relative z-[60] group cursor-pointer transition-all">
@@ -94,9 +92,8 @@ const currentPath = pathname.replace(/\/$/, ""); // Normalize path
 		</nav>
 
 		<!-- Mobile Menu Overlay -->
-		<div id="mobile-menu" class="fixed inset-0 bg-white z-40 translate-x-full transition-transform duration-300 md:hidden flex flex-col pt-24 px-6 gap-6 overscroll-contain overflow-y-auto pb-8">
-			<div class="flex flex-col gap-4 justify-center items-center mb-4 w-full">
-                <GlobalCountryPicker client:load compact={false} />
+		<div id="mobile-menu" class="fixed inset-0 bg-yellow-300 z-40 translate-x-full transition-transform duration-300 md:hidden flex flex-col pt-24 px-6 gap-6 overscroll-contain overflow-y-auto pb-8">
+			<div className="flex flex-col gap-4 justify-center items-center mb-4 w-full">
 				<TimezoneSelector client:load compact={false} />
 			</div>
 			<a href="/" class={`text-4xl font-display text-center uppercase tracking-widest border-[4px] border-black py-4 transition-all shadow-[4px_4px_0px_#2E0D23] active:translate-x-[4px] active:translate-y-[4px] active:shadow-[0px_0px_0px_#2E0D23] ${currentPath === '' ? 'bg-black text-white' : 'bg-white text-black hover:bg-gray-100'}`}>Home</a>

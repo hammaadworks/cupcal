@@ -36,6 +36,36 @@ export async function getMatches(): Promise<Match[]> {
 
     if (knockouts && knockouts.length > 0) {
       for (const ko of knockouts) {
+        let homeSource = ko.home_source;
+        let awaySource = ko.away_source;
+
+        // Force correct tree structure if missing from DB
+        const i = ko.match_number;
+        if (!homeSource || !awaySource) {
+          if (i >= 89 && i <= 96) {
+            homeSource = homeSource || `W${73 + (i - 89) * 2}`;
+            awaySource = awaySource || `W${74 + (i - 89) * 2}`;
+          } else if (i >= 97 && i <= 100) {
+            homeSource = homeSource || `W${89 + (i - 97) * 2}`;
+            awaySource = awaySource || `W${90 + (i - 97) * 2}`;
+          } else if (i === 101) {
+            homeSource = homeSource || 'W97';
+            awaySource = awaySource || 'W98';
+          } else if (i === 102) {
+            homeSource = homeSource || 'W99';
+            awaySource = awaySource || 'W100';
+          } else if (i === 103) {
+            homeSource = homeSource || 'L101';
+            awaySource = awaySource || 'L102';
+          } else if (i === 104) {
+            homeSource = homeSource || 'W101';
+            awaySource = awaySource || 'W102';
+          } else {
+            homeSource = homeSource || 'TBD';
+            awaySource = awaySource || 'TBD';
+          }
+        }
+
         matchesMap.set(ko.match_number.toString(), {
           id: ko.match_number.toString(),
           matchNumber: ko.match_number,
@@ -44,8 +74,8 @@ export async function getMatches(): Promise<Match[]> {
           stadiumId: ko.stadium_id,
           home: ko.home_team,
           away: ko.away_team,
-          homeSource: ko.home_source,
-          awaySource: ko.away_source,
+          homeSource,
+          awaySource,
           homeScore: ko.home_score,
           awayScore: ko.away_score,
           homePenalties: ko.home_penalties,

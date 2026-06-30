@@ -39,7 +39,7 @@ export const getMatchStatus = (utcDateStr: string) => {
   const matchTime = parseUTCDate(utcDateStr).getTime();
   const now = new Date().getTime();
   const diff = now - matchTime;
-  if (diff > 120 * 60000) return 'DONE';
-  if (diff >= 0 && diff <= 120 * 60000) return 'LIVE';
+  if (diff > 140 * 60000) return 'DONE';
+  if (diff >= 0 && diff <= 140 * 60000) return 'LIVE';
   return 'UPCOMING';
 };

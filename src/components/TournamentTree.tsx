@@ -9,6 +9,7 @@ import { useStore } from '@nanostores/react';
 import { timezoneStore, selectedTeamStore } from '../store';
 import { formatTime, parseUTCDate } from '../utils/date';
 import MatchModalReact from './MatchModalReact';
+import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 
 interface TreeProps {
   matches: Match[];
@@ -32,6 +33,20 @@ const LeftConnector = () => (
   <div className="flex items-center w-4 md:w-6 h-full relative">
     <div className="absolute top-1/4 bottom-1/4 right-0 w-1/2 border-l-[3px] border-y-[3px] border-black rounded-l-lg"></div>
     <div className="w-1/2 h-[3px] bg-black absolute top-1/2 left-0 -mt-[1.5px]"></div>
+  </div>
+);
+
+const DownConnector = () => (
+  <div className="flex flex-col items-center h-4 md:h-6 w-full relative">
+    <div className="absolute left-1/4 right-1/4 top-0 h-1/2 border-b-[3px] border-x-[3px] border-black rounded-b-lg"></div>
+    <div className="h-1/2 w-[3px] bg-black absolute top-1/2 left-1/2 -ml-[1.5px]"></div>
+  </div>
+);
+
+const UpConnector = () => (
+  <div className="flex flex-col items-center h-4 md:h-6 w-full relative">
+    <div className="absolute left-1/4 right-1/4 bottom-0 h-1/2 border-t-[3px] border-x-[3px] border-black rounded-t-lg"></div>
+    <div className="h-1/2 w-[3px] bg-black absolute bottom-1/2 left-1/2 -ml-[1.5px]"></div>
   </div>
 );
 
@@ -118,7 +133,7 @@ export default function TournamentTree({ matches }: TreeProps) {
       >
         <div className="bg-black text-white px-3 py-2 flex justify-between items-center border-b-[4px] border-black">
           <span className="font-display text-[11px] tracking-widest text-blue-500">M{match.matchNumber}</span>
-          <div className="flex items-center">
+          <div className="flex items-center z-20">
             <button 
               onClick={(e) => {
                 e.stopPropagation();
@@ -127,7 +142,7 @@ export default function TournamentTree({ matches }: TreeProps) {
               title="View Match Info"
               className="hover:scale-125 transition-transform hover:text-blue-500 cursor-pointer text-white"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 md:h-5 md:w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 md:h-5 md:w-5 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </button>
@@ -180,12 +195,6 @@ export default function TournamentTree({ matches }: TreeProps) {
           </div>
           <div className="flex flex-col justify-center items-center px-1 md:px-4 relative">
             <MatchBox match={match} />
-            {match.matchNumber === 104 && viewMode === 'tall' && matchMap.get(103) && (
-              <div className="mt-8 flex flex-col items-center">
-                <h2 className="font-display text-lg uppercase tracking-widest bg-gray-300 px-3 py-0.5 border-[2px] border-black shadow-[2px_2px_0px_#2E0D23] -rotate-2 mb-2">3RD PLACE</h2>
-                <MatchBox match={matchMap.get(103)!} />
-              </div>
-            )}
           </div>
         </div>
       );
@@ -207,6 +216,52 @@ export default function TournamentTree({ matches }: TreeProps) {
     }
   };
 
+  const BracketNodeVertical = ({ match, align }: { match: Match, align: 'bottom' | 'top' }) => {
+    const sources = getSources(match);
+    const children = sources.map(s => matchMap.get(s)).filter(Boolean) as Match[];
+
+    if (children.length !== 2) {
+      return (
+        <div className="flex justify-center items-center w-full px-2 py-2">
+           <MatchBox match={match} />
+        </div>
+      );
+    }
+
+    if (align === 'bottom') {
+      return (
+        <div className="flex flex-col w-full h-full">
+          <div className="flex flex-row justify-around h-full">
+            <BracketNodeVertical match={children[0]} align="bottom" />
+            <BracketNodeVertical match={children[1]} align="bottom" />
+          </div>
+          <div className="flex justify-center h-4 md:h-6 relative">
+            <DownConnector />
+          </div>
+          <div className="flex justify-center items-center py-1 md:py-4 relative w-full">
+            <MatchBox match={match} />
+          </div>
+        </div>
+      );
+    } else {
+      return (
+        <div className="flex flex-col w-full h-full">
+          <div className="flex justify-center items-center py-1 md:py-4 relative w-full">
+            <MatchBox match={match} />
+          </div>
+          <div className="flex justify-center h-4 md:h-6 relative">
+            <UpConnector />
+          </div>
+          <div className="flex flex-row justify-around h-full">
+            <BracketNodeVertical match={children[0]} align="top" />
+            <BracketNodeVertical match={children[1]} align="top" />
+          </div>
+        </div>
+      );
+    }
+  };
+
+
   const finalMatch = matchMap.get(104);
   const thirdPlaceMatch = matchMap.get(103);
   const leftRoot = matchMap.get(101);
@@ -225,10 +280,10 @@ export default function TournamentTree({ matches }: TreeProps) {
   }
 
   return (
-    <div className="w-full py-0 px-0 md:px-4 mx-auto">
+    <div className="w-full py-0 px-0 md:px-4 mx-auto flex flex-col h-[calc(100vh-120px)]">
       
-      {/* Filter and Timezone Bar */}
-      <div className="mb-10 flex flex-col md:flex-row justify-center items-stretch gap-4 md:gap-5">
+      {/* View Mode Controls */}
+      <div className="mb-6 flex flex-col md:flex-row justify-center items-stretch gap-4 md:gap-5 flex-shrink-0">
         <div className="flex items-center gap-1 bg-white border-[4px] border-black rounded-full p-1 shadow-[4px_4px_0px_#2E0D23] self-center">
           <button 
             onClick={() => setViewMode('wide')}
@@ -243,94 +298,75 @@ export default function TournamentTree({ matches }: TreeProps) {
             Tall View
           </button>
         </div>
-        <div className="flex items-center gap-3 self-center">
-          <label className="font-display text-lg uppercase tracking-widest text-black hidden lg:block shrink-0">Filter Squad:</label>
-          <div className="relative">
-            <input 
-              type="text" 
-              placeholder="Search country..." 
-              value={filterTeam}
-              onChange={e => {
-                setLocalFilterTeam(e.target.value);
-                setHighlightMatchId(null);
-              }}
-              className="w-56 text-base font-display tracking-widest px-5 py-2.5 bg-white border-[4px] border-black rounded-full shadow-[4px_4px_0px_#2E0D23] focus:outline-none focus:bg-blue-100 focus:shadow-[6px_6px_0px_#2E0D23] focus:-translate-y-0.5 transition-all uppercase placeholder:text-gray-400"
-            />
-            {filterTeam && (
-              <button onClick={() => setLocalFilterTeam('')} className="absolute right-4 top-1/2 -translate-y-1/2 font-bold text-xl hover:text-blue-700 transition-colors">✕</button>
-            )}
-          </div>
-        </div>
       </div>
 
-      <div className="w-full overflow-x-auto custom-scrollbar pb-16 pt-8 cursor-grab active:cursor-grabbing snap-x snap-mandatory">
-        {viewMode === 'wide' ? (
-          <div className="flex flex-col min-w-max bg-white p-4 md:p-8 pt-6 border-y-[4px] md:border-[4px] md:rounded-[2rem] border-black shadow-[8px_8px_0px_#2E0D23]">
-            <div className="flex flex-row mb-6 items-center">
-               {['ROUND OF 32', 'ROUND OF 16', 'QUARTER-FINALS', 'SEMI-FINALS'].map((tag, i) => (
-                 <React.Fragment key={tag}>
-                   <div className="w-40 md:w-48 flex justify-center shrink-0">
-                     <span className="font-display text-[10px] md:text-xs uppercase tracking-widest bg-blue-50 text-blue-700 border-[3px] border-blue-700 rounded-full px-3 py-1 shadow-[2px_2px_0px_#db2777]">{tag}</span>
+      <div className="flex-1 w-full bg-white border-[4px] border-black rounded-[2rem] shadow-[8px_8px_0px_#2E0D23] overflow-hidden relative cursor-grab active:cursor-grabbing">
+        {mounted ? (
+        <TransformWrapper
+          initialScale={viewMode === 'wide' ? 0.35 : 0.6}
+          minScale={0.1}
+          maxScale={2}
+          centerOnInit={true}
+          wheel={{ step: 0.1 }}
+        >
+          <TransformComponent wrapperClass="!w-full !h-full" contentClass="!w-max !h-max p-16">
+            {viewMode === 'wide' ? (
+              <div className="flex flex-col items-center">
+                <div className="flex flex-row justify-center items-end">
+                  <BracketNodeVertical match={leftRoot} align="bottom" />
+                </div>
+                
+                <div className="flex flex-col justify-center items-center my-6 relative z-20">
+                   <div className="h-6 w-[3px] bg-black"></div>
+                   <div className="flex items-center gap-4">
+                     {thirdPlaceMatch && (
+                       <div className="flex flex-col items-center mr-8">
+                         <h2 className="font-display text-xl uppercase tracking-widest bg-gray-300 px-4 py-1 border-[3px] border-black shadow-[4px_4px_0px_#2E0D23] -rotate-2 mb-4">3RD PLACE</h2>
+                         <MatchBox match={thirdPlaceMatch} />
+                       </div>
+                     )}
+                     <div className="flex flex-col items-center">
+                        <h2 className="font-display text-2xl uppercase tracking-widest bg-yellow-300 px-6 py-2 border-[4px] border-black shadow-[4px_4px_0px_#2E0D23] -rotate-2 mb-4">FINAL</h2>
+                        <MatchBox match={finalMatch} />
+                     </div>
                    </div>
-                   <div className="w-4 md:w-6 shrink-0"></div>
-                 </React.Fragment>
-               ))}
-               <div className="w-40 md:w-48 flex justify-center shrink-0 px-2 md:px-4 box-content">
-                 <h2 className="font-display text-xl md:text-2xl uppercase tracking-widest bg-yellow-300 px-4 py-1 border-[4px] border-black shadow-[4px_4px_0px_#2E0D23] -rotate-2">FINAL</h2>
-               </div>
-               {['SEMI-FINALS', 'QUARTER-FINALS', 'ROUND OF 16', 'ROUND OF 32'].map((tag, i) => (
-                 <React.Fragment key={tag}>
-                   <div className="w-4 md:w-6 shrink-0"></div>
-                   <div className="w-40 md:w-48 flex justify-center shrink-0">
-                     <span className="font-display text-[10px] md:text-xs uppercase tracking-widest bg-blue-50 text-blue-700 border-[3px] border-blue-700 rounded-full px-3 py-1 shadow-[2px_2px_0px_#db2777]">{tag}</span>
-                   </div>
-                 </React.Fragment>
-               ))}
-            </div>
-            
-            <div className="flex flex-row items-stretch justify-center">
-              <div className="flex items-center">
-                <BracketNode match={leftRoot} align="right" />
+                   <div className="h-6 w-[3px] bg-black"></div>
+                </div>
+
+                <div className="flex flex-row justify-center items-start">
+                  <BracketNodeVertical match={rightRoot} align="top" />
+                </div>
               </div>
-              <div className="flex items-center w-4 md:w-6">
-                 <div className="w-full h-[3px] bg-black"></div>
+            ) : (
+              <div className="flex flex-row items-stretch justify-center">
+                <div className="flex items-center">
+                  <BracketNode match={leftRoot} align="right" />
+                </div>
+                <div className="flex items-center w-6 md:w-8">
+                   <div className="w-full h-[3px] bg-black"></div>
+                </div>
+                <div className="flex flex-col justify-center items-center px-2 md:px-4 relative z-20">
+                   <h2 className="font-display text-2xl uppercase tracking-widest bg-yellow-300 px-4 py-1 border-[4px] border-black shadow-[4px_4px_0px_#2E0D23] -rotate-2 mb-4">FINAL</h2>
+                   <MatchBox match={finalMatch} />
+                   {thirdPlaceMatch && (
+                     <div className="mt-16 flex flex-col items-center">
+                       <h2 className="font-display text-xl uppercase tracking-widest bg-gray-300 px-4 py-1 border-[3px] border-black shadow-[4px_4px_0px_#2E0D23] -rotate-2 mb-4">3RD PLACE</h2>
+                       <MatchBox match={thirdPlaceMatch} />
+                     </div>
+                   )}
+                </div>
+                <div className="flex items-center w-6 md:w-8">
+                   <div className="w-full h-[3px] bg-black"></div>
+                </div>
+                <div className="flex items-center">
+                  <BracketNode match={rightRoot} align="left" />
+                </div>
               </div>
-              <div className="flex flex-col justify-center items-center px-2 md:px-4 relative z-20">
-                 <MatchBox match={finalMatch} />
-                 {thirdPlaceMatch && (
-                   <div className="mt-16 flex flex-col items-center">
-                     <h2 className="font-display text-lg md:text-xl uppercase tracking-widest bg-gray-300 px-4 py-1 border-[3px] border-black shadow-[4px_4px_0px_#2E0D23] -rotate-2 mb-4">3RD PLACE</h2>
-                     <MatchBox match={thirdPlaceMatch} />
-                   </div>
-                 )}
-              </div>
-              <div className="flex items-center w-4 md:w-6">
-                 <div className="w-full h-[3px] bg-black"></div>
-              </div>
-              <div className="flex items-center">
-                <BracketNode match={rightRoot} align="left" />
-              </div>
-            </div>
-          </div>
+            )}
+          </TransformComponent>
+        </TransformWrapper>
         ) : (
-          <div className="flex flex-col min-w-max bg-white p-4 md:p-8 pt-6 border-y-[4px] md:border-[4px] md:rounded-[2rem] border-black shadow-[8px_8px_0px_#2E0D23]">
-            <div className="flex flex-row mb-6 items-center">
-               {['ROUND OF 32', 'ROUND OF 16', 'QUARTER-FINALS', 'SEMI-FINALS'].map((tag, i) => (
-                 <React.Fragment key={tag}>
-                   <div className="w-40 md:w-48 flex justify-center shrink-0">
-                     <span className="font-display text-[10px] md:text-xs uppercase tracking-widest bg-blue-50 text-blue-700 border-[3px] border-blue-700 rounded-full px-3 py-1 shadow-[2px_2px_0px_#db2777]">{tag}</span>
-                   </div>
-                   <div className="w-4 md:w-6 shrink-0"></div>
-                 </React.Fragment>
-               ))}
-               <div className="w-40 md:w-48 flex justify-center shrink-0 px-1 md:px-4 box-content">
-                 <h2 className="font-display text-xl md:text-2xl uppercase tracking-widest bg-yellow-300 px-4 py-1 border-[4px] border-black shadow-[4px_4px_0px_#2E0D23] -rotate-2">FINAL</h2>
-               </div>
-            </div>
-            <div className="flex flex-row items-stretch justify-start">
-              <BracketNode match={finalMatch} align="right" />
-            </div>
-          </div>
+          <div className="w-full h-full flex items-center justify-center font-display text-2xl animate-pulse">Loading Tree...</div>
         )}
       </div>
 

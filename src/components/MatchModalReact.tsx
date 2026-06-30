@@ -37,7 +37,7 @@ export const MatchModalReact = ({ match, timezone, isMounted, onClose, onDownloa
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center px-4 py-6 pt-[4.5rem] sm:p-6 sm:pt-[4.5rem] bg-black/60 backdrop-blur-md transition-opacity overscroll-none" onClick={onClose}>
-      <div className="bg-[#f0f0f0] border-[3px] sm:border-[4px] border-black w-full max-w-md sm:max-w-lg md:max-w-xl overflow-y-auto overscroll-contain rounded-2xl sm:rounded-[2rem] shadow-[6px_6px_0px_#2E0D23] sm:shadow-[12px_12px_0px_#2E0D23] p-4 sm:p-5 md:p-6 relative no-scrollbar flex flex-col gap-2.5 sm:gap-4" onClick={e => e.stopPropagation()}>
+      <div className="bg-[#f0f0f0] border-[3px] sm:border-[4px] border-black w-full max-w-md sm:max-w-lg md:max-w-xl max-h-[85vh] md:max-h-[90vh] overflow-y-auto overscroll-contain rounded-2xl sm:rounded-[2rem] shadow-[6px_6px_0px_#2E0D23] sm:shadow-[12px_12px_0px_#2E0D23] p-4 sm:p-5 md:p-6 relative no-scrollbar flex flex-col gap-2.5 sm:gap-4" onClick={e => e.stopPropagation()}>
         
         {/* Close button */}
         <button 
