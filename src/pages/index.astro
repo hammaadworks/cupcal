@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
 import ScheduleFilter from '../components/ScheduleFilter';
 import TournamentTree from '../components/TournamentTree';
 import faqData from '../data/seo/faq.json';
@@ -11,6 +12,7 @@ const matches = await getMatches();
 
 <BaseLayout title="Official Schedule 2026">
 	<main class="min-h-screen relative z-10 overflow-x-clip w-full">
+		<Hero />
         <div class="bg-typography-container">
             <div class="bg-text-line">WORLD CUP 2026 WORLD CUP 2026 WORLD CUP 2026</div>
             <div class="bg-text-line">CANADA MEXICO USA CANADA MEXICO USA</div>
@@ -21,10 +23,6 @@ const matches = await getMatches();
 
 		<section id="schedule" class="pt-8 pb-10 container px-4 mx-auto relative z-20">
 			<div class="max-w-4xl mx-auto">
-                <h1 class="text-6xl md:text-8xl font-heading text-center mb-12 tracking-tighter leading-none">
-                    THE ULTIMATE<br/>FOOTBALL<br/>VIBES
-                </h1>
-
 				<ScheduleFilter client:load matches={matches} />
 			</div>
 		</section>

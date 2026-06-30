@@ -10,6 +10,7 @@ import { timezoneStore, selectedTeamStore } from '../store';
 import { formatTime, parseUTCDate } from '../utils/date';
 import MatchModalReact from './MatchModalReact';
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
+import { useRealtimeMatches } from '../hooks/useRealtimeMatches';
 
 interface TreeProps {
   matches: Match[];
@@ -50,7 +51,8 @@ const UpConnector = () => (
   </div>
 );
 
-export default function TournamentTree({ matches }: TreeProps) {
+export default function TournamentTree({ matches: initialMatches }: TreeProps) {
+  const matches = useRealtimeMatches(initialMatches);
   const [localFilterTeam, setLocalFilterTeam] = useState('');
   const globalTeam = useStore(selectedTeamStore);
   

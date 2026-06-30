@@ -1,9 +1,14 @@
 @theme {
   --color-brand-1: #FFFFFF;
-  --color-brand-2: #F7803C;
+  --color-brand-2: #F7803C; /* apricot */
   --color-brand-3: #F54828;
-  --color-brand-4: #2E0D23;
+  --color-brand-4: #2E0D23; /* graphite */
   --color-brand-5: #F8E4C1;
+
+  /* FIFA World Cup 26 Host Colors */
+  --color-canada-red: #E51921;
+  --color-usa-blue: #0A3161;
+  --color-mexico-green: #00A859;
 
   --color-black: #2E0D23;
   --color-white: #FFFFFF;

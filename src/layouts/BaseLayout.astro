@@ -61,20 +61,20 @@ const currentPath = pathname.replace(/\/$/, ""); // Normalize path
 			}, 3000);
 		</script>
 	</head>
-	<body class="bg-[#FAFAFA] text-text font-body selection:bg-blue-300 selection:text-black overflow-x-clip w-full relative">
-		<nav class="bg-yellow-300 border-b-[4px] border-black sticky top-0 z-50 shadow-[0_4px_0px_#2E0D23]">
+	<body class="bg-[#041006] text-white font-body selection:bg-blue-300 selection:text-black overflow-x-clip w-full relative">
+		<nav class="bg-gradient-to-r from-[#E51921] via-[#0A3161] to-[#00A859] border-b-[4px] border-black sticky top-0 z-50 shadow-[0_4px_0px_#2E0D23]">
 			<div class="container mx-auto px-4 h-16 flex items-center justify-between">
-				<a href="/" class="flex items-center gap-2 text-3xl font-display text-black tracking-widest uppercase relative z-50 shrink-0">
+				<a href="/" class="flex items-center gap-2 text-3xl font-display text-white tracking-widest uppercase relative z-50 shrink-0 drop-shadow-md">
 					<MorphingLogo client:load className="w-8 h-8 md:w-10 md:h-10" />
-					<span class="hidden sm:inline">cup<span class="text-blue-600">cal</span></span>
+					<span class="hidden sm:inline">cup<span class="text-blue-300">cal</span></span>
 				</a>
 				
 				<div class="flex items-center justify-end flex-grow">
 					<div class="hidden md:flex items-center justify-center flex-grow gap-2 lg:gap-6">
-						<a href="/" class={`text-base lg:text-lg font-display uppercase tracking-widest border-[2px] px-3 py-1 rounded-full transition-all ${currentPath === '' ? 'bg-black text-white border-black shadow-[2px_2px_0px_#2E0D23] -translate-y-1' : 'text-black border-transparent hover:border-black hover:text-blue-600 hover:shadow-[2px_2px_0px_#2E0D23] hover:-translate-y-1 hover:-translate-x-1'}`}>Home</a>
-						<a href="/tree" class={`text-base lg:text-lg font-display uppercase tracking-widest border-[2px] px-3 py-1 rounded-full transition-all ${currentPath === '/tree' ? 'bg-black text-white border-black shadow-[2px_2px_0px_#2E0D23] -translate-y-1' : 'text-black border-transparent hover:border-black hover:text-blue-600 hover:shadow-[2px_2px_0px_#2E0D23] hover:-translate-y-1 hover:-translate-x-1'}`}>Tree</a>
-						<a href="/watch-party" class={`text-base lg:text-lg font-display uppercase tracking-widest border-[2px] px-3 py-1 rounded-full transition-all ${currentPath === '/watch-party' ? 'bg-black text-white border-black shadow-[2px_2px_0px_#2E0D23] -translate-y-1' : 'text-black border-transparent hover:border-black hover:text-blue-600 hover:shadow-[2px_2px_0px_#2E0D23] hover:-translate-y-1 hover:-translate-x-1'}`}>Watch Parties</a>
-						<a href="/stats" class={`text-base lg:text-lg font-display uppercase tracking-widest border-[2px] px-3 py-1 rounded-full transition-all ${currentPath === '/stats' ? 'bg-black text-white border-black shadow-[2px_2px_0px_#2E0D23] -translate-y-1' : 'text-black border-transparent hover:border-black hover:text-blue-600 hover:shadow-[2px_2px_0px_#2E0D23] hover:-translate-y-1 hover:-translate-x-1'}`}>Stats</a>
+						<a href="/" class={`text-base lg:text-lg font-display uppercase tracking-widest border-[2px] px-3 py-1 rounded-full transition-all ${currentPath === '' ? 'bg-white text-black border-white shadow-[2px_2px_0px_rgba(255,255,255,0.3)] -translate-y-1' : 'text-white border-transparent hover:border-white hover:text-blue-200 hover:shadow-[2px_2px_0px_rgba(255,255,255,0.3)] hover:-translate-y-1 hover:-translate-x-1'}`}>Home</a>
+						<a href="/tree" class={`text-base lg:text-lg font-display uppercase tracking-widest border-[2px] px-3 py-1 rounded-full transition-all ${currentPath === '/tree' ? 'bg-white text-black border-white shadow-[2px_2px_0px_rgba(255,255,255,0.3)] -translate-y-1' : 'text-white border-transparent hover:border-white hover:text-blue-200 hover:shadow-[2px_2px_0px_rgba(255,255,255,0.3)] hover:-translate-y-1 hover:-translate-x-1'}`}>Tree</a>
+						<a href="/watch-party" class={`text-base lg:text-lg font-display uppercase tracking-widest border-[2px] px-3 py-1 rounded-full transition-all ${currentPath === '/watch-party' ? 'bg-white text-black border-white shadow-[2px_2px_0px_rgba(255,255,255,0.3)] -translate-y-1' : 'text-white border-transparent hover:border-white hover:text-blue-200 hover:shadow-[2px_2px_0px_rgba(255,255,255,0.3)] hover:-translate-y-1 hover:-translate-x-1'}`}>Watch Parties</a>
+						<a href="/stats" class={`text-base lg:text-lg font-display uppercase tracking-widest border-[2px] px-3 py-1 rounded-full transition-all ${currentPath === '/stats' ? 'bg-white text-black border-white shadow-[2px_2px_0px_rgba(255,255,255,0.3)] -translate-y-1' : 'text-white border-transparent hover:border-white hover:text-blue-200 hover:shadow-[2px_2px_0px_rgba(255,255,255,0.3)] hover:-translate-y-1 hover:-translate-x-1'}`}>Stats</a>
 					</div>
 					
 					<div class="flex items-center gap-2 lg:gap-4 shrink-0">
@@ -92,7 +92,7 @@ const currentPath = pathname.replace(/\/$/, ""); // Normalize path
 		</nav>
 
 		<!-- Mobile Menu Overlay -->
-		<div id="mobile-menu" class="fixed inset-0 bg-yellow-300 z-40 translate-x-full transition-transform duration-300 md:hidden flex flex-col pt-24 px-6 gap-6 overscroll-contain overflow-y-auto pb-8">
+		<div id="mobile-menu" class="fixed inset-0 bg-gradient-to-b from-[#E51921] via-[#0A3161] to-[#00A859] z-40 translate-x-full transition-transform duration-300 md:hidden flex flex-col pt-24 px-6 gap-6 overscroll-contain overflow-y-auto pb-8">
 			<div className="flex flex-col gap-4 justify-center items-center mb-4 w-full">
 				<TimezoneSelector client:load compact={false} />
 			</div>

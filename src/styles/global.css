@@ -41,14 +41,14 @@ h2, h3, h4, h5, h6, .font-outfit, .font-display {
   line-height: 0.8;
   white-space: nowrap;
   color: transparent;
-  -webkit-text-stroke: 2px rgba(0, 0, 0, 0.1);
+  -webkit-text-stroke: 2px rgba(255, 255, 255, 0.1);
   text-transform: uppercase;
   animation: scroll-left 40s linear infinite;
 }
 
 .bg-text-line:nth-child(even) {
   animation: scroll-right 40s linear infinite;
-  color: rgba(0, 0, 0, 0.03);
+  color: rgba(255, 255, 255, 0.03);
   -webkit-text-stroke: 0;
 }
 

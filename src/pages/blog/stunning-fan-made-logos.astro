@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Stunning Fan-Made 2026 Logos by @mr.brandstormer",
+  "author": { "@type": "Person", "name": "hammaadworks" },
+  "datePublished": "2026-06-30",
+  "publisher": { "@type": "Organization", "name": "cupcal" }
+};
+---
+
+<BaseLayout title="Stunning Fan-Made 2026 Logos by @mr.brandstormer" description="How @mr.brandstormer inspired the beautiful fan-made logos we use for the 2026 host countries.">
+  <main class="min-h-screen py-20 px-4 bg-[var(--bg-surface)]">
+    <div class="container mx-auto max-w-3xl relative z-20">
+      <a href="/blog" class="text-[var(--color-primary)] hover:text-[var(--color-text)] mb-8 inline-block font-bold tracking-widest uppercase text-sm border border-blue-700 hover:border-[var(--color-border)] px-4 py-2 rounded-full transition-colors">← All Guides</a>
+      <article class="prose prose-lg lg:prose-xl max-w-none prose-headings:font-black prose-headings:tracking-tight prose-a:text-[var(--color-primary)]">
+        <h1 class="text-5xl md:text-6xl font-outfit text-[var(--color-text)] mb-6 leading-tight uppercase"> Stunning Fan-Made 2026 Logos by @mr.brandstormer </h1>
+        <div class="flex items-center gap-4 text-gray-500 mb-12 font-medium border-b border-[var(--color-border)] pb-6 uppercase font-outfit tracking-widest">
+          <span>By hammaadworks</span> <span>•</span> <span>June 30, 2026</span>
+        </div>
+        <p class="lead text-2xl text-[var(--color-text)] font-medium border-l border-blue-600 pl-4"> Since we can't use the official 2026 FIFA logos, we've opted for something even better: stunning, fan-created designs inspired by the community. </p>
+        <p class="text-[var(--color-text)] font-medium"> If you've noticed the incredible logos representing Canada, Mexico, and the USA across CupCal, you might be wondering where they came from. They aren't the official branding—instead, they are brilliant, fan-made concepts inspired by the talented designer <strong>@mr.brandstormer</strong>. </p>
+        <h2 class="text-3xl text-[var(--color-text)] mt-12 mb-6 font-outfit uppercase tracking-widest">The Inspiration</h2>
+        <p class="text-[var(--color-text)] font-medium"> The official branding for 2026 took a very minimalist approach, which left many fans wanting something that felt more representative of the rich cultures of the three host nations. @mr.brandstormer stepped up to the plate, designing incredible, vibrant concepts that capture the soul of each country. </p>
+        <p class="text-[var(--color-text)] font-medium"> You can check out his entire creative process and the stunning results in his viral Instagram reel: </p>
+        <div class="my-8 text-center">
+          <a href="https://www.instagram.com/reel/DaBXS6sMBP-" target="_blank" rel="noopener noreferrer" class="inline-block bg-[var(--color-accent)] hover:bg-[var(--color-accent)] text-[var(--color-text-inverse)] font-outfit text-xl uppercase tracking-widest px-8 py-4 rounded-xl border border-[var(--color-border)] shadow-lg hover:-translate-y-1 hover:-translate-x-1 hover:shadow-xl transition-all"> Watch the Reel on Instagram </a>
+        </div>
+        <h2 class="text-3xl text-[var(--color-text)] mt-12 mb-6 font-outfit uppercase tracking-widest">Putting Our Money Where Our Mouth Is</h2>
+        <p class="text-[var(--color-text)] font-medium"> As a fan-made, independent schedule app, CupCal is all about celebrating the culture of the sport without the corporate red tape. The designs inspired by @mr.brandstormer perfectly match the bold, vibrant aesthetic of CupCal. </p>
+        <p class="text-[var(--color-text)] font-medium"> To show our deep appreciation for his incredible work and for inspiring the visual identity of our host nations on this site, <strong>we are pledging 30% of the revenue from our very first CupCal sponsor directly to him!</strong> </p>
+        <div class="mt-16 p-8 bg-[var(--color-secondary)] border border-[var(--color-border)] rounded-3xl shadow-lg">
+          <h3 class="text-2xl font-outfit uppercase tracking-widest text-[var(--color-text)] mb-4"> Support @mr.brandstormer </h3>
+          <p class="text-[var(--color-text)] font-bold mb-0"> Massive props to the creator. If you need amazing design work or just want to see some incredible art, make sure to follow him at <a href="https://www.instagram.com/mr.brandstormer" target="_blank" rel="noopener noreferrer" class="underline hover:text-[var(--color-primary)] transition-colors">@mr.brandstormer</a>! </p>
+        </div>
+      </article>
+    </div>
+  </main>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+</BaseLayout>
