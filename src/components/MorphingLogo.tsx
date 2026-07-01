@@ -90,7 +90,7 @@ export default function MorphingLogo({ className = "h-12 w-12" }: { className?: 
           
           <div className="bg-yellow-300 p-4 border-[3px] border-black rounded-xl sm:rounded-2xl mb-6 shadow-[4px_4px_0px_#2E0D23] transform -rotate-1 w-full">
             <p className="font-outfit font-black text-[11px] sm:text-sm uppercase tracking-widest text-black m-0 leading-tight">
-              OUR PLEDGE: We are pledging 30% of our first sponsorship revenue directly to @mr.brandstormer to honor their work.
+              OUR PLEDGE: We are pledging 10% of our first sponsorship revenue directly to @mr.brandstormer to honor their work.
             </p>
           </div>
           
