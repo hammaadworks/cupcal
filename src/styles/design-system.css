@@ -30,13 +30,13 @@
   --color-red-600: #F54828;
   --color-red-700: #F54828;
 
-  --color-brand-primary: #FFFFFF;
-  --color-brand-secondary: #F8E4C1;
+  --color-brand-primary: #041006;
+  --color-brand-secondary: #0A3161; /* Updated to use USA blue for secondary accents */
   
   --color-border: #2E0D23;
   --color-shadow: #2E0D23;
-  --color-text: #2E0D23;
-  --color-text-inverse: #FFFFFF;
+  --color-text: #FFFFFF;
+  --color-text-inverse: #2E0D23;
   
   --border-width-brutalist: 3px;
   --border-width-thick: 4px;

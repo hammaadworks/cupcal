@@ -286,16 +286,16 @@ export default function TournamentTree({ matches: initialMatches }: TreeProps) {
       
       {/* View Mode Controls */}
       <div className="mb-6 flex flex-col md:flex-row justify-center items-stretch gap-4 md:gap-5 flex-shrink-0">
-        <div className="flex items-center gap-1 bg-white border-[4px] border-black rounded-full p-1 shadow-[4px_4px_0px_#2E0D23] self-center">
+        <div className="flex items-center gap-1 bg-white border-[4px] border-black rounded-full p-1 shadow-[4px_4px_0px_#2E0D23] self-center text-black">
           <button 
             onClick={() => setViewMode('wide')}
-            className={`px-5 py-2.5 rounded-full font-display uppercase tracking-widest text-sm transition-all ${viewMode === 'wide' ? 'bg-black text-white shadow-inner' : 'hover:bg-gray-100'}`}
+            className={`px-5 py-2.5 rounded-full font-display uppercase tracking-widest text-sm transition-all ${viewMode === 'wide' ? 'bg-black text-white shadow-inner' : 'hover:bg-gray-100 text-black'}`}
           >
             Wide View
           </button>
           <button 
             onClick={() => setViewMode('tall')}
-            className={`px-5 py-2.5 rounded-full font-display uppercase tracking-widest text-sm transition-all ${viewMode === 'tall' ? 'bg-black text-white shadow-inner' : 'hover:bg-gray-100'}`}
+            className={`px-5 py-2.5 rounded-full font-display uppercase tracking-widest text-sm transition-all ${viewMode === 'tall' ? 'bg-black text-white shadow-inner' : 'hover:bg-gray-100 text-black'}`}
           >
             Tall View
           </button>
