@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import type { Match } from '../types/match';
 import { getTeamLogo } from '../utils/logos';
 import { getTeamName } from '../utils/teams';
@@ -6,6 +6,7 @@ import { getStadiumFullName } from '../utils/stadiums';
 import { formatTime, getMatchStatus } from '../utils/date';
 import { getSourceText } from '../utils/bracket';
 import MatchCountdown from './MatchCountdown';
+import BaseModal from './BaseModal';
 
 interface Props {
   match: Match;
@@ -17,36 +18,13 @@ interface Props {
 
 export const MatchModalReact = ({ match, timezone, isMounted, onClose, onDownloadSingle }: Props) => {
   const status = getMatchStatus(match.kickoffUtc);
-
-  // Lock background scroll when modal is open
-  useEffect(() => {
-    const originalOverflow = document.body.style.overflow;
-    const originalTouchAction = document.body.style.touchAction;
-    document.body.style.overflow = 'hidden';
-    document.body.style.touchAction = 'none';
-    return () => {
-      document.body.style.overflow = originalOverflow;
-      document.body.style.touchAction = originalTouchAction;
-    };
-  }, []);
-
   const hasResult = match.homeScore !== null && match.awayScore !== null;
   
   const homeName = match.home ? getTeamName(match.home) : getSourceText(match.homeSource);
   const awayName = match.away ? getTeamName(match.away) : getSourceText(match.awaySource);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center px-4 py-6 pt-[4.5rem] sm:p-6 sm:pt-[4.5rem] bg-black/60 backdrop-blur-md transition-opacity overscroll-none" onClick={onClose}>
-      <div className="bg-[#f0f0f0] border-[3px] sm:border-[4px] border-black w-full max-w-md sm:max-w-lg md:max-w-xl max-h-[85vh] md:max-h-[90vh] overflow-y-auto overscroll-contain rounded-2xl sm:rounded-[2rem] shadow-[6px_6px_0px_#2E0D23] sm:shadow-[12px_12px_0px_#2E0D23] p-4 sm:p-5 md:p-6 relative no-scrollbar flex flex-col gap-2.5 sm:gap-4" onClick={e => e.stopPropagation()}>
-        
-        {/* Close button */}
-        <button 
-          onClick={onClose} 
-          className="absolute top-3 right-3 sm:top-4 sm:right-4 bg-black hover:bg-blue-600 text-white rounded-full p-1.5 sm:p-2 transition-transform hover:scale-110 border-[2px] border-black shadow-[2px_2px_0px_#2E0D23] z-20"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 sm:h-6 sm:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
-        </button>
-
+    <BaseModal isOpen={true} onClose={onClose}>
         {/* Top Header Badge */}
         <div className="flex justify-center -mt-1">
           <div className="bg-yellow-300 text-black border-[2px] sm:border-[3px] border-black shadow-[3px_3px_0px_#2E0D23] sm:shadow-[4px_4px_0px_#2E0D23] px-4 sm:px-5 py-1 sm:py-1.5 rounded-full transform -rotate-2">
@@ -207,10 +185,9 @@ export const MatchModalReact = ({ match, timezone, isMounted, onClose, onDownloa
             SHARE MATCH
           </button>
         </div>
-
-      </div>
-    </div>
+    </BaseModal>
   );
 };
 
 export default MatchModalReact;
+

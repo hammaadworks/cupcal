@@ -4,11 +4,15 @@ import Hero from '../components/Hero.astro';
 import FaqAccordion from '../components/FaqAccordion.tsx';
 import ScheduleFilter from '../components/ScheduleFilter';
 import TournamentTree from '../components/TournamentTree';
-import faqData from '../data/seo/faq.json';
 import { getMatches } from '../utils/matches';
+import { supabase } from '../utils/supabase';
 
 // Fetch matches
 const matches = await getMatches();
+
+// Fetch FAQs
+const { data } = await supabase.from('finals_faqs').select('slug, question, answer');
+const faqData = data || [];
 ---
 
 <BaseLayout title="Official Schedule 2026">
@@ -44,6 +48,12 @@ const matches = await getMatches();
 					WHAT YOU NEED<br/>TO KNOW
 				</h2>
 				<FaqAccordion client:load items={faqData} />
+				<div class="text-center mt-12">
+					<p class="text-white text-xl font-medium mb-6 uppercase tracking-widest drop-shadow-md">Ready for the ultimate showdown?</p>
+					<a href="/finals" class="inline-block px-10 py-4 bg-yellow-300 text-black text-xl font-black uppercase tracking-wider border-[4px] border-black shadow-[6px_6px_0px_rgba(255,255,255,0.8)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_rgba(255,255,255,0.8)] transition-all">
+						🎟️ JOIN THE FINALS WATCH PARTY
+					</a>
+				</div>
 			</div>
 		</section>
 

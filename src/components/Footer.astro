@@ -1,10 +1,9 @@
 ---
-import faqData from '../data/seo/faq.json';
 import MorphingLogo from './MorphingLogo';
 ---
 <footer class="py-16 border-t-[4px] border-black relative z-20 bg-gradient-to-r from-[#E51921] via-[#0A3161] to-[#00A859]">
     <div class="container px-4 mx-auto">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
             <div>
                 <div class="flex items-center gap-3 mb-4">
                     <MorphingLogo client:load className="w-12 h-12" />
@@ -34,15 +33,7 @@ import MorphingLogo from './MorphingLogo';
                 <a href="mailto:sponsor@cupcal.com" class="inline-block bg-black text-white px-4 py-2 rounded font-outfit uppercase tracking-widest hover:bg-blue-700 hover:-translate-y-1 hover:shadow-[4px_4px_0px_#2E0D23] transition-all">Become a Sponsor</a>
             </div>
 
-            <div>
-                <h3 class="text-xl font-outfit uppercase tracking-widest text-white mb-4">Top FAQs</h3>
-                <ul class="space-y-2 font-bold text-white text-sm">
-                    {faqData.slice(0, 4).map(faq => (
-                        <li><a href={`/faq/${faq.slug}`} class="hover:text-blue-200 transition-colors line-clamp-1">{faq.question}</a></li>
-                    ))}
-                    <li class="pt-2"><a href="/faq" class="text-blue-700 underline hover:text-white transition-colors uppercase font-outfit tracking-widest">View All FAQs →</a></li>
-                </ul>
-            </div>
+
         </div>
 
         <div class="text-center pt-8 border-t-[3px] border-black text-white font-outfit uppercase tracking-widest">

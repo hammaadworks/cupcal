@@ -1,0 +1,46 @@
+---
+const { currentPath } = Astro.props;
+
+let title = "EXPERIENCE THE FINALS WITH US";
+let subtitle = "Don't watch history alone.";
+
+if (currentPath === '') {
+    title = "SICK OF JUST LOOKING AT THE SCHEDULE?";
+    subtitle = "Come watch the finals with real fans. No alcohol, pure vibes.";
+} else if (currentPath === '/tree') {
+    title = "SEE WHO MAKES IT TO THE END?";
+    subtitle = "Watch the ultimate showdown live with us at our exclusive watch party.";
+} else if (currentPath === '/watch-party') {
+    title = "LOOKING FOR THE ULTIMATE WATCH PARTY?";
+    subtitle = "We're hosting the biggest one for the finals. You don't want to miss this.";
+} else if (currentPath === '/stats') {
+    title = "TIRED OF JUST LOOKING AT NUMBERS?";
+    subtitle = "Witness the stats come alive in the final match at our watch party.";
+} else if (currentPath === '/blog') {
+    title = "READING ABOUT FOOTBALL IS COOL...";
+    subtitle = "...but watching the finals with a massive crowd is better. Join us!";
+}
+---
+
+<div class="bg-yellow-300 border-t-[4px] border-black py-12 md:py-16 overflow-hidden relative group">
+    <div class="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_center,_black_2px,_transparent_2px)] bg-[size:24px_24px] group-hover:scale-110 transition-transform duration-1000"></div>
+    
+    <div class="container mx-auto px-4 relative z-10 flex flex-col items-center text-center">
+        <div class="inline-block bg-black text-white font-black uppercase tracking-widest text-sm px-4 py-1 mb-6 -rotate-2 transform group-hover:rotate-2 transition-transform shadow-[4px_4px_0px_#E51921]">
+            Surprise Event
+        </div>
+        
+        <h2 class="text-4xl md:text-6xl font-black text-black uppercase tracking-tighter mb-4 max-w-4xl leading-none">
+            {title}
+        </h2>
+        
+        <p class="text-xl md:text-2xl text-black font-medium mb-8 max-w-2xl">
+            {subtitle}
+        </p>
+        
+        <a href="/finals" class="inline-flex items-center gap-2 px-8 py-4 bg-blue-600 text-white text-xl md:text-2xl font-black uppercase tracking-widest border-[4px] border-black shadow-[6px_6px_0px_#2E0D23] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_#2E0D23] transition-all">
+            <span>🎟️ REVEAL THE SURPRISE</span>
+            <span class="animate-bounce">→</span>
+        </a>
+    </div>
+</div>

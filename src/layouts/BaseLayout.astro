@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import SponsorBanner from '../components/SponsorBanner.astro';
 import Footer from '../components/Footer.astro';
+import FinalsAd from '../components/FinalsAd.astro';
 import MorphingLogo from '../components/MorphingLogo';
 import TimezoneSelector from '../components/TimezoneSelector';
 
@@ -50,7 +51,7 @@ const currentPath = pathname.replace(/\/$/, ""); // Normalize path
 			}
 
 			// Rotate favicon between host countries
-			const favicons = ['/fifa_logo/canada.png', '/fifa_logo/usa.png', '/fifa_logo/mexico.png'];
+			const favicons = ['/favicon.jpg', '/fifa_logo/canada.jpg', '/fifa_logo/usa.jpg', '/fifa_logo/mexico.jpg'];
 			let faviconIndex = 0;
 			setInterval(() => {
 				faviconIndex = (faviconIndex + 1) % favicons.length;
@@ -70,11 +71,12 @@ const currentPath = pathname.replace(/\/$/, ""); // Normalize path
 				</a>
 				
 				<div class="flex items-center justify-end flex-grow">
-					<div class="hidden md:flex items-center justify-center flex-grow gap-2 lg:gap-6">
 						<a href="/" class={`text-base lg:text-lg font-display uppercase tracking-widest border-[2px] px-3 py-1 rounded-full transition-all ${currentPath === '' ? 'bg-white text-black border-white shadow-[2px_2px_0px_rgba(255,255,255,0.3)] -translate-y-1' : 'text-white border-transparent hover:border-white hover:text-blue-200 hover:shadow-[2px_2px_0px_rgba(255,255,255,0.3)] hover:-translate-y-1 hover:-translate-x-1'}`}>Home</a>
 						<a href="/tree" class={`text-base lg:text-lg font-display uppercase tracking-widest border-[2px] px-3 py-1 rounded-full transition-all ${currentPath === '/tree' ? 'bg-white text-black border-white shadow-[2px_2px_0px_rgba(255,255,255,0.3)] -translate-y-1' : 'text-white border-transparent hover:border-white hover:text-blue-200 hover:shadow-[2px_2px_0px_rgba(255,255,255,0.3)] hover:-translate-y-1 hover:-translate-x-1'}`}>Tree</a>
-						<a href="/watch-party" class={`text-base lg:text-lg font-display uppercase tracking-widest border-[2px] px-3 py-1 rounded-full transition-all ${currentPath === '/watch-party' ? 'bg-white text-black border-white shadow-[2px_2px_0px_rgba(255,255,255,0.3)] -translate-y-1' : 'text-white border-transparent hover:border-white hover:text-blue-200 hover:shadow-[2px_2px_0px_rgba(255,255,255,0.3)] hover:-translate-y-1 hover:-translate-x-1'}`}>Watch Parties</a>
+						<a href="/watch-party" class={`text-base lg:text-lg font-display uppercase tracking-widest border-[2px] px-3 py-1 rounded-full transition-all ${currentPath === '/watch-party' ? 'bg-white text-black border-white shadow-[2px_2px_0px_rgba(255,255,255,0.3)] -translate-y-1' : 'text-white border-transparent hover:border-white hover:text-blue-200 hover:shadow-[2px_2px_0px_rgba(255,255,255,0.3)] hover:-translate-y-1 hover:-translate-x-1'}`}>Parties</a>
 						<a href="/stats" class={`text-base lg:text-lg font-display uppercase tracking-widest border-[2px] px-3 py-1 rounded-full transition-all ${currentPath === '/stats' ? 'bg-white text-black border-white shadow-[2px_2px_0px_rgba(255,255,255,0.3)] -translate-y-1' : 'text-white border-transparent hover:border-white hover:text-blue-200 hover:shadow-[2px_2px_0px_rgba(255,255,255,0.3)] hover:-translate-y-1 hover:-translate-x-1'}`}>Stats</a>
+						<a href="/finals" class={`text-base lg:text-lg font-display uppercase tracking-widest border-[2px] px-3 py-1 rounded-full transition-all ${currentPath === '/finals' ? 'bg-white text-black border-white shadow-[2px_2px_0px_rgba(255,255,255,0.3)] -translate-y-1' : 'text-white border-transparent hover:border-white hover:text-blue-200 hover:shadow-[2px_2px_0px_rgba(255,255,255,0.3)] hover:-translate-y-1 hover:-translate-x-1'}`}>Finals</a>
+						<a href="/blog" class={`text-base lg:text-lg font-display uppercase tracking-widest border-[2px] px-3 py-1 rounded-full transition-all ${currentPath === '/blog' ? 'bg-white text-black border-white shadow-[2px_2px_0px_rgba(255,255,255,0.3)] -translate-y-1' : 'text-white border-transparent hover:border-white hover:text-blue-200 hover:shadow-[2px_2px_0px_rgba(255,255,255,0.3)] hover:-translate-y-1 hover:-translate-x-1'}`}>Blog</a>
 					</div>
 					
 					<div class="flex items-center gap-2 lg:gap-4 shrink-0">
@@ -88,7 +90,6 @@ const currentPath = pathname.replace(/\/$/, ""); // Normalize path
 						</button>
 					</div>
 				</div>
-			</div>
 		</nav>
 
 		<!-- Mobile Menu Overlay -->
@@ -98,12 +99,15 @@ const currentPath = pathname.replace(/\/$/, ""); // Normalize path
 			</div>
 			<a href="/" class={`text-4xl font-display text-center uppercase tracking-widest border-[4px] border-black py-4 transition-all shadow-[4px_4px_0px_#2E0D23] active:translate-x-[4px] active:translate-y-[4px] active:shadow-[0px_0px_0px_#2E0D23] ${currentPath === '' ? 'bg-black text-white' : 'bg-white text-black hover:bg-gray-100'}`}>Home</a>
 			<a href="/tree" class={`text-4xl font-display text-center uppercase tracking-widest border-[4px] border-black py-4 transition-all shadow-[4px_4px_0px_#2E0D23] active:translate-x-[4px] active:translate-y-[4px] active:shadow-[0px_0px_0px_#2E0D23] ${currentPath === '/tree' ? 'bg-black text-white' : 'bg-white text-black hover:bg-gray-100'}`}>Tree</a>
-			<a href="/watch-party" class={`text-4xl font-display text-center uppercase tracking-widest border-[4px] border-black py-4 transition-all shadow-[4px_4px_0px_#2E0D23] active:translate-x-[4px] active:translate-y-[4px] active:shadow-[0px_0px_0px_#2E0D23] ${currentPath === '/watch-party' ? 'bg-black text-white' : 'bg-white text-black hover:bg-gray-100'}`}>Watch Parties</a>
+			<a href="/watch-party" class={`text-4xl font-display text-center uppercase tracking-widest border-[4px] border-black py-4 transition-all shadow-[4px_4px_0px_#2E0D23] active:translate-x-[4px] active:translate-y-[4px] active:shadow-[0px_0px_0px_#2E0D23] ${currentPath === '/watch-party' ? 'bg-black text-white' : 'bg-white text-black hover:bg-gray-100'}`}>Parties</a>
 			<a href="/stats" class={`text-4xl font-display text-center uppercase tracking-widest border-[4px] border-black py-4 transition-all shadow-[4px_4px_0px_#2E0D23] active:translate-x-[4px] active:translate-y-[4px] active:shadow-[0px_0px_0px_#2E0D23] ${currentPath === '/stats' ? 'bg-black text-white' : 'bg-white text-black hover:bg-gray-100'}`}>Stats</a>
+			<a href="/finals" class={`text-4xl font-display text-center uppercase tracking-widest border-[4px] border-black py-4 transition-all shadow-[4px_4px_0px_#2E0D23] active:translate-x-[4px] active:translate-y-[4px] active:shadow-[0px_0px_0px_#2E0D23] ${currentPath === '/finals' ? 'bg-black text-white' : 'bg-white text-black hover:bg-gray-100'}`}>Finals</a>
+			<a href="/blog" class={`text-4xl font-display text-center uppercase tracking-widest border-[4px] border-black py-4 transition-all shadow-[4px_4px_0px_#2E0D23] active:translate-x-[4px] active:translate-y-[4px] active:shadow-[0px_0px_0px_#2E0D23] ${currentPath === '/blog' ? 'bg-black text-white' : 'bg-white text-black hover:bg-gray-100'}`}>Blog</a>
 		</div>
 
 		<SponsorBanner />
 		<slot />
+		{currentPath !== '/finals' && <FinalsAd currentPath={currentPath} />}
 		<Footer />
 
 		<script>

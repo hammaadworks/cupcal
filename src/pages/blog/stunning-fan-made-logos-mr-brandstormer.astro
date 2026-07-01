@@ -1,0 +1,80 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Stunning Fan-Made 2026 Logos by @mr.brandstormer",
+  "author": {
+    "@type": "Person",
+    "name": "hammaadworks"
+  },
+  "datePublished": "2026-07-01",
+  "publisher": {
+    "@type": "Organization",
+    "name": "cupcal"
+  }
+};
+---
+
+<BaseLayout title="Stunning Fan-Made 2026 Logos by @mr.brandstormer" description="How @mr.brandstormer created the beautiful fan-made logos we use for the 2026 host countries.">
+  <main class="min-h-screen py-20 px-4 bg-white">
+    <div class="container mx-auto max-w-3xl relative z-20">
+      <a href="/blog" class="text-blue-700 hover:text-black mb-8 inline-block font-bold tracking-widest uppercase text-sm border-[2px] border-blue-700 hover:border-black px-4 py-2 rounded-full transition-colors">← All Guides</a>
+      
+      <article class="prose prose-lg lg:prose-xl max-w-none prose-headings:font-black prose-headings:tracking-tight prose-a:text-blue-700">
+        <h1 class="text-5xl md:text-6xl font-outfit text-black mb-6 leading-tight uppercase">
+          Stunning Fan-Made 2026 Logos by @mr.brandstormer
+        </h1>
+        
+        <div class="flex items-center gap-4 text-gray-500 mb-12 font-medium border-b-[3px] border-black pb-6 uppercase font-outfit tracking-widest">
+          <span>By hammaadworks</span>
+          <span>•</span>
+          <span>July 1, 2026</span>
+        </div>
+
+        <p class="lead text-2xl text-black font-medium border-l-[4px] border-blue-600 pl-4">
+          Since we can't use the official 2026 FIFA logos, we've opted for something even better: stunning, fan-created designs.
+        </p>
+
+        <p class="text-black font-medium">
+          If you've noticed the incredible logos representing Canada, Mexico, and the USA across CupCal, you might be wondering where they came from. They aren't the official branding—instead, they are brilliant, fan-made concepts created by the talented designer <strong>@mr.brandstormer</strong>.
+        </p>
+
+        <h2 class="text-3xl text-black mt-12 mb-6 font-outfit uppercase tracking-widest">The Inspiration</h2>
+        <p class="text-black font-medium">
+          The official branding for 2026 took a very minimalist approach, which left many fans wanting something that felt more representative of the rich cultures of the three host nations. @mr.brandstormer stepped up to the plate, designing concepts that truly capture the soul of each country.
+        </p>
+        
+        <p class="text-black font-medium">
+          You can check out their amazing reel and the stunning results on Instagram:
+        </p>
+        
+        <div class="my-8 flex justify-center">
+            <a href="https://www.instagram.com/reel/DaBXS6sMBP-" target="_blank" rel="noopener noreferrer" class="bg-black text-white font-bold py-3 px-6 rounded-xl hover:bg-gray-800 transition-colors border-[4px] border-black shadow-[4px_4px_0px_#F7803C]">
+              Watch the Reel on Instagram
+            </a>
+        </div>
+
+        <h2 class="text-3xl text-black mt-12 mb-6 font-outfit uppercase tracking-widest">Why We Use Them & Our Pledge</h2>
+        <p class="text-black font-medium">
+          As a fan-made, independent schedule app, CupCal is all about celebrating the culture of the sport. The designs for Canada, Mexico, and the USA perfectly match the bold, vibrant aesthetic of CupCal.
+        </p>
+        
+        <p class="text-black font-medium">
+          We want to honor @mr.brandstormer for designing these incredible logo assets. As a token of our appreciation and commitment to supporting independent creators, <strong>we pledge 30% of the first sponsor we receive on the site to @mr.brandstormer.</strong>
+        </p>
+
+        <div class="mt-16 p-8 bg-yellow-300 border-[4px] border-black rounded-3xl shadow-[6px_6px_0px_#2E0D23]">
+          <h3 class="text-2xl font-outfit uppercase tracking-widest text-black mb-4">
+            Shoutout to @mr.brandstormer
+          </h3>
+          <p class="text-black font-bold mb-0">
+            Massive props to the creator. If you need amazing designs or just want to see incredible work, make sure to follow <a href="https://www.instagram.com/mr.brandstormer" target="_blank" rel="noopener noreferrer" class="underline hover:text-blue-700 transition-colors">@mr.brandstormer</a> on Instagram!
+          </p>
+        </div>
+      </article>
+    </div>
+  </main>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+</BaseLayout>

@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import TicketProgress from '../../components/TicketProgress';
+import FinalsReveal from '../../components/FinalsReveal.tsx';
 import { supabase } from '../../utils/supabase';
 
 // Fetch the finals event
@@ -30,27 +31,13 @@ const rules = [
   { emoji: '🤝', text: 'Follow organizer instructions at all times' },
 ];
 
-const faqs = [
-  {
-    q: "What's included?",
-    a: 'Big screen live screening, comfortable seating, the full Finals experience with fellow fans, and good vibes all around.',
-  },
-  {
-    q: 'Is parking available?',
-    a: 'TBD — we will share parking details closer to the event date via WhatsApp.',
-  },
-  {
-    q: 'Can I bring kids?',
-    a: 'Absolutely! This is a family-friendly event. Kids are more than welcome.',
-  },
-  {
-    q: 'Refund policy?',
-    a: "Tickets are non-refundable, but they're transferable. You can pass your ticket to a friend.",
-  },
-];
+// Fetch FAQs
+const { data: faqRows } = await supabase.from('finals_faqs').select('slug, question, answer');
+const faqs = faqRows || [];
 ---
 
 <BaseLayout title="THE FINAL — World Cup 2026 Finals Watch Party" description="Join the ultimate FIFA World Cup 2026 Finals live screening in Bangalore. Family-friendly, no-alcohol watch party. Book your spot now!">
+  <FinalsReveal client:load />
   <main class="min-h-screen relative z-10 overflow-x-clip w-full">
     <div class="bg-typography-container">
       <div class="bg-text-line">THE FINAL THE FINAL THE FINAL THE FINAL</div>
@@ -192,11 +179,11 @@ const faqs = [
               {faqs.map((faq) => (
                 <details class="group bg-white border-[3px] border-black shadow-[3px_3px_0px_#2E0D23] cursor-pointer">
                   <summary class="p-4 text-black font-black text-sm uppercase tracking-wider list-none flex items-center justify-between" >
-                    {faq.q}
+                    {faq.question}
                     <span class="text-xl group-open:rotate-45 transition-transform duration-200 ml-2">+</span>
                   </summary>
                   <div class="px-4 pb-4 text-sm text-gray-800 font-medium border-t-[2px] border-black pt-3">
-                    {faq.a}
+                    {faq.answer}
                   </div>
                 </details>
               ))}

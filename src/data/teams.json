@@ -9,7 +9,7 @@
   { "code": "CPV", "name": "Cabo Verde", "slug": "cabo-verde", "flag": "🇨🇻" },
   { "code": "CAN", "name": "Canada", "slug": "canada", "flag": "🇨🇦" },
   { "code": "COL", "name": "Colombia", "slug": "colombia", "flag": "🇨🇴" },
-  { "code": "COD", "name": "Congo DR", "slug": "congo-dr", "flag": "🇨🇩" },
+  { "code": "COD", "name": "DR Congo", "slug": "congo-dr", "flag": "🇨🇩" },
   { "code": "CRO", "name": "Croatia", "slug": "croatia", "flag": "🇭🇷" },
   { "code": "CUW", "name": "Curaçao", "slug": "curacao", "flag": "🇨🇼" },
   { "code": "CZE", "name": "Czechia", "slug": "czechia", "flag": "🇨🇿" },
@@ -23,7 +23,7 @@
   { "code": "HAI", "name": "Haiti", "slug": "haiti", "flag": "🇭🇹" },
   { "code": "IRN", "name": "Iran", "slug": "iran", "flag": "🇮🇷" },
   { "code": "IRQ", "name": "Iraq", "slug": "iraq", "flag": "🇮🇶" },
-  { "code": "CIV", "name": "Côte d'Ivoire", "slug": "cote-divoire", "flag": "🇨🇮" },
+  { "code": "CIV", "name": "Ivory Coast", "slug": "cote-divoire", "flag": "🇨🇮" },
   { "code": "JPN", "name": "Japan", "slug": "japan", "flag": "🇯🇵" },
   { "code": "JOR", "name": "Jordan", "slug": "jordan", "flag": "🇯🇴" },
   { "code": "MEX", "name": "Mexico", "slug": "mexico", "flag": "🇲🇽" },
@@ -45,6 +45,6 @@
   { "code": "TUN", "name": "Tunisia", "slug": "tunisia", "flag": "🇹🇳" },
   { "code": "TUR", "name": "Türkiye", "slug": "turkiye", "flag": "🇹🇷" },
   { "code": "URU", "name": "Uruguay", "slug": "uruguay", "flag": "🇺🇾" },
-  { "code": "USA", "name": "United States", "slug": "usa", "flag": "🇺🇸" },
+  { "code": "USA", "name": "USA", "slug": "usa", "flag": "🇺🇸" },
   { "code": "UZB", "name": "Uzbekistan", "slug": "uzbekistan", "flag": "🇺🇿" }
 ]

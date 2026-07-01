@@ -59,10 +59,7 @@ export function getTeamLogo(teamCode: string | null): string {
 
   if (!filePrefix) return '';
 
-  // Host country overrides using @mr.brandstormer fan-made logos
-  if (filePrefix === 'canada') return '/fifa_logo/canada.png';
-  if (filePrefix === 'mexico') return '/fifa_logo/mexico.png';
-  if (filePrefix === 'usa') return '/fifa_logo/usa.png';
+
 
   // Most use `-national-team`, portugal uses `-football-federation`
   const suffix = filePrefix === 'portuguese' ? '-football-federation.football-logos.cc.png' : '-national-team.football-logos.cc.png';
